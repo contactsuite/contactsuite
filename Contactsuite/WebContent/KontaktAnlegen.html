@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Kontakt anlegen</title>
+</head>
+<body>
+<p>Füllen Sie das Formular aus und klicken Sie auf Speichern um einen neuen Benutzer anzulegen.<br>
+Mit einem * gekennzeichnete Felder sind Pflichtfelder</p>
+<form name="Eingabe" action="http://localhost:8080/Contactsuite/Controller?fcode=KontaktSpeichern" method="post">
+	Vorname: * <input type="text" name="vorname"/><br/>
+	Nachname: * <input type="text" name="nachname"/><br/>
+	Strasse: * <input type="text" name="strasse"/><br/>
+	Hausnummer: * <input type="text" name="hausnummer"/><br/>
+	Postleitzahl: * <input type="text" name="plz"/><br/>
+	Ort: * <input type="text" name="ort"/><br/>
+	E-Mail: * <input type="text" name="email"/><br/>
+	Telefon: * <input type="text" name="telefonnummer"/><br/>
+	<input type="submit" value="Speichern">
+</form>
+</body>
+</html>
