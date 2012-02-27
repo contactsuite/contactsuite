@@ -238,6 +238,9 @@ public class DatabaseConnection {
 			ResultSet result = stmt.executeQuery(sql);
 			System.out.println(result.toString());
 			while(result.next()){
+				//Benutzer wird jedem Kontakt dem Attribut erstelltVon zugeordnet.
+				Benutzer tmpBenutzer = new Benutzer();
+				tmpBenutzer.setBenutzerID(result.getInt("erstelltVon"));
 				tmpKontakt.setPlz(result.getString("plz"));
 				tmpKontakt.setStrasse(result.getString("strasse"));
 				tmpKontakt.setHausnummer(result.getString("hausnummer"));
@@ -248,14 +251,19 @@ public class DatabaseConnection {
 				tmpKontakt.setVorname(result.getString("vorname"));
 				tmpKontakt.setNachname(result.getString("nachname"));
 				tmpKontakt.setIstOeffentlich(result.getBoolean("istOeffentlich"));
-				tmpKontakt.setErstelltVon(getBenutzerById(result.getInt("erstelltVon")));
+				tmpKontakt.setErstelltVon(tmpBenutzer);
 				tmpKontakt.setErstelltAm(result.getDate("erstelltAm"));
 				lstKontakte.add(tmpKontakt);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println(e);
-		}		
+		}
+		//Es werden nochmal alle Kontakte durchlaufen und die richtigen Benutzer zugeordnet.
+		for(Privatkontakt privatkontakt : lstKontakte)
+		{
+			privatkontakt.setErstelltVon(getBenutzerById(privatkontakt.getErstelltVon().getBenutzerID()));
+		}
 		return lstKontakte;
 	}
 	
@@ -273,6 +281,9 @@ public class DatabaseConnection {
 			ResultSet result = stmt.executeQuery(sql);
 			System.out.println(result.toString());
 			while(result.next()){
+				//Benutzer wird jedem Kontakt dem Attribut erstelltVon zugeordnet.
+				Benutzer tmpBenutzer = new Benutzer();
+				tmpBenutzer.setBenutzerID(result.getInt("erstelltVon"));
 				tmpKontakt.setPlz(result.getString("plz"));
 				tmpKontakt.setStrasse(result.getString("strasse"));
 				tmpKontakt.setHausnummer(result.getString("hausnummer"));
@@ -283,14 +294,19 @@ public class DatabaseConnection {
 				tmpKontakt.setAnsprechpartner(result.getString("ansprechpartner"));
 				tmpKontakt.setFirmenname(result.getString("firmenname"));
 				tmpKontakt.setIstOeffentlich(result.getBoolean("istOeffentlich"));
-				tmpKontakt.setErstelltVon(getBenutzerById(result.getInt("erstelltVon")));
+				tmpKontakt.setErstelltVon(tmpBenutzer);
 				tmpKontakt.setErstelltAm(result.getDate("erstelltAm"));
 				lstKontakte.add(tmpKontakt);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println(e);
-		}		
+		}
+		//Es werden nochmal alle Kontakte durchlaufen und die richtigen Benutzer zugeordnet.
+		for(Firmenkontakt firmenkontakt : lstKontakte)
+		{
+			firmenkontakt.setErstelltVon(getBenutzerById(firmenkontakt.getErstelltVon().getBenutzerID()));
+		}
 		return lstKontakte;
 	}
 	
@@ -302,12 +318,18 @@ public class DatabaseConnection {
 	 */
 	private Benutzer getBenutzerById(int benutzerId) {
 		Benutzer benutzer = new Benutzer();
-		String sql = "SELECT email FROM "+tblBenutzer+" WHERE benutzerId = "+benutzerId+" AND istGeloescht = 0;";
+		String sql = "SELECT * FROM "+tblBenutzer+" WHERE benutzerId = "+benutzerId+" AND istGeloescht = 0;";
 		try{
 			Statement stmt = this.connection.createStatement();
 			ResultSet result = stmt.executeQuery(sql);
 			while(result.next()){
+				benutzer.setBenutzerID(result.getInt("benutzerId"));
 				benutzer.setEmail(result.getString("email"));
+				benutzer.setPasswort(result.getString("passwort"));
+				benutzer.setIstAdmin(result.getBoolean("istAdmin"));
+				benutzer.setIstFreigeschaltet(result.getBoolean("istFreigeschaltet"));
+				benutzer.setErstelltAm(result.getDate("erstelltAm"));
+				benutzer.setIstGeloescht(false);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -315,15 +337,26 @@ public class DatabaseConnection {
 		return benutzer;
 	}
 	
+	/***
+	 * Liefert einen Benutzer anhand einer übergebenen email
+	 * @author Dominik Ferber
+	 * @param email
+	 * @return
+	 */
 	public Benutzer getBenutzerByEmail(String email){
 		Benutzer benutzer = new Benutzer();
-		String sql = "SELECT email, passwort FROM "+tblBenutzer+" WHERE email = "+email+" AND istGeloescht = 0;";
+		String sql = "SELECT * FROM "+tblBenutzer+" WHERE email = "+email+" AND istGeloescht = 0;";
 		try{
 			Statement stmt = this.connection.createStatement();
 			ResultSet result = stmt.executeQuery(sql);
 			while(result.next()){
+				benutzer.setBenutzerID(result.getInt("benutzerId"));
 				benutzer.setEmail(result.getString("email"));
 				benutzer.setPasswort(result.getString("passwort"));
+				benutzer.setIstAdmin(result.getBoolean("istAdmin"));
+				benutzer.setIstFreigeschaltet(result.getBoolean("istFreigeschaltet"));
+				benutzer.setErstelltAm(result.getDate("erstelltAm"));
+				benutzer.setIstGeloescht(false);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
