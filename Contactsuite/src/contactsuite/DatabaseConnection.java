@@ -190,7 +190,7 @@ public class DatabaseConnection {
 						"'"+privatkontakt.getBildpfad()+"'," +
 						"'"+privatkontakt.getVorname()+"'," +
 						"'"+privatkontakt.getNachname()+"'," +
-						"1," +
+						"0," +
 						((privatkontakt.isIstOeffentlich())?"1":"0")+"," +
 						privatkontakt.getErstelltVon().getBenutzerID()+");";
 			}
