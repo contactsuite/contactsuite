@@ -271,7 +271,7 @@ public class DatabaseConnection {
 	
 	/**
 	 * Liest alle Firmenkontakte aus der Datenbank aus.
-	 * @author Dominik Ferber
+	 * @author Dominik Ferber HAHA
 	 * @return
 	 */
 	public List<Firmenkontakt> getFirmenkontakte(){
