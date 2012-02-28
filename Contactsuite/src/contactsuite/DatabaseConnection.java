@@ -91,7 +91,6 @@ public class DatabaseConnection {
 	 * @author Dominik Ferber
 	 * @param firmenkontakt
 	 * @return Anzahl der veränderten Datensätze
-	 * okasd
 	 */
 	public int SpeicherDaten(Firmenkontakt firmenkontakt)
 	{
