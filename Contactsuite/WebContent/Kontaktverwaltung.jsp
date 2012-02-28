@@ -124,7 +124,7 @@
 				<%
 				DatabaseConnection dbConnect = DatabaseConnection.getInstance();
 				List<Privatkontakt> lstKontakt = dbConnect.getPrivatkontakte();
-				ListIterator<Privatkontakt> it = lstKontakt.listIterator();
+				//ListIterator<Privatkontakt> it = lstKontakt.listIterator();
 				
 				out.println("<table border='2'>");
 				out.println("<th>Vorname</th>");
@@ -133,8 +133,8 @@
 				out.println("<th>Details</th>");
 				out.println("<th>Bearbeiten</th>");
 				
-				while(it.hasNext()){
-					Privatkontakt tmpKontakt = it.next();
+				for(Privatkontakt  tmpKontakt : lstKontakt){
+
 					out.println("<tr><td>");
 					out.println(tmpKontakt.getVorname());
 					out.println("</td><td>");

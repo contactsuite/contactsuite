@@ -231,13 +231,15 @@ public class DatabaseConnection {
 	 */
 	public List<Privatkontakt> getPrivatkontakte(){
 		List<Privatkontakt> lstKontakte = new ArrayList<Privatkontakt>();
-		Privatkontakt tmpKontakt = new Privatkontakt();
+		
 		String sql = "SELECT * FROM "+tblKontakt+" WHERE istFirmenkontakt = 0 AND istGeloescht = 0 ORDER BY nachname;";
 		try{
 			Statement stmt = this.connection.createStatement();
 			ResultSet result = stmt.executeQuery(sql);
 			System.out.println(result.toString());
+			
 			while(result.next()){
+				Privatkontakt tmpKontakt = new Privatkontakt();
 				//Benutzer wird jedem Kontakt dem Attribut erstelltVon zugeordnet.
 				Benutzer tmpBenutzer = new Benutzer();
 				tmpBenutzer.setBenutzerID(result.getInt("erstelltVon"));
@@ -274,13 +276,13 @@ public class DatabaseConnection {
 	 */
 	public List<Firmenkontakt> getFirmenkontakte(){
 		List<Firmenkontakt> lstKontakte = new ArrayList<Firmenkontakt>();
-		Firmenkontakt tmpKontakt = new Firmenkontakt();
 		String sql = "SELECT * FROM "+tblKontakt+" WHERE istFirmenkontakt = 1 AND istGeloescht = 0 ORDER BY firmenname;";
 		try{
 			Statement stmt = this.connection.createStatement();
 			ResultSet result = stmt.executeQuery(sql);
 			System.out.println(result.toString());
 			while(result.next()){
+				Firmenkontakt tmpKontakt = new Firmenkontakt();
 				//Benutzer wird jedem Kontakt dem Attribut erstelltVon zugeordnet.
 				Benutzer tmpBenutzer = new Benutzer();
 				tmpBenutzer.setBenutzerID(result.getInt("erstelltVon"));
