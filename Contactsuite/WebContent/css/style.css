@@ -239,7 +239,7 @@ td { vertical-align: top; }
 	font-weight:	bold;
 }
 
-#loginButton{
+#loginButton, #anlegenButton{
 	margin-left: 	262px;
 	width: 			100px;
 	background:		#fff;
@@ -282,7 +282,7 @@ td { vertical-align: top; }
 	margin-top:		0px;
 }
 
-#loginInput input {
+#loginInput input, #neuKontaktInput input {
 	border: 		1px solid #000000;
 	border-radius:	5px;
 	margin-bottom:	10px
@@ -291,6 +291,11 @@ td { vertical-align: top; }
 #loginBeschriftung{
 	float:			left;
 	width:			100px;
+}
+
+#neuKontaktBeschriftung{
+	float:			left;
+	width:			110px;
 }
 
 body{
@@ -406,6 +411,43 @@ ul#navi li a{
 	margin-bottom:	10px;
 }
 
+#kontaktForm{
+	margin:			10px;
+	width:			400px;
+}
+
+#neuKontaktInput{
+	margin-top:		1px;
+}
+
+#neuKontaktInput input.errorRed{
+	border: 		1px solid black;
+	background:		#FFC9C9;
+	border-radius:	5px;
+	margin-bottom:	10px;
+}
+#neuKontaktInput input:focus{
+	box-shadow:			1px 1px 2px 2px blue;
+}
+#neuKontaktInput #vorname {
+	margin-top:		3px;
+}
+#kontaktForm p{
+	margin-top:		0px;
+	margin-bottom:	11px;
+}
+
+#oeffentlich{
+	margin-top:		2px;
+}
+
+#oeffentlich input{
+	margin-left:	100px;
+}
+
+#kontaktForm{
+	float:			left;
+}
 
 /* ==|== media queries ======================================================
    EXAMPLE Media Query for Responsive Design.
