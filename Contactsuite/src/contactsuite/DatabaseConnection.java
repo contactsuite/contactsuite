@@ -53,12 +53,11 @@ public class DatabaseConnection {
 	public int SpeicherDaten(Benutzer benutzer)
 	{
 		int geaenderteDatensaetze = 0;
-		String sql = "SELECT benutzerID FROM "+tblBenutzer+" WHERE benutzerID = "+benutzer.getBenutzerID();
+		String sql;
 		try {
 			Statement stmt = this.connection.createStatement();
-			ResultSet result = stmt.executeQuery(sql);
-			//Benutzer ist schon vorhanden
-			if(result.next()){				
+			//Wenn der Benutzer schon in der Datenbank existiert.
+			if(benutzer.getBenutzerID() != 0){
 				sql = "UPDATE "+tblBenutzer+";" +
 						"SET email = '"+benutzer.getEmail()+"', " +
 						"passwort = '"+benutzer.getPasswort()+"', " +
@@ -67,7 +66,7 @@ public class DatabaseConnection {
 						"geaendertVon = -1, " +
 						"geaendertAm = CURRENT_TIMESTAMP;";
 			}
-			//Neuer Benutzer
+			//Wenn der Benutzer noch nicht existiert.
 			else {
 				sql = "INSERT INTO "+tblBenutzer+" " +
 						"(email,passwort,istAdmin,istFreigeschaltet,erstelltVon) " +
@@ -80,12 +79,22 @@ public class DatabaseConnection {
 			}
 			geaenderteDatensaetze = stmt.executeUpdate(sql);
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			ErrorHandler.writeError(e);
 			e.printStackTrace();
 		}
 		return geaenderteDatensaetze;
 	}
 	
+	private List<Privatkontakt> getPrivatkontakte(String searchTerm) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	private List<Firmenkontakt> getFirmenkontakte(String searchTerm){
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	/**
 	 * Methode zum speichern von Firmenkontakten. Falls der übergebene Firmenkontakt schon
 	 * vorhanden ist wird dieser geupdated. Sonst wird ein neuer Datensatz eingetragen.
@@ -139,6 +148,7 @@ public class DatabaseConnection {
 			}
 			geaenderteDatensaetze = stmt.executeUpdate(sql);
 		} catch (SQLException e) {
+			ErrorHandler.writeError(e);
 			e.printStackTrace();
 		}
 		return geaenderteDatensaetze;
@@ -197,6 +207,7 @@ public class DatabaseConnection {
 			}
 			geaenderteDatensaetze = stmt.executeUpdate(sql);
 		} catch (SQLException e) {
+			ErrorHandler.writeError(e);
 			e.printStackTrace();
 		}
 		return geaenderteDatensaetze;
@@ -220,6 +231,7 @@ public class DatabaseConnection {
 				return true;
 			}
 		} catch (SQLException e) {
+			ErrorHandler.writeError(e);
 			e.printStackTrace();
 		}
 		return istVorhanden;		
@@ -256,8 +268,8 @@ public class DatabaseConnection {
 				lstKontakte.add(tmpKontakt);
 			}
 		} catch (SQLException e) {
+			ErrorHandler.writeError(e);
 			e.printStackTrace();
-			System.out.println(e);
 		}
 		return lstKontakte;
 	}
@@ -291,8 +303,8 @@ public class DatabaseConnection {
 				lstKontakte.add(tmpKontakt);
 			}
 		} catch (SQLException e) {
+			ErrorHandler.writeError(e);
 			e.printStackTrace();
-			System.out.println(e);
 		}
 		return lstKontakte;
 	}
@@ -323,8 +335,8 @@ public class DatabaseConnection {
 				lstPrivatkontakte.add(tmpKontakt);
 			}
 		} catch (SQLException e) {
+			ErrorHandler.writeError(e);
 			e.printStackTrace();
-			System.out.println(e);
 		}
 		
 		return lstPrivatkontakte;
@@ -352,6 +364,7 @@ public class DatabaseConnection {
 				benutzer.setIstGeloescht(false);
 			}
 		} catch (SQLException e) {
+			ErrorHandler.writeError(e);
 			e.printStackTrace();
 		}
 		return benutzer;
@@ -379,7 +392,8 @@ public class DatabaseConnection {
 				benutzer.setIstGeloescht(false);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			ErrorHandler.writeError(e);
+			e.printStackTrace();			
 		}
 		return benutzer;
 	}
@@ -390,6 +404,7 @@ public class DatabaseConnection {
 			Statement stmt = this.connection.createStatement();
 			manipulierteDatensaetze = stmt.executeUpdate(sqlCommand);
 		} catch (SQLException e) {
+			ErrorHandler.writeError(e);
 			e.printStackTrace();
 		}		
 		return manipulierteDatensaetze;
