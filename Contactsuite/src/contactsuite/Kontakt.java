@@ -19,9 +19,9 @@ public abstract class Kontakt {
 	private String telefonnummer;
 	private String bildpfad;
 	private boolean istOeffentlich;
-	Benutzer erstelltVon;
+	private int erstelltVon;
 	private Date erstelltAm;
-	Benutzer geaendertVon;
+	private int geaendertVon;
 	private Date geaendertAm;
 
 	public Kontakt() {
@@ -34,15 +34,15 @@ public abstract class Kontakt {
 		telefonnummer = "";
 		bildpfad = "";
 		istOeffentlich = false;
-		erstelltVon = new Benutzer();
+		erstelltVon = -1;
 		erstelltAm = null;
-		geaendertVon = null;
+		geaendertVon = -1;
 		geaendertAm = null;
 	}
 
 	public Kontakt(int kontaktID, String plz, String strasse,
 			String hausnummer, String ort, String email, String telefonnummer,
-			String bildpfad, boolean istOeffentlich, Benutzer erstelltVon,
+			String bildpfad, boolean istOeffentlich, int erstelltVon,
 			Date erstelltAm) {
 		this.kontaktID = kontaktID;
 		this.plz = plz;
@@ -129,11 +129,11 @@ public abstract class Kontakt {
 		this.istOeffentlich = istOeffentlich;
 	}
 
-	public Benutzer getErstelltVon() {
+	public int getErstelltVon() {
 		return erstelltVon;
 	}
 
-	public void setErstelltVon(Benutzer erstelltVon) {
+	public void setErstelltVon(int erstelltVon) {
 		this.erstelltVon = erstelltVon;
 	}
 
@@ -145,11 +145,11 @@ public abstract class Kontakt {
 		this.erstelltAm = erstelltAm;
 	}
 
-	public Benutzer getGeaendertVon() {
+	public int getGeaendertVon() {
 		return geaendertVon;
 	}
 
-	public void setGeaendertVon(Benutzer geaendertVon) {
+	public void setGeaendertVon(int geaendertVon) {
 		this.geaendertVon = geaendertVon;
 	}
 

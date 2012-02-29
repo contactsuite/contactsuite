@@ -116,7 +116,7 @@ public class DatabaseConnection {
 						"nachname = '', " +
 						"istFirmenkontakt = 1, " +
 						"istOeffentlich = "+((firmenkontakt.isIstOeffentlich())?"1":"0")+", " +
-						"geaendertVon = "+firmenkontakt.erstelltVon.getBenutzerID()+", " +
+						"geaendertVon = "+firmenkontakt.getErstelltVon()+", " +
 						"geaendertAm = CURRENT_TIMESTAMP";
 			}
 			//Neuer Benutzer
@@ -135,7 +135,7 @@ public class DatabaseConnection {
 						"'"+firmenkontakt.getAnsprechpartner()+"'," +
 						"1," +
 						((firmenkontakt.isIstOeffentlich())?"1":"0")+"," +
-						firmenkontakt.getErstelltVon().getBenutzerID()+");";
+						firmenkontakt.getErstelltVon()+");";
 			}
 			geaenderteDatensaetze = stmt.executeUpdate(sql);
 		} catch (SQLException e) {
@@ -174,7 +174,7 @@ public class DatabaseConnection {
 						"nachname = '"+privatkontakt.getNachname()+"', " +
 						"istFirmenkontakt = 0, " +
 						"istOeffentlich = "+((privatkontakt.isIstOeffentlich())?"1":"0")+", " +
-						"geaendertVon = "+privatkontakt.erstelltVon.getBenutzerID()+", " +
+						"geaendertVon = "+privatkontakt.getErstelltVon()+", " +
 						"geaendertAm = CURRENT_TIMESTAMP";
 			}
 			//Neuer Benutzer
@@ -193,7 +193,7 @@ public class DatabaseConnection {
 						"'"+privatkontakt.getNachname()+"'," +
 						"0," +
 						((privatkontakt.isIstOeffentlich())?"1":"0")+"," +
-						privatkontakt.getErstelltVon().getBenutzerID()+");";
+						privatkontakt.getErstelltVon()+");";
 			}
 			geaenderteDatensaetze = stmt.executeUpdate(sql);
 		} catch (SQLException e) {
@@ -241,9 +241,6 @@ public class DatabaseConnection {
 			
 			while(result.next()){
 				Privatkontakt tmpKontakt = new Privatkontakt();
-				//Benutzer wird jedem Kontakt dem Attribut erstelltVon zugeordnet.
-				Benutzer tmpBenutzer = new Benutzer();
-				tmpBenutzer.setBenutzerID(result.getInt("erstelltVon"));
 				tmpKontakt.setPlz(result.getString("plz"));
 				tmpKontakt.setStrasse(result.getString("strasse"));
 				tmpKontakt.setHausnummer(result.getString("hausnummer"));
@@ -254,18 +251,13 @@ public class DatabaseConnection {
 				tmpKontakt.setVorname(result.getString("vorname"));
 				tmpKontakt.setNachname(result.getString("nachname"));
 				tmpKontakt.setIstOeffentlich(result.getBoolean("istOeffentlich"));
-				tmpKontakt.setErstelltVon(tmpBenutzer);
+				tmpKontakt.setErstelltVon(result.getInt("erstelltVon"));
 				tmpKontakt.setErstelltAm(result.getDate("erstelltAm"));
 				lstKontakte.add(tmpKontakt);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println(e);
-		}
-		//Es werden nochmal alle Kontakte durchlaufen und die richtigen Benutzer zugeordnet.
-		for(Privatkontakt privatkontakt : lstKontakte)
-		{
-			privatkontakt.setErstelltVon(getBenutzerById(privatkontakt.getErstelltVon().getBenutzerID()));
 		}
 		return lstKontakte;
 	}
@@ -284,9 +276,6 @@ public class DatabaseConnection {
 			System.out.println(result.toString());
 			while(result.next()){
 				Firmenkontakt tmpKontakt = new Firmenkontakt();
-				//Benutzer wird jedem Kontakt dem Attribut erstelltVon zugeordnet.
-				Benutzer tmpBenutzer = new Benutzer();
-				tmpBenutzer.setBenutzerID(result.getInt("erstelltVon"));
 				tmpKontakt.setPlz(result.getString("plz"));
 				tmpKontakt.setStrasse(result.getString("strasse"));
 				tmpKontakt.setHausnummer(result.getString("hausnummer"));
@@ -297,7 +286,7 @@ public class DatabaseConnection {
 				tmpKontakt.setAnsprechpartner(result.getString("ansprechpartner"));
 				tmpKontakt.setFirmenname(result.getString("firmenname"));
 				tmpKontakt.setIstOeffentlich(result.getBoolean("istOeffentlich"));
-				tmpKontakt.setErstelltVon(tmpBenutzer);
+				tmpKontakt.setErstelltVon(result.getInt("erstelltVon"));
 				tmpKontakt.setErstelltAm(result.getDate("erstelltAm"));
 				lstKontakte.add(tmpKontakt);
 			}
@@ -305,12 +294,40 @@ public class DatabaseConnection {
 			e.printStackTrace();
 			System.out.println(e);
 		}
-		//Es werden nochmal alle Kontakte durchlaufen und die richtigen Benutzer zugeordnet.
-		for(Firmenkontakt firmenkontakt : lstKontakte)
-		{
-			firmenkontakt.setErstelltVon(getBenutzerById(firmenkontakt.getErstelltVon().getBenutzerID()));
-		}
 		return lstKontakte;
+	}
+	
+	public List<Privatkontakt> getPrivatkontakteByBenutzerId(int benutzerId){
+		List<Privatkontakt> lstPrivatkontakte = new ArrayList<Privatkontakt>();
+		
+		String sql = "SELECT * FROM "+tblKontakt+" WHERE erstelltVon = "+benutzerId+" AND istFirmenkontakt = 0 AND istGeloescht = 0 ORDER BY nachname;";
+		try{
+			Statement stmt = this.connection.createStatement();
+			ResultSet result = stmt.executeQuery(sql);
+			System.out.println(result.toString());
+			
+			while(result.next()){
+				Privatkontakt tmpKontakt = new Privatkontakt();
+				tmpKontakt.setPlz(result.getString("plz"));
+				tmpKontakt.setStrasse(result.getString("strasse"));
+				tmpKontakt.setHausnummer(result.getString("hausnummer"));
+				tmpKontakt.setOrt(result.getString("ort"));
+				tmpKontakt.setEmail(result.getString("email"));
+				tmpKontakt.setTelefonnummer(result.getString("telefonnummer"));
+				tmpKontakt.setBildpfad(result.getString("bildpfad"));
+				tmpKontakt.setVorname(result.getString("vorname"));
+				tmpKontakt.setNachname(result.getString("nachname"));
+				tmpKontakt.setIstOeffentlich(result.getBoolean("istOeffentlich"));
+				tmpKontakt.setErstelltVon(result.getInt("erstelltVon"));
+				tmpKontakt.setErstelltAm(result.getDate("erstelltAm"));
+				lstPrivatkontakte.add(tmpKontakt);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(e);
+		}
+		
+		return lstPrivatkontakte;
 	}
 	
 	/**
@@ -319,7 +336,7 @@ public class DatabaseConnection {
 	 * @param benutzerId
 	 * @return Benutzer mit der benutzerId
 	 */
-	private Benutzer getBenutzerById(int benutzerId) {
+	public Benutzer getBenutzerById(int benutzerId) {
 		Benutzer benutzer = new Benutzer();
 		String sql = "SELECT * FROM "+tblBenutzer+" WHERE benutzerId = "+benutzerId+" AND istGeloescht = 0;";
 		try{
