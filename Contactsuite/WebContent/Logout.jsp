@@ -7,7 +7,9 @@
 <title>Logout</title>
 </head>
 <body>
-<p>Sie haben sich erfolgreich ausgeloggt.</p>
+<%
+request.getRequestDispatcher("Controller?fcode=Start").forward(request, response);
+%>
 
 </body>
 </html>

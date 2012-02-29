@@ -8,44 +8,30 @@
 </head>
 <body>
 <%@ page import="java.sql.*" %>
+<%@page import="contactsuite.*" %>
 <%
-String email, passwort;
 String mail = request.getParameter("email");
 String pw = request.getParameter("passwort");
 
-// TODO: Direkte DB_Ansteuerung durch Aufruf über DB-Connector Klasse ersetzen
-try{
-	Class.forName("com.mysql.jdbc.Driver");
-	Connection conn = DriverManager.getConnection("jdbc:mysql://pma.postopus.de/customers_s001", "customers_s001", "dqJAMKPR2x5B5JV8");
-	Statement stmt = conn.createStatement();
+DatabaseConnection dbConnect = DatabaseConnection.getInstance();
+Benutzer user = dbConnect.getBenutzerByEmail(mail);
+
+if(dbConnect.IstBenutzerVorhanden(user)){
 	
-	String sql = "SELECT * FROM tblbenutzer WHERE email like '"+mail+"'";
-	ResultSet res = stmt.executeQuery(sql);
-	res.first();
-	email = res.getString(2);
-	if(mail.equals(email)){
-		passwort = res.getString(3);
-		if(pw.equals(passwort)){
-			request.getRequestDispatcher("Controller?fcode=Kontaktverwaltung").forward(request, response);
+		if(pw.equals(user.getPasswort())){
+			request.setAttribute("fcode", "Kontaktverwaltung");
+			request.getRequestDispatcher("Controller").forward(request, response);
 		}
 		else{
 			out.print("<b>Das eingegebene Passwort ist falsch.</b><br>");
 			out.print("<a href='Login.jsp'>Nochmal versuchen.</a>");
 		}
 	}
-		else{
-			out.print("<b>Die eingegebene Email-Adresse ist falsch.</b><br>");
-			out.print("<a href='Login.jsp'>Nochmal versuchen.</a>");
-		}
-}
-catch(ClassNotFoundException err){
-	out.println("DB-Driver nicht gefunden.\n");
-	out.println(err);
-}
-catch(SQLException err){
-	out.println("Connect nicht moeglich.\n");
-	out.println(err);
-}
+	else{
+		out.print("<b>Die eingegebene Email-Adresse ist falsch.</b><br>");
+		out.print("<a href='Login.jsp'>Nochmal versuchen.</a>");
+	}
+
 %>
 </body>
 </html>
