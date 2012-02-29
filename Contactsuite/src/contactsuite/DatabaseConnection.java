@@ -347,7 +347,7 @@ public class DatabaseConnection {
 	 */
 	public Benutzer getBenutzerByEmail(String email){
 		Benutzer benutzer = new Benutzer();
-		String sql = "SELECT * FROM "+tblBenutzer+" WHERE email = "+email+" AND istGeloescht = 0;";
+		String sql = "SELECT * FROM "+tblBenutzer+" WHERE email = '"+email+"' AND istGeloescht = 0;";
 		try{
 			Statement stmt = this.connection.createStatement();
 			ResultSet result = stmt.executeQuery(sql);
