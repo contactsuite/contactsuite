@@ -9,7 +9,7 @@ import java.util.*;
 
 /**
  * @author Dominik Ferber
- * Änderung2
+ * 
  *
  */
 public class DatabaseConnection {
