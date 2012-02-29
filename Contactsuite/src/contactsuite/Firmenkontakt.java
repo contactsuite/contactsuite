@@ -20,7 +20,7 @@ public class Firmenkontakt extends Kontakt {
 
 	Firmenkontakt(int kontaktID, String plz, String strasse, String hausnummer,
 			String ort, String email, String telefonnummer, String bildpfad,
-			boolean istOeffentlich, Benutzer erstelltVon, Date erstelltAm,
+			boolean istOeffentlich, int erstelltVon, Date erstelltAm,
 			String firmenname, String ansprechpartner) {
 
 		super(kontaktID, plz, strasse, hausnummer, ort, email, telefonnummer,

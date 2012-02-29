@@ -3,7 +3,7 @@ package contactsuite;
 import java.util.Date;
 
 /**
- * 
+ *
  * @author Fabian Ostermeier
  * 
  */
