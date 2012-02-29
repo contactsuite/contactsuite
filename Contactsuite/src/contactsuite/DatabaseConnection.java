@@ -253,6 +253,7 @@ public class DatabaseConnection {
 			
 			while(result.next()){
 				Privatkontakt tmpKontakt = new Privatkontakt();
+				tmpKontakt.setKontaktID(result.getInt("kontaktID"));
 				tmpKontakt.setPlz(result.getString("plz"));
 				tmpKontakt.setStrasse(result.getString("strasse"));
 				tmpKontakt.setHausnummer(result.getString("hausnummer"));
@@ -288,6 +289,7 @@ public class DatabaseConnection {
 			System.out.println(result.toString());
 			while(result.next()){
 				Firmenkontakt tmpKontakt = new Firmenkontakt();
+				tmpKontakt.setKontaktID(result.getInt("kontaktID"));
 				tmpKontakt.setPlz(result.getString("plz"));
 				tmpKontakt.setStrasse(result.getString("strasse"));
 				tmpKontakt.setHausnummer(result.getString("hausnummer"));
@@ -320,6 +322,7 @@ public class DatabaseConnection {
 			
 			while(result.next()){
 				Privatkontakt tmpKontakt = new Privatkontakt();
+				tmpKontakt.setKontaktID(result.getInt("kontaktID"));
 				tmpKontakt.setPlz(result.getString("plz"));
 				tmpKontakt.setStrasse(result.getString("strasse"));
 				tmpKontakt.setHausnummer(result.getString("hausnummer"));

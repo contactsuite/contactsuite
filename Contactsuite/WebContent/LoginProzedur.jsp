@@ -23,10 +23,10 @@ if(dbConnect.IstBenutzerVorhanden(user)){
 	
 		if(pw.equals(user.getPasswort())){
 			HttpSession sitzung = request.getSession(true);
-			if(sitzung.isNew()){
+			
 				sitzung.setAttribute("benutzerID", user.getBenutzerID());
 				sitzung.setMaxInactiveInterval(3600);
-				}
+				
 			request.getRequestDispatcher("Controller?fcode=Kontaktverwaltung").forward(request, response);
 		}
 		else{

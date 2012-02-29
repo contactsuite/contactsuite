@@ -156,7 +156,7 @@ if(sitzung == null){
 						out.println("</td><td>");
 						out.println("<a href=#>Details</a>");
 						out.println("</td><td>");
-						out.println("<a href=?fcode=KontaktAnlegen>Bearbeiten</a>");
+						out.println("<a href=?fcode=KontaktAnlegen?kontaktID=" + tmpKontakt.getKontaktID() + ">Bearbeiten</a>");
 						out.println("</td><td>");
 						out.println("<a href=#>Löschen</a>");
 						out.println("</td></tr>");
@@ -171,7 +171,7 @@ if(sitzung == null){
 						out.println("</td><td>");
 						out.println("<a href=#>Details</a>");
 						out.println("</td><td>");
-						out.println("<a href=?fcode=KontaktAnlegen>Bearbeiten</a>");
+						out.println("<a href=?fcode=KontaktAnlegen?kontaktID=" + tmpKontakt.getKontaktID() + ">Bearbeiten</a>");
 						out.println("</td><td>");
 						out.println("<a href=#>Löschen</a>");
 						out.println("</td></tr>");
@@ -181,6 +181,7 @@ if(sitzung == null){
 				}
 				
 				out.println("</table>");
+				
 				%>
 			</div>	
 
@@ -211,7 +212,10 @@ if(sitzung == null){
 				</div>
 
 				<div id="options">
-
+					<%
+						Integer benutzerID = (Integer) sitzung.getAttribute("benutzerID");
+						out.write("<p>Benuzter ID: " + benutzerID + "</p>"); 
+					%>
 				</div>
 
 			</div>
