@@ -10,6 +10,9 @@
 <%@ page import="java.sql.*" %>
 <%@page import="contactsuite.*" %>
 <%
+// Die Loginprozedur überprüft ob die eingegebene E-Mail und das Kennwort in der Datenbank existieren.
+// Bei Erfolg erstellt Sie eine neue Sitzung für den Nutzer und navigiert weiter zur Startseite.
+
 String mail = request.getParameter("email");
 String pw = request.getParameter("passwort");
 
@@ -19,7 +22,11 @@ Benutzer user = dbConnect.getBenutzerByEmail(mail);
 if(dbConnect.IstBenutzerVorhanden(user)){
 	
 		if(pw.equals(user.getPasswort())){
-			//request.setAttribute("fcode", "Kontaktverwaltung");
+			HttpSession sitzung = request.getSession(true);
+			if(sitzung.isNew()){
+				sitzung.setAttribute("benutzerID", user.getBenutzerID());
+				sitzung.setMaxInactiveInterval(3600);
+				}
 			request.getRequestDispatcher("Controller?fcode=Kontaktverwaltung").forward(request, response);
 		}
 		else{

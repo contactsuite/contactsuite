@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<p>Es besteht keine gültige Sitzung.</p>
 </body>
 </html>

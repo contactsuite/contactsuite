@@ -2,6 +2,15 @@
     pageEncoding="ISO-8859-1"%>
 <!doctype html>
 
+<!-- Auf Gültigkeit der Sitzung prüfen. Im Fall des Nichterfolgs weiterleiten auf eine Info-Seite.
+Andernfalls mit dem aktuellen Fenster fortfahren. -->
+<%
+HttpSession sitzung = request.getSession(false);
+if(sitzung == null){
+	request.getRequestDispatcher("/Info.jsp").forward(request, response);
+}
+%>
+
 <!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
 
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
