@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.*;
 
 /**
- * @author Dominik Ferber
+ * @author Dominik Ferber Kommentar
  *
  */
 public class DatabaseConnection {
