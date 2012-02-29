@@ -42,7 +42,7 @@ public class Controller extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String fcode = request.getParameter("fcode");
+		String fcode =  request.getParameter("fcode");
 		fcode = fcode == null ? codes[0][0] : fcode;
 		
 		String target = null;

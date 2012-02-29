@@ -40,7 +40,7 @@
   <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
 
 <%
-	//request.setAttribute("fcode", "Login");
+	request.setAttribute("fcode", "Login");
 %>
 
 	<div id="loginbox">
@@ -57,7 +57,7 @@
 						<input name="email" type="text" size="30" maxlength="30"><br>
 						<input name="passwort" type="password" size="30" maxlength="30">
 					</div>
-					<input type="submit" id="loginButton" name="Login" value="Login!">
+					<input type="submit" id="loginButton" name="fcode" value="Login">
 				</form>
 				<div id="loginReg">
 					<p>Sie sind noch nicht Registriert? <a href="javascript: return false">Jetzt Registrieren!</a> </p>
@@ -85,7 +85,7 @@
 			</div>
 		</fieldset>
 	</div>
-	<%
+	<%-- <%
 	if(request.getParameterMap().containsKey("Login")){
 		
 		String email = request.getParameter("email");
@@ -108,7 +108,7 @@
 		}
 
 		}
-	%>
+	%> --%>
 
   <!-- JavaScript at the bottom for fast page loading -->
 
