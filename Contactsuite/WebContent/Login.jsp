@@ -39,15 +39,11 @@
        chromium.org/developers/how-tos/chrome-frame-getting-started -->
   <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
 
-<%
-	request.setAttribute("fcode", "Login");
-%>
-
 	<div id="loginbox">
 		<fieldset name="login" id="fieldLogin">
 			<legend>Benutzer-Login</legend> 
 			<div id="loginForm">
-				<form name="Logineingabe" action="Controller?fcode=Login" method="post">  
+				<form name="Logineingabe" action="Controller" method="post">  
 					<div id="loginBeschriftung">
 						<p>Benutzer:</p>
 						<p>Passwort:</p>
@@ -57,7 +53,7 @@
 						<input name="email" type="text" size="30" maxlength="30"><br>
 						<input name="passwort" type="password" size="30" maxlength="30">
 					</div>
-					<input type="submit" id="loginButton" name="fcode" value="Login">
+					<input type="submit" id="loginButton" name=fcode value="Login">
 				</form>
 				<div id="loginReg">
 					<p>Sie sind noch nicht Registriert? <a href="javascript: return false">Jetzt Registrieren!</a> </p>

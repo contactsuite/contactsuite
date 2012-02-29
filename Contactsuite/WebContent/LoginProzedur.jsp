@@ -19,8 +19,8 @@ Benutzer user = dbConnect.getBenutzerByEmail(mail);
 if(dbConnect.IstBenutzerVorhanden(user)){
 	
 		if(pw.equals(user.getPasswort())){
-			request.setAttribute("fcode", "Kontaktverwaltung");
-			request.getRequestDispatcher("Controller").forward(request, response);
+			//request.setAttribute("fcode", "Kontaktverwaltung");
+			request.getRequestDispatcher("Controller?fcode=Kontaktverwaltung").forward(request, response);
 		}
 		else{
 			out.print("<b>Das eingegebene Passwort ist falsch.</b><br>");
