@@ -4,7 +4,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-
+/**
+ * Klasse stellt eine Methode bereit um Exceptions in eine Datenbanktabelle zu schreiben damit man vor dort
+ * Fehler einsehen kann.
+ * @author Dominik Ferber
+ * 
+ */
 public class ErrorHandler {
 	public static void writeError(Exception e){
 		try{
