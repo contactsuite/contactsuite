@@ -147,7 +147,7 @@
 						out.println("</td><td>");
 						out.println("<a href=#>Details</a>");
 						out.println("</td><td>");
-						out.println("<a href=#>Bearbeiten</a>");
+						out.println("<a href=?fcode=KontaktAnlegen>Bearbeiten</a>");
 						out.println("</td><td>");
 						out.println("<a href=#>Löschen</a>");
 						out.println("</td></tr>");
@@ -162,7 +162,7 @@
 						out.println("</td><td>");
 						out.println("<a href=#>Details</a>");
 						out.println("</td><td>");
-						out.println("<a href=#>Bearbeiten</a>");
+						out.println("<a href=?fcode=KontaktAnlegen>Bearbeiten</a>");
 						out.println("</td><td>");
 						out.println("<a href=#>Löschen</a>");
 						out.println("</td></tr>");
