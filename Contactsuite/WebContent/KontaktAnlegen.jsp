@@ -34,6 +34,8 @@ kon.setTelefonnummer(telefonnummer);
 
 dbConnect.SpeicherDaten(kon);
 
+request.getRequestDispatcher("Controller?fcode=Kontaktverwaltung").forward(request, response);
+
 %>
 <p>Kontakt Anlegen JSP</p>
 </body>

@@ -102,7 +102,7 @@
 
 				<li>
 
-					<a href="#"><span>Privatkunden</span></a>
+					<a href="#"><span>Privatkontakte</span></a>
 
 				</li>
 
@@ -124,28 +124,51 @@
 				<%
 				DatabaseConnection dbConnect = DatabaseConnection.getInstance();
 				List<Privatkontakt> lstKontakt = dbConnect.getPrivatkontakte();
-				//ListIterator<Privatkontakt> it = lstKontakt.listIterator();
 				
-				out.println("<table border='2'>");
+				boolean farbig = false;
+				
+				out.println("<table id=\"mainTable\">");
 				out.println("<th>Vorname</th>");
 				out.println("<th>Nachname</th>");
 				out.println("<th>Ort</th>");
 				out.println("<th>Details</th>");
 				out.println("<th>Bearbeiten</th>");
+				out.println("<th>Löschen</th>");
 				
 				for(Privatkontakt  tmpKontakt : lstKontakt){
 
-					out.println("<tr><td>");
-					out.println(tmpKontakt.getVorname());
-					out.println("</td><td>");
-					out.println(tmpKontakt.getNachname());
-					out.println("</td><td>");
-					out.println(tmpKontakt.getOrt());
-					out.println("</td><td>");
-					out.println("<a href=#>Details</a>");
-					out.println("</td><td>");
-					out.println("<a href=#>Bearbeiten</a>");
-					out.println("</td></tr>");
+					if(farbig){
+						out.println("<tr id=\"tabFarbig\"><td>");
+						out.println(tmpKontakt.getVorname());
+						out.println("</td><td>");
+						out.println(tmpKontakt.getNachname());
+						out.println("</td><td>");
+						out.println(tmpKontakt.getOrt());
+						out.println("</td><td>");
+						out.println("<a href=#>Details</a>");
+						out.println("</td><td>");
+						out.println("<a href=#>Bearbeiten</a>");
+						out.println("</td><td>");
+						out.println("<a href=#>Löschen</a>");
+						out.println("</td></tr>");
+					}
+					else{
+						out.println("<tr id=\"tabStandard\"><td>");
+						out.println(tmpKontakt.getVorname());
+						out.println("</td><td>");
+						out.println(tmpKontakt.getNachname());
+						out.println("</td><td>");
+						out.println(tmpKontakt.getOrt());
+						out.println("</td><td>");
+						out.println("<a href=#>Details</a>");
+						out.println("</td><td>");
+						out.println("<a href=#>Bearbeiten</a>");
+						out.println("</td><td>");
+						out.println("<a href=#>Löschen</a>");
+						out.println("</td></tr>");
+					}
+					
+					farbig = !farbig;
 				}
 				
 				out.println("</table>");

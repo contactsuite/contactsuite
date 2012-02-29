@@ -5,7 +5,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.WebServlet;
 import java.util.*;
-//TEST
+
 /**
  * Servlet implementation class Controller
  */
@@ -23,6 +23,7 @@ public class Controller extends HttpServlet {
 
     //Steuer und Parameterliste
     static String codes[][] = {
+    	new String [] { "Start", "/Login.jsp"},
     	new String [] { "Login", "/LoginProzedur.jsp"},
     	new String [] { "Logout", "/Logout.jsp"},
     	new String [] { "Kontaktverwaltung", "/Kontaktverwaltung.jsp"},
