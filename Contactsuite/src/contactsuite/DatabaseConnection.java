@@ -93,7 +93,28 @@ public class DatabaseConnection {
 		return geaenderteDatensaetze;
 	}
 	
-	public List<Privatkontakt> getPrivatkontakte(String searchTerm) {
+	/**
+	 * Gibt Kontakt zurück, die zu einem übergebene Suchterm passen.
+	 * @author Dominik Ferber
+	 * @param searchTerm
+	 * @param benutzerId
+	 * @return
+	 */
+	public List<Kontakt> getKontakte(String searchTerm, int benutzerId){
+		List<Kontakt> lstKontakte = new ArrayList<Kontakt>();
+		lstKontakte.addAll(getPrivatkontakte(searchTerm, benutzerId));
+		lstKontakte.addAll(getFirmenkontakte(searchTerm));
+		return lstKontakte;
+	}
+	
+	/**
+	 * Gibt alle Privatkontakte zurück, die zu einem übergebene Suchterm und BenutzerId passen.
+	 * @author Dominik Ferber
+	 * @param searchTerm
+	 * @param benutzerId
+	 * @return
+	 */
+	public List<Privatkontakt> getPrivatkontakte(String searchTerm, int benutzerId) {
 		List<Privatkontakt> lstKontakte = new ArrayList<Privatkontakt>();
 		
 		String sql = String.format("SELECT * " +
@@ -102,8 +123,10 @@ public class DatabaseConnection {
 				"vorname LIKE '%s%' OR " +
 				"nachname LIKE '%s%' AND " +
 				"istFirmenkontakt = 0 AND " +
-				"istGeloescht = 0 " +
-				"ORDER BY nachname;",tblKontakt, searchTerm, searchTerm);
+				"istGeloescht = 0 AND " +
+				"(istOeffentlich = 1 OR " +
+				"(istOeffentlich = 0 AND erstelltVon = %d)) " +
+				"ORDER BY nachname;",tblKontakt, searchTerm, searchTerm, benutzerId);
 		try{
 			Statement stmt = connection.createStatement();
 			ResultSet result = stmt.executeQuery(sql);
