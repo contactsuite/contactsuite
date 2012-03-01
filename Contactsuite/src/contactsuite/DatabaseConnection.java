@@ -93,6 +93,13 @@ public class DatabaseConnection {
 		return geaenderteDatensaetze;
 	}
 	
+	public List<Kontakt> getKontakte(String searchTerm){
+		List<Kontakt> lstKontakte = new ArrayList<Kontakt>();
+		lstKontakte.addAll(getPrivatkontakte(searchTerm));
+		lstKontakte.addAll(getFirmenkontakte(searchTerm));
+		return lstKontakte;
+	}
+	
 	public List<Privatkontakt> getPrivatkontakte(String searchTerm) {
 		List<Privatkontakt> lstKontakte = new ArrayList<Privatkontakt>();
 		
