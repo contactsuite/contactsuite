@@ -4,7 +4,7 @@
  * What follows is the result of much research on cross-browser styling.
  * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
  * Kroc Camen, and the H5BP dev community and team.
- *
+y *
  * Detailed information about this CSS: h5bp.com/css
  *
  * ==|== normalize ==========================================================
@@ -221,7 +221,7 @@ td { vertical-align: top; }
 #loginbox{
 	margin:			0 auto;
 	width:			400px;
-	//height:			160px;
+	width:			400px;
 	margin-top:		150px;
 	border:			4px solid #afb7b6;
 	border-radius:	10px;
@@ -285,7 +285,14 @@ td { vertical-align: top; }
 #loginInput input, #neuKontaktInput input {
 	border: 		1px solid #000000;
 	border-radius:	5px;
-	margin-bottom:	10px
+	margin-bottom:	10px;
+	
+	
+	background: none repeat scroll 0 0 #fff;
+    border: 1px solid blue;
+    box-shadow: 0 1px 4px blue;
+    list-style: none outside none;
+    padding-left: 5px;
 }
 
 #loginBeschriftung{
@@ -332,7 +339,7 @@ ul#navi{
     position: 		relative;
 }
 #navi a{
-	text-decoration:	none;
+	text-decoration:none;
 }
 
 #navi a:hover{
@@ -369,34 +376,7 @@ ul#navi li a{
 	background:		white;
 	float:			left;
 
-}
-
-#mainContent table{
-	width:				100%;
-	border:				none;
-	height:				50px;
-}
-
-#mainTable th{
-	background-color:	#4857D5;
-	color:				white;
-}
-
-#mainTable td{
-	text-align:		center;
-}
-
-#mainTable a{
-	text-decoration:	none;
-}
-
-#tabFarbig{
-	background-color:	#E1E2F0;
-}
-
-#tabStandard{
-	background-color:	#F0F1F8;
-}
+}	
 
 #content{
 	width:			960px;
@@ -439,7 +419,7 @@ ul#navi li a{
 }
 
 #kontaktForm{
-	margin:			10px;
+	margin:			10px 10px 10px 50px;
 	width:			400px;
 }
 
@@ -448,14 +428,15 @@ ul#navi li a{
 }
 
 #neuKontaktInput input.errorRed{
-	border: 		1px solid black;
-	background:		#FFC9C9;
 	border-radius:	5px;
 	margin-bottom:	10px;
+	background: none repeat scroll 0 0 #E0E0E0;
+    border: 1px solid #990000;
+    box-shadow: 0 1px 4px #990000;
+    list-style: none outside none;
+    padding-left:5px;
 }
-#neuKontaktInput input:focus{
-	box-shadow:			1px 1px 2px 2px blue;
-}
+
 #neuKontaktInput #vorname {
 	margin-top:		3px;
 }
@@ -472,10 +453,21 @@ ul#navi li a{
 	margin-left:	100px;
 }
 
-#kontaktForm{
-	float:			left;
+#errorForm {
+	display:		none;
+	width:			450px;
+	margin:			10px 10px 10px 50px;
 }
 
+#errorOl{
+    background: none repeat scroll 0 0 #E0E0E0;
+    border: 1px solid #990000;
+    box-shadow: 0 1px 4px #990000;
+    list-style: none outside none;
+    margin-bottom: 10px;
+    padding: 0 10px 5px;
+}
+	
 /* ==|== media queries ======================================================
    EXAMPLE Media Query for Responsive Design.
    This example overrides the primary ('mobile first') styles
