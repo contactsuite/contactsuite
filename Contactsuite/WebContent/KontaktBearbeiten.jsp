@@ -145,6 +145,9 @@ int kID = tmpKontakt.getKontaktID();
 							  <p>
 								<input type="radio" name="istOeffentlich" value="istOeffentlich"> Ja<br>
 								<input type="radio" name="istOeffentlich" value="istOeffentlich" checked> Nein<br>
+								<%
+								out.println("<input type=\"hidden\" name=\"kontaktID\" value=" + kID + ">");
+								%>
 							  </p>
 						</div>
 						<input type="Submit" id="anlegenButton" name="anlegenButton" value="Anlegen" >
