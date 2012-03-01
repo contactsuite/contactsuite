@@ -55,28 +55,36 @@ public class DatabaseConnection {
 		int geaenderteDatensaetze = 0;
 		String sql;
 		try {
-			Statement stmt = this.connection.createStatement();
 			//Wenn der Benutzer schon in der Datenbank existiert.
 			if(benutzer.getBenutzerID() != 0){
-				sql = "UPDATE "+tblBenutzer +" "+
-						"SET email = '"+benutzer.getEmail()+"', " +
-						"passwort = '"+benutzer.getPasswort()+"', " +
-						"istAdmin = "+((benutzer.isIstAdmin())?"1":"0")+", " +
-						"istFreigeschaltet = "+((benutzer.isIstFreigeschaltet())?"1":"0")+", " +
+				sql = String.format("UPDATE %s "+
+						"SET email = '%s', " +
+						"passwort = '%s', " +
+						"istAdmin = %d, " +
+						"istFreigeschaltet = %d, " +
 						"geaendertVon = -1, " +
-						"geaendertAm = CURRENT_TIMESTAMP;";
+						"geaendertAm = CURRENT_TIMESTAMP;",
+						tblBenutzer,
+						benutzer.getEmail(),
+						benutzer.getPasswort(),
+						((benutzer.isIstAdmin())?1:0),
+						((benutzer.isIstFreigeschaltet())?1:0));
 			}
 			//Wenn der Benutzer noch nicht existiert.
 			else {
-				sql = "INSERT INTO "+tblBenutzer+" " +
+				sql = String.format("INSERT INTO %s " +
 						"(email,passwort,istAdmin,istFreigeschaltet,erstelltVon) " +
 						"VALUES " +
-						"('"+benutzer.getEmail()+"'," +
-						"'"+benutzer.getPasswort()+"'," +
+						"('%s'," +
+						"'%s'," +
 						"false," +
 						"false," +
-						"-1);";
+						"-1);",
+						tblBenutzer,
+						benutzer.getEmail(),
+						benutzer.getPasswort());
 			}
+			Statement stmt = connection.createStatement();
 			geaenderteDatensaetze = stmt.executeUpdate(sql);
 		} catch (SQLException e) {
 			ErrorHandler.writeError(e);
@@ -86,13 +94,76 @@ public class DatabaseConnection {
 	}
 	
 	private List<Privatkontakt> getPrivatkontakte(String searchTerm) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Privatkontakt> lstKontakte = new ArrayList<Privatkontakt>();
+		
+		String sql = String.format("SELECT * " +
+				"FROM %s " +
+				"WHERE " +
+				"vorname LIKE '%s%' OR " +
+				"nachname LIKE '%s%' AND " +
+				"istFirmenkontakt = 0 AND " +
+				"istGeloescht = 0 " +
+				"ORDER BY nachname;",tblKontakt, searchTerm, searchTerm);
+		try{
+			Statement stmt = connection.createStatement();
+			ResultSet result = stmt.executeQuery(sql);
+			while(result.next()){
+				Privatkontakt tmpKontakt = new Privatkontakt();
+				tmpKontakt.setKontaktID(result.getInt("kontaktID"));
+				tmpKontakt.setPlz(result.getString("plz"));
+				tmpKontakt.setStrasse(result.getString("strasse"));
+				tmpKontakt.setHausnummer(result.getString("hausnummer"));
+				tmpKontakt.setOrt(result.getString("ort"));
+				tmpKontakt.setEmail(result.getString("email"));
+				tmpKontakt.setTelefonnummer(result.getString("telefonnummer"));
+				tmpKontakt.setBildpfad(result.getString("bildpfad"));
+				tmpKontakt.setVorname(result.getString("vorname"));
+				tmpKontakt.setNachname(result.getString("nachname"));
+				tmpKontakt.setIstOeffentlich(result.getBoolean("istOeffentlich"));
+				tmpKontakt.setErstelltVon(result.getInt("erstelltVon"));
+				tmpKontakt.setErstelltAm(result.getDate("erstelltAm"));
+				lstKontakte.add(tmpKontakt);
+			}
+		} catch (SQLException e) {
+			ErrorHandler.writeError(e);
+			e.printStackTrace();
+		}
+		return lstKontakte;
 	}
 	
 	private List<Firmenkontakt> getFirmenkontakte(String searchTerm){
-		// TODO Auto-generated method stub
-		return null;
+		List<Firmenkontakt> lstKontakte = new ArrayList<Firmenkontakt>();
+		String sql = String.format("SELECT * " +
+				"FROM %s " +
+				"WHERE firmenname LIKE '%s%' AND " +
+				"istFirmenkontakt = 1 " +
+				"AND istGeloescht = 0 " +
+				"ORDER BY firmenname;",tblKontakt, searchTerm);
+		try{
+			Statement stmt = connection.createStatement();
+			ResultSet result = stmt.executeQuery(sql);
+			while(result.next()){
+				Firmenkontakt tmpKontakt = new Firmenkontakt();
+				tmpKontakt.setKontaktID(result.getInt("kontaktID"));
+				tmpKontakt.setPlz(result.getString("plz"));
+				tmpKontakt.setStrasse(result.getString("strasse"));
+				tmpKontakt.setHausnummer(result.getString("hausnummer"));
+				tmpKontakt.setOrt(result.getString("ort"));
+				tmpKontakt.setEmail(result.getString("email"));
+				tmpKontakt.setTelefonnummer(result.getString("telefonnummer"));
+				tmpKontakt.setBildpfad(result.getString("bildpfad"));
+				tmpKontakt.setAnsprechpartner(result.getString("ansprechpartner"));
+				tmpKontakt.setFirmenname(result.getString("firmenname"));
+				tmpKontakt.setIstOeffentlich(result.getBoolean("istOeffentlich"));
+				tmpKontakt.setErstelltVon(result.getInt("erstelltVon"));
+				tmpKontakt.setErstelltAm(result.getDate("erstelltAm"));
+				lstKontakte.add(tmpKontakt);
+			}
+		} catch (SQLException e) {
+			ErrorHandler.writeError(e);
+			e.printStackTrace();
+		}
+		return lstKontakte;
 	}
 	
 	/**
@@ -228,21 +299,33 @@ public class DatabaseConnection {
 			}
 			//Neuer Benutzer
 			else {
-				sql = "INSERT INTO "+tblKontakt+" " +
+				sql = String.format("INSERT INTO %s " +
 						"(plz,strasse,hausnummer,ort,email,telefonnummer,bildpfad,firmenname,ansprechpartner,istFirmenkontakt,istOeffentlich,erstelltVon) " +
 						"VALUES " +
-						"('"+firmenkontakt.getPlz()+"'," +
-						"'"+firmenkontakt.getStrasse()+"'," +
-						"'"+firmenkontakt.getHausnummer()+"'," +
-						"'"+firmenkontakt.getOrt()+"'," +
-						"'"+firmenkontakt.getEmail()+"'," +
-						"'"+firmenkontakt.getTelefonnummer()+"'," +
-						"'"+firmenkontakt.getBildpfad()+"'," +
-						"'"+firmenkontakt.getFirmenname()+"'," +
-						"'"+firmenkontakt.getAnsprechpartner()+"'," +
-						"1," +
-						((firmenkontakt.isIstOeffentlich())?"1":"0")+"," +
-						firmenkontakt.getErstelltVon()+");";
+						"('%s', " +
+						"'%s', " +
+						"'%s', " +
+						"'%s', " +
+						"'%s', " +
+						"'%s', " +
+						"'%s', " +
+						"'%s', " +
+						"'%s', " +
+						"1, " +
+						"%d, " +
+						"%d);",
+						tblKontakt,
+						firmenkontakt.getPlz(),
+						firmenkontakt.getStrasse(),
+						firmenkontakt.getHausnummer(),
+						firmenkontakt.getOrt(),
+						firmenkontakt.getEmail(),
+						firmenkontakt.getTelefonnummer(),
+						firmenkontakt.getBildpfad(),
+						firmenkontakt.getFirmenname(),
+						firmenkontakt.getAnsprechpartner(),
+						((firmenkontakt.isIstOeffentlich())?1:0),
+						firmenkontakt.getErstelltVon());
 			}
 			Statement stmt = connection.createStatement();
 			geaenderteDatensaetze = stmt.executeUpdate(sql);
@@ -263,47 +346,71 @@ public class DatabaseConnection {
 	public int SpeicherDaten(Privatkontakt privatkontakt)
 	{
 		int geaenderteDatensaetze = 0;
-		String sql = "SELECT kontaktID FROM "+tblKontakt+" WHERE kontaktID = "+privatkontakt.getKontaktID();
+		String sql;
 		try {
-			Statement stmt = this.connection.createStatement();
-			ResultSet result = stmt.executeQuery(sql);
 			//Kontakt ist schon vorhanden
-			if(result.next()){
-				sql = "UPDATE "+tblKontakt+
-						"SET plz = '"+privatkontakt.getPlz()+"', " +
-						"strasse = '"+privatkontakt.getStrasse()+"', " +
-						"hausnummer = '"+privatkontakt.getHausnummer()+"', " +
-						"ort = '"+privatkontakt.getOrt()+"', " +
-						"email = '"+privatkontakt.getEmail()+"', " +
-						"telefonnummer = '"+privatkontakt.getTelefonnummer()+"', " +
-						"bildpfad = '"+privatkontakt.getBildpfad()+"', " +
+			if(privatkontakt.getKontaktID() != 0){
+				sql = String.format("UPDATE %s "+
+						"SET plz = '%s', " +
+						"strasse = '%s', " +
+						"hausnummer = '%s', " +
+						"ort = '%s', " +
+						"email = '%s', " +
+						"telefonnummer = '%s', " +
+						"bildpfad = '%s', " +
 						"firmenname = '', " +
 						"ansprechpartner = '', " +
-						"vorname = '"+privatkontakt.getVorname()+"', " +
-						"nachname = '"+privatkontakt.getNachname()+"', " +
+						"vorname = '%s', " +
+						"nachname = '%s', " +
 						"istFirmenkontakt = 0, " +
-						"istOeffentlich = "+((privatkontakt.isIstOeffentlich())?"1":"0")+", " +
-						"geaendertVon = "+privatkontakt.getErstelltVon()+", " +
-						"geaendertAm = CURRENT_TIMESTAMP";
+						"istOeffentlich = %d, " +
+						"geaendertVon = %d, " +
+						"geaendertAm = CURRENT_TIMESTAMP",
+						tblKontakt,
+						privatkontakt.getPlz(),
+						privatkontakt.getStrasse(),
+						privatkontakt.getHausnummer(),
+						privatkontakt.getOrt(),
+						privatkontakt.getEmail(),
+						privatkontakt.getTelefonnummer(),
+						privatkontakt.getBildpfad(),
+						privatkontakt.getVorname(),
+						privatkontakt.getNachname(),
+						((privatkontakt.isIstOeffentlich())?1:0),
+						privatkontakt.getGeaendertVon());
 			}
 			//Neuer Benutzer
 			else {
-				sql = "INSERT INTO "+tblKontakt+" " +
-						"(plz,strasse,hausnummer,ort,email,telefonnummer,bildpfad,vorname,nachname,istFirmenkontakt,istOeffentlich,erstelltVon) " +
+				sql = String.format("INSERT INTO %s " +
+						"(plz,strasse,hausnummer,ort,email,telefonnummer," +
+						"bildpfad,vorname,nachname,istFirmenkontakt,istOeffentlich,erstelltVon) " +
 						"VALUES " +
-						"('"+privatkontakt.getPlz()+"'," +
-						"'"+privatkontakt.getStrasse()+"'," +
-						"'"+privatkontakt.getHausnummer()+"'," +
-						"'"+privatkontakt.getOrt()+"'," +
-						"'"+privatkontakt.getEmail()+"'," +
-						"'"+privatkontakt.getTelefonnummer()+"'," +
-						"'"+privatkontakt.getBildpfad()+"'," +
-						"'"+privatkontakt.getVorname()+"'," +
-						"'"+privatkontakt.getNachname()+"'," +
-						"0," +
-						((privatkontakt.isIstOeffentlich())?"1":"0")+"," +
-						privatkontakt.getErstelltVon()+");";
+						"('%s', " +
+						"'%s', " +
+						"'%s', " +
+						"'%s', " +
+						"'%s', " +
+						"'%s', " +
+						"'%s', " +
+						"'%s', " +
+						"'%s', " +
+						"0, " +
+						"%d, " +
+						"%d);",
+						tblKontakt,
+						privatkontakt.getPlz(),
+						privatkontakt.getStrasse(),
+						privatkontakt.getHausnummer(),
+						privatkontakt.getOrt(),
+						privatkontakt.getEmail(),
+						privatkontakt.getTelefonnummer(),
+						privatkontakt.getBildpfad(),
+						privatkontakt.getVorname(),
+						privatkontakt.getNachname(),
+						((privatkontakt.isIstOeffentlich())?1:0),
+						privatkontakt.getErstelltVon());
 			}
+			Statement stmt = connection.createStatement();
 			geaenderteDatensaetze = stmt.executeUpdate(sql);
 		} catch (SQLException e) {
 			ErrorHandler.writeError(e);
@@ -318,12 +425,12 @@ public class DatabaseConnection {
 	 * @param benutzer
 	 * @return true falls Benutzer bereits vorhanden, sonst false.
 	 */
-	public boolean IstBenutzerVorhanden(Benutzer benutzer){
-		boolean istVorhanden = false;
-		
-		String sql = "SELECT benutzerID FROM "+tblBenutzer+" WHERE email = '"+benutzer.getEmail()+"';";
+	public boolean IstBenutzerVorhanden(Benutzer benutzer){	
+		String sql = String.format("SELECT benutzerID " +
+				"FROM %s " +
+				"WHERE email = '%s';", tblBenutzer, benutzer.getEmail());
 		try {
-			Statement stmt = this.connection.createStatement();
+			Statement stmt = connection.createStatement();
 			ResultSet result = stmt.executeQuery(sql);
 			//Kontakt ist schon vorhanden
 			if(result.next()){
@@ -333,7 +440,7 @@ public class DatabaseConnection {
 			ErrorHandler.writeError(e);
 			e.printStackTrace();
 		}
-		return istVorhanden;		
+		return false;
 	}
 	
 	/**
@@ -344,12 +451,15 @@ public class DatabaseConnection {
 	public List<Privatkontakt> getPrivatkontakte(){
 		List<Privatkontakt> lstKontakte = new ArrayList<Privatkontakt>();
 		
-		String sql = "SELECT * FROM "+tblKontakt+" WHERE istFirmenkontakt = 0 AND istGeloescht = 0 ORDER BY nachname;";
+		String sql = String.format("SELECT * " +
+				"FROM %s " +
+				"WHERE " +
+				"istFirmenkontakt = 0 " +
+				"AND istGeloescht = 0 " +
+				"ORDER BY nachname;",tblKontakt);
 		try{
-			Statement stmt = this.connection.createStatement();
+			Statement stmt = connection.createStatement();
 			ResultSet result = stmt.executeQuery(sql);
-			System.out.println(result.toString());
-			
 			while(result.next()){
 				Privatkontakt tmpKontakt = new Privatkontakt();
 				tmpKontakt.setKontaktID(result.getInt("kontaktID"));
@@ -381,11 +491,14 @@ public class DatabaseConnection {
 	 */
 	public List<Firmenkontakt> getFirmenkontakte(){
 		List<Firmenkontakt> lstKontakte = new ArrayList<Firmenkontakt>();
-		String sql = "SELECT * FROM "+tblKontakt+" WHERE istFirmenkontakt = 1 AND istGeloescht = 0 ORDER BY firmenname;";
+		String sql = String.format("SELECT * " +
+				"FROM %s " +
+				"WHERE istFirmenkontakt = 1 " +
+				"AND istGeloescht = 0 " +
+				"ORDER BY firmenname;",tblKontakt);
 		try{
-			Statement stmt = this.connection.createStatement();
+			Statement stmt = connection.createStatement();
 			ResultSet result = stmt.executeQuery(sql);
-			System.out.println(result.toString());
 			while(result.next()){
 				Firmenkontakt tmpKontakt = new Firmenkontakt();
 				tmpKontakt.setKontaktID(result.getInt("kontaktID"));
@@ -410,15 +523,23 @@ public class DatabaseConnection {
 		return lstKontakte;
 	}
 	
+	/**
+	 * Liesst alle Privatkontakte anhand einer BenutzerId aus.
+	 * @author Dominik Ferber
+	 * @param benutzerId
+	 * @return
+	 */
 	public List<Privatkontakt> getPrivatkontakteByBenutzerId(int benutzerId){
-		List<Privatkontakt> lstPrivatkontakte = new ArrayList<Privatkontakt>();
-		
-		String sql = "SELECT * FROM "+tblKontakt+" WHERE erstelltVon = "+benutzerId+" AND istFirmenkontakt = 0 AND istGeloescht = 0 ORDER BY nachname;";
+		List<Privatkontakt> lstPrivatkontakte = new ArrayList<Privatkontakt>();		
+		String sql = String.format("SELECT * " +
+				"FROM %s " +
+				"WHERE erstelltVon = %d " +
+				"AND istFirmenkontakt = 0 " +
+				"AND istGeloescht = 0 " +
+				"ORDER BY nachname;", tblKontakt, benutzerId);
 		try{
-			Statement stmt = this.connection.createStatement();
-			ResultSet result = stmt.executeQuery(sql);
-			System.out.println(result.toString());
-			
+			Statement stmt = connection.createStatement();
+			ResultSet result = stmt.executeQuery(sql);			
 			while(result.next()){
 				Privatkontakt tmpKontakt = new Privatkontakt();
 				tmpKontakt.setKontaktID(result.getInt("kontaktID"));
@@ -439,8 +560,7 @@ public class DatabaseConnection {
 		} catch (SQLException e) {
 			ErrorHandler.writeError(e);
 			e.printStackTrace();
-		}
-		
+		}		
 		return lstPrivatkontakte;
 	}
 	
@@ -458,8 +578,7 @@ public class DatabaseConnection {
 		try{
 			Statement stmt = this.connection.createStatement();
 			ResultSet result = stmt.executeQuery(sql);
-			System.out.println(result.toString());
-			
+			System.out.println(result.toString());			
 			while(result.next()){
 				privatkontakt.setKontaktID(result.getInt("kontaktID"));
 				privatkontakt.setPlz(result.getString("plz"));
@@ -482,38 +601,6 @@ public class DatabaseConnection {
 		return privatkontakt;
 	}
 	
-	public Privatkontakt getPrivatkontaktByKontaktName(String name){
-		
-		Privatkontakt tmpKontakt = new Privatkontakt();
-		String sql = "SELECT * FROM "+tblBenutzer+" WHERE nachname = "+name+" AND istGeloescht = 0;";
-		try{
-			Statement stmt = this.connection.createStatement();
-			ResultSet result = stmt.executeQuery(sql);
-			System.out.println(result.toString());
-			
-			if(result.next()){
-				tmpKontakt.setKontaktID(result.getInt("kontaktID"));
-				tmpKontakt.setPlz(result.getString("plz"));
-				tmpKontakt.setStrasse(result.getString("strasse"));
-				tmpKontakt.setHausnummer(result.getString("hausnummer"));
-				tmpKontakt.setOrt(result.getString("ort"));
-				tmpKontakt.setEmail(result.getString("email"));
-				tmpKontakt.setTelefonnummer(result.getString("telefonnummer"));
-				tmpKontakt.setBildpfad(result.getString("bildpfad"));
-				tmpKontakt.setVorname(result.getString("vorname"));
-				tmpKontakt.setNachname(result.getString("nachname"));
-				tmpKontakt.setIstOeffentlich(result.getBoolean("istOeffentlich"));
-				tmpKontakt.setErstelltVon(result.getInt("erstelltVon"));
-				tmpKontakt.setErstelltAm(result.getDate("erstelltAm"));
-			}
-		}catch (SQLException e) {
-			ErrorHandler.writeError(e);
-			e.printStackTrace();
-		}
-		
-		return tmpKontakt;
-	}
-	
 	/**
 	 * Liest einen Benutzer anhand von einer übergebenen benutzerId aus.
 	 * @author Dominik Ferber
@@ -522,9 +609,12 @@ public class DatabaseConnection {
 	 */
 	public Benutzer getBenutzerById(int benutzerId) {
 		Benutzer benutzer = new Benutzer();
-		String sql = "SELECT * FROM "+tblBenutzer+" WHERE benutzerId = "+benutzerId+" AND istGeloescht = 0;";
+		String sql = String.format("SELECT * " +
+				"FROM %s " +
+				"WHERE benutzerId = %d " +
+				"AND istGeloescht = 0;", tblBenutzer, benutzerId);
 		try{
-			Statement stmt = this.connection.createStatement();
+			Statement stmt = connection.createStatement();
 			ResultSet result = stmt.executeQuery(sql);
 			while(result.next()){
 				benutzer.setBenutzerID(result.getInt("benutzerId"));
@@ -550,9 +640,12 @@ public class DatabaseConnection {
 	 */
 	public Benutzer getBenutzerByEmail(String email){
 		Benutzer benutzer = new Benutzer();
-		String sql = "SELECT * FROM "+tblBenutzer+" WHERE email = '"+email+"' AND istGeloescht = 0;";
+		String sql = String.format("SELECT * " +
+				"FROM %s " +
+				"WHERE email = '%s' " +
+				"AND istGeloescht = 0;", tblBenutzer, email);
 		try{
-			Statement stmt = this.connection.createStatement();
+			Statement stmt = connection.createStatement();
 			ResultSet result = stmt.executeQuery(sql);
 			while(result.next()){
 				benutzer.setBenutzerID(result.getInt("benutzerId"));
