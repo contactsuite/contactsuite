@@ -93,7 +93,7 @@ public class DatabaseConnection {
 		return geaenderteDatensaetze;
 	}
 	
-	private List<Privatkontakt> getPrivatkontakte(String searchTerm) {
+	public List<Privatkontakt> getPrivatkontakte(String searchTerm) {
 		List<Privatkontakt> lstKontakte = new ArrayList<Privatkontakt>();
 		
 		String sql = String.format("SELECT * " +
@@ -131,7 +131,7 @@ public class DatabaseConnection {
 		return lstKontakte;
 	}
 	
-	private List<Firmenkontakt> getFirmenkontakte(String searchTerm){
+	public List<Firmenkontakt> getFirmenkontakte(String searchTerm){
 		List<Firmenkontakt> lstKontakte = new ArrayList<Firmenkontakt>();
 		String sql = String.format("SELECT * " +
 				"FROM %s " +
