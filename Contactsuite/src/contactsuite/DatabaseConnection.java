@@ -58,7 +58,7 @@ public class DatabaseConnection {
 			Statement stmt = this.connection.createStatement();
 			//Wenn der Benutzer schon in der Datenbank existiert.
 			if(benutzer.getBenutzerID() != 0){
-				sql = "UPDATE "+tblBenutzer+";" +
+				sql = "UPDATE "+tblBenutzer +" "+
 						"SET email = '"+benutzer.getEmail()+"', " +
 						"passwort = '"+benutzer.getPasswort()+"', " +
 						"istAdmin = "+((benutzer.isIstAdmin())?"1":"0")+", " +
@@ -199,7 +199,7 @@ public class DatabaseConnection {
 			ResultSet result = stmt.executeQuery(sql);
 			//Kontakt ist schon vorhanden
 			if(result.next()){				
-				sql = "UPDATE "+tblKontakt+
+				sql = "UPDATE "+tblKontakt+" "+
 						"SET plz = '"+firmenkontakt.getPlz()+"', " +
 						"strasse = '"+firmenkontakt.getStrasse()+"', " +
 						"hausnummer = '"+firmenkontakt.getHausnummer()+"', " +
@@ -431,6 +431,38 @@ public class DatabaseConnection {
 		}
 		
 		return lstPrivatkontakte;
+	}
+	
+	public Privatkontakt getPrivatkontaktById(int privatkontaktId){
+		Privatkontakt privatkontakt = new Privatkontakt();
+		String sql = String.format("SELECT * " +
+				"FROM %s " +
+				"WHERE kontaktId = %d;", tblKontakt, privatkontaktId);
+		try{
+			Statement stmt = this.connection.createStatement();
+			ResultSet result = stmt.executeQuery(sql);
+			System.out.println(result.toString());
+			
+			while(result.next()){
+				privatkontakt.setKontaktID(result.getInt("kontaktID"));
+				privatkontakt.setPlz(result.getString("plz"));
+				privatkontakt.setStrasse(result.getString("strasse"));
+				privatkontakt.setHausnummer(result.getString("hausnummer"));
+				privatkontakt.setOrt(result.getString("ort"));
+				privatkontakt.setEmail(result.getString("email"));
+				privatkontakt.setTelefonnummer(result.getString("telefonnummer"));
+				privatkontakt.setBildpfad(result.getString("bildpfad"));
+				privatkontakt.setVorname(result.getString("vorname"));
+				privatkontakt.setNachname(result.getString("nachname"));
+				privatkontakt.setIstOeffentlich(result.getBoolean("istOeffentlich"));
+				privatkontakt.setErstelltVon(result.getInt("erstelltVon"));
+				privatkontakt.setErstelltAm(result.getDate("erstelltAm"));
+			}
+		} catch (SQLException e) {
+			ErrorHandler.writeError(e);
+			e.printStackTrace();
+		}
+		return privatkontakt;
 	}
 	
 	public Privatkontakt getPrivatkontaktByKontaktName(String name){
