@@ -96,10 +96,10 @@ String telefon = tmpKontakt.getTelefonnummer();
 							out.println("<input name=\"nachname\" type=\"text\" size=\"30\" maxlength=\"30\" id=nachname value=" + nachname + " >");
 							out.println("<input name=\"strasse\" type=\"text\" size=\"30\" maxlength=\"30\" id=strasse value=" + strasse + ">");
 							out.println("<input name=\"hausnummer\" type=\"text\" size=\"30\" maxlength=\"30\" id=hn value=" + hausnummer + ">");
-							/*<input name="plz" type="text" size="30" maxlength="30" id="plz">
-							<input name="ort" type="text" size="30" maxlength="30" id="ort">
-							<input name="email" type="E-Mail" size="30" maxlength="30" id="kontaktEmail">
-							<input name="telefon" type="text" size="30" maxlength="30" id="telefon">*/
+							out.println("<input name=\"plz\" type=\"text\" size=\"30\" maxlength=\"30\" id=plz value=" + plz + ">");
+							out.println("<input name=\"ort\" type=\"text\" size=\"30\" maxlength=\"30\" id=ort value=" + ort + ">");
+							out.println("<input name=\"email\" type=\"E-Mail\" size=\"30\" maxlength=\"30\" id=kontaktEmail value=" + email +">");
+							out.println("<input name=\"telefon\" type=\"text\" size=\"30\" maxlength=\"30\" id=telefon value=" + telefon +">");
 						%>
 						</div>
 						<div id="oeffentlich">
