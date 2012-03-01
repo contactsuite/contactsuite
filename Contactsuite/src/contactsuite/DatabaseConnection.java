@@ -345,6 +345,38 @@ public class DatabaseConnection {
 		return lstPrivatkontakte;
 	}
 	
+	public Privatkontakt getPrivatkontaktByKontaktName(String name){
+		
+		Privatkontakt tmpKontakt = new Privatkontakt();
+		String sql = "SELECT * FROM "+tblBenutzer+" WHERE nachname = "+name+" AND istGeloescht = 0;";
+		try{
+			Statement stmt = this.connection.createStatement();
+			ResultSet result = stmt.executeQuery(sql);
+			System.out.println(result.toString());
+			
+			if(result.next()){
+				tmpKontakt.setKontaktID(result.getInt("kontaktID"));
+				tmpKontakt.setPlz(result.getString("plz"));
+				tmpKontakt.setStrasse(result.getString("strasse"));
+				tmpKontakt.setHausnummer(result.getString("hausnummer"));
+				tmpKontakt.setOrt(result.getString("ort"));
+				tmpKontakt.setEmail(result.getString("email"));
+				tmpKontakt.setTelefonnummer(result.getString("telefonnummer"));
+				tmpKontakt.setBildpfad(result.getString("bildpfad"));
+				tmpKontakt.setVorname(result.getString("vorname"));
+				tmpKontakt.setNachname(result.getString("nachname"));
+				tmpKontakt.setIstOeffentlich(result.getBoolean("istOeffentlich"));
+				tmpKontakt.setErstelltVon(result.getInt("erstelltVon"));
+				tmpKontakt.setErstelltAm(result.getDate("erstelltAm"));
+			}
+		}catch (SQLException e) {
+			ErrorHandler.writeError(e);
+			e.printStackTrace();
+		}
+		
+		return tmpKontakt;
+	}
+	
 	/**
 	 * Liest einen Benutzer anhand von einer übergebenen benutzerId aus.
 	 * @author Dominik Ferber

@@ -144,6 +144,7 @@ if(sitzung == null){
 				out.println("<th>Bearbeiten</th>");
 				out.println("<th>Löschen</th>");
 				
+				
 				for(Privatkontakt  tmpKontakt : lstKontakt){
 
 					if(farbig){
@@ -154,9 +155,9 @@ if(sitzung == null){
 						out.println("</td><td>");
 						out.println(tmpKontakt.getOrt());
 						out.println("</td><td>");
-						out.println("<a href=#>Details</a>");
+						out.println("<a href=Controller?fcode=Details&name=" + tmpKontakt.getNachname() + ">Details</a>");
 						out.println("</td><td>");
-						out.println("<a href=?fcode=KontaktAnlegen?kontaktID=" + tmpKontakt.getKontaktID() + ">Bearbeiten</a>");
+						out.println("<a href=Controller?fcode=KontaktAnlegen?name=" + tmpKontakt.getNachname() + ">Bearbeiten</a>");
 						out.println("</td><td>");
 						out.println("<a href=#>Löschen</a>");
 						out.println("</td></tr>");
@@ -169,9 +170,9 @@ if(sitzung == null){
 						out.println("</td><td>");
 						out.println(tmpKontakt.getOrt());
 						out.println("</td><td>");
-						out.println("<a href=#>Details</a>");
+						out.println("<a href=Controller?fcode=Details&name=" + tmpKontakt.getNachname() + ">Details</a>");
 						out.println("</td><td>");
-						out.println("<a href=?fcode=KontaktAnlegen?kontaktID=" + tmpKontakt.getKontaktID() + ">Bearbeiten</a>");
+						out.println("<a href=Controller?fcode=KontaktAnlegen&name=" + tmpKontakt.getNachname() + ">Bearbeiten</a>");
 						out.println("</td><td>");
 						out.println("<a href=#>Löschen</a>");
 						out.println("</td></tr>");
