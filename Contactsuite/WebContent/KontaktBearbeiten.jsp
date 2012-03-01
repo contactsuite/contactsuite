@@ -79,6 +79,42 @@ String telefon = tmpKontakt.getTelefonnummer();
 		<div id="content">
 			<div id="mainContent">
 				<div id="kontaktForms">
+				<div id="errorForm">
+
+						<div id="errorFormSelect">
+
+							<ul id="errorOl">
+
+								<li><span><b>Folgende Felder enthalten Fehler:</b></span></li>
+
+								<li id="errorVorname" class="error"><span>Bitte tragen Sie den <b>Vornamen</b> ein.</span></li>
+
+								<li id="errorNachname" class="error"><span>Bitte tragen Sie den <b>Nachname</b> ein.</span></li>
+
+								<li id="errorStrasse" class="error"><span>Bitte tragen Sie die <b>Strasse</b> ein.</span></li>
+
+								<li id="errorHn" class="error"><span>Bitte tragen Sie die <b>Hausnummer</b> ein.</span></li>
+
+								<li id="errorPlz" class="error"><span>Bitte tragen Sie die <b>Postleizahl</b> ein.</span></li>
+
+								<li id="errorPlzG" class="error"><span>Bitte tragen Sie die Gï¿½LTIGE <b>Postleizahl</b> ein (z.b. 59329).</span></li>
+
+								<li id="errorOrt" class="error"><span>Bitte tragen Sie den <b>Ort</b> ein.</span></li>
+
+								<li id="errorTn" class="error"><span>Bitte tragen Sie die <b>Telefonnummer</b> ein.</span></li>
+
+								<li id="errorTnG" class="error"><span>Bitte tragen Sie die Gï¿½LTIGE <b>Telefonnummer</b> ein.</span></li>
+
+								<li id="errorEmail" class="error"><span>Bitte tragen Sie die <b>E-Mail Adresse</b> ein.</span></li>
+
+								<li id="errorEmailG" class="error"><span>Bitte tragen Sie die Gï¿½LTIGE <b>E-Mail</b> Adresse ein.</span></li>
+
+							</ul>
+
+						</div>
+
+					</div>
+				
 					<form id="kontaktForm" name="Eingabe" action="http://localhost:8080/Contactsuite/Controller?fcode=KontaktSpeichern" method="post">
 						<div id="neuKontaktBeschriftung">
 							<p>Vorname*:</p>
@@ -99,11 +135,12 @@ String telefon = tmpKontakt.getTelefonnummer();
 							out.println("<input name=\"plz\" type=\"text\" size=\"30\" maxlength=\"30\" id=plz value=" + plz + ">");
 							out.println("<input name=\"ort\" type=\"text\" size=\"30\" maxlength=\"30\" id=ort value=" + ort + ">");
 							out.println("<input name=\"email\" type=\"E-Mail\" size=\"30\" maxlength=\"30\" id=kontaktEmail value=" + email +">");
-							out.println("<input name=\"telefon\" type=\"text\" size=\"30\" maxlength=\"30\" id=telefon value=" + telefon +">");
+							out.println("<input name=\"telefon\" type=\"text\" size=\"5\" maxlength=\"30\" id=telefon value=" + telefon +"> /");
+							out.println("<input name=\"telefon2\" type=\"text\" size=\"17\" maxlength=\"30\" id=telefon2>");
 						%>
 						</div>
 						<div id="oeffentlich">
-							 <p>Möchten Sie das dieser Kontakt öffentlich Angezeigt wird? </p>
+							 <p>MÃ¶chten Sie das dieser Kontakt Ã¶ffentlich Angezeigt wird? </p>
 							  <p>
 								<input type="radio" name="istOeffentlich" value="istOeffentlich"> Ja<br>
 								<input type="radio" name="istOeffentlich" value="istOeffentlich" checked> Nein<br>

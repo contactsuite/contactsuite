@@ -36,6 +36,7 @@ $('#regClose a').click(function() {
 		var ortVal = $("#ort").val();
 		var emailaddressVal = $("#kontaktEmail").val();
 		var telefonVal = $("#telefon").val();
+		var telefon1Val = $("#telefon1").val();
 		
 		// E-Mail Validierung
 		var emailValid = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
@@ -59,18 +60,22 @@ $('#regClose a').click(function() {
 		
 		// Telefon
 		var numberValid= /^[0-9]+$/gi;
-		if(telefonVal == '') {
+		var number2Valid= /^[0-9]+$/gi;
+		if(telefonVal == '' && telefon1Val=='') {
 			$("#telefon").addClass("errorRed");
+			$("#telefon2").addClass("errorRed");
 			$("#errorTn").show();
 			hasError = true;
-        }else if (!numberValid.test(telefonVal)){
+        }else if (!numberValid.test(telefonVal)&&!number2Valid.test(telefon1Val)){
 				$("#telefon").addClass("errorRed");
+				$("#telefon2").addClass("errorRed");
 				$("#errorTnG").show();
 				hasError = true;
 		}  else{
 				$("#errorTnG").hide();
 				$("#errorTn").hide();
 				$("#telefon").removeClass("errorRed");
+				$("#telefon2").removeClass("errorRed");
 		}
 		
 		// Postleitzahl
