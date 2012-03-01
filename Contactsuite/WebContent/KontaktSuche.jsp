@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!doctype html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
 
 <!-- Auf Gültigkeit der Sitzung prüfen. Im Fall des Nichterfolgs weiterleiten auf eine Info-Seite.
 Andernfalls mit dem aktuellen Fenster fortfahren. -->
@@ -37,7 +38,7 @@ if(sitzung == null){
 
 
 
-  <title></title>
+  <title>KontaktSuche</title>
 
   <meta name="description" content="">
 
@@ -131,57 +132,6 @@ if(sitzung == null){
 				<%@ page import="contactsuite.*" %>
 				<%@ page import="java.util.*" %>
 				<%
-				DatabaseConnection dbConnect = DatabaseConnection.getInstance();
-				List<Privatkontakt> lstKontakt = dbConnect.getPrivatkontakte();
-				
-				boolean farbig = false;
-				
-				out.println("<table id=\"mainTable\">");
-				out.println("<th>Vorname</th>");
-				out.println("<th>Nachname</th>");
-				out.println("<th>Ort</th>");
-				out.println("<th>Details</th>");
-				out.println("<th>Bearbeiten</th>");
-				out.println("<th>Löschen</th>");
-				
-				
-				for(Privatkontakt  tmpKontakt : lstKontakt){
-
-					if(farbig){
-						out.println("<tr id=\"tabFarbig\"><td>");
-						out.println(tmpKontakt.getVorname());
-						out.println("</td><td>");
-						out.println(tmpKontakt.getNachname());
-						out.println("</td><td>");
-						out.println(tmpKontakt.getOrt());
-						out.println("</td><td>");
-						out.println("<a href=Controller?fcode=Details&kontaktID=" + tmpKontakt.getKontaktID() + ">Details</a>");
-						out.println("</td><td>");
-						out.println("<a href=Controller?fcode=KontaktBearbeiten&kontaktID=" + tmpKontakt.getKontaktID() + ">Bearbeiten</a>");
-						out.println("</td><td>");
-						out.println("<a href=#>Löschen</a>");
-						out.println("</td></tr>");
-					}
-					else{
-						out.println("<tr id=\"tabStandard\"><td>");
-						out.println(tmpKontakt.getVorname());
-						out.println("</td><td>");
-						out.println(tmpKontakt.getNachname());
-						out.println("</td><td>");
-						out.println(tmpKontakt.getOrt());
-						out.println("</td><td>");
-						out.println("<a href=Controller?fcode=Details&kontaktID=" + tmpKontakt.getKontaktID() + ">Details</a>");
-						out.println("</td><td>");
-						out.println("<a href=Controller?fcode=KontaktBearbeiten&kontaktID=" + tmpKontakt.getKontaktID() + ">Bearbeiten</a>");
-						out.println("</td><td>");
-						out.println("<a href=#>Löschen</a>");
-						out.println("</td></tr>");
-					}
-					
-					farbig = !farbig;
-				}
-				
-				out.println("</table>");
 				
 				%>
 			</div>	
@@ -190,12 +140,12 @@ if(sitzung == null){
 
 				<div id="searchBox">
 
-					<form action="Controller?fcode=KontaktSuche" method="post">
+					<form action="Controller?fcode=KontaktSuche">
 
 						<input name="searchField" type="text" size="20" maxlength="30"><br>
 
 						<input type="submit" id="searchButton" name="search" value="Suche">
-						<input type="hidden" id="loginButton" name="fcode" value="KontaktSuche">
+
 					</form>
 
 				</div>
@@ -278,3 +228,4 @@ if(sitzung == null){
 </body>
 
 </html>
+				
