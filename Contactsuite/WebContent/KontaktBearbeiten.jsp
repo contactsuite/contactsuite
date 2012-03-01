@@ -1,5 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="java.util.*" %>
+<%@ page import="contactsuite.*" %>
+<%
+int id = Integer.valueOf(request.getParameter("kontaktID")) ;
+
+DatabaseConnection dbConnect = DatabaseConnection.getInstance();
+Privatkontakt tmpKontakt = dbConnect.getPrivatkontaktById(id);
+
+String vorname = tmpKontakt.getVorname();
+String nachname = tmpKontakt.getNachname();
+String strasse = tmpKontakt.getStrasse();
+String hausnummer = tmpKontakt.getHausnummer();
+String plz = tmpKontakt.getPlz();
+String ort = tmpKontakt.getOrt();
+
+
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->

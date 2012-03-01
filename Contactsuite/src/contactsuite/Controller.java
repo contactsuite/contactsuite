@@ -30,6 +30,7 @@ public class Controller extends HttpServlet {
     	new String [] { "Details", "/Detailansicht.jsp"},
     	new String [] { "KontaktAnlegen", "/KontaktAnlegen.html"},
     	new String [] { "KontaktSpeichern", "/KontaktAnlegen.jsp"},
+    	new String [] { "KontaktBearbeiten", "/KontaktBearbeiten.jsp" },
     	new String [] { "Benutzerverwaltung", "/Benutzerverwaltung.jsp"},
     	new String [] { "BenutzerAnlegen", "/BenutzerAnlegen.jsp"},
     	new String [] { "Registrierung", "/Registrierung.jsp"},
