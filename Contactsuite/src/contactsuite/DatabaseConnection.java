@@ -94,7 +94,95 @@ public class DatabaseConnection {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	/**
+	 * Methode prüft ob ein übergebener Privatkontakt bereits in der Datenbank vorhanden ist.
+	 * @author Dominik Ferber
+	 * @param privatkontakt
+	 * @return
+	 */
+	public boolean istKontaktBereitsVorhanden(Privatkontakt privatkontakt){
+		String sql = String.format("SELECT kontaktId " +
+				"FROM %s " +
+				"WHERE " +
+				"plz = '%s' AND " +
+				"strasse = '%s' AND " +
+				"hausnummer = '%s' AND " +
+				"ort = '%s' AND " +
+				"email = '%s' AND " +
+				"telefonnummer = '%s' AND " +
+				"vorname = '%s' AND " +
+				"nachname = '%s' AND " +
+				"istFirmenkontakt = 0 AND " +
+				"erstelltVon = %d;", 
+				tblKontakt, 
+				privatkontakt.getPlz(), 
+				privatkontakt.getStrasse(), 
+				privatkontakt.getHausnummer(),
+				privatkontakt.getOrt(),
+				privatkontakt.getEmail(),
+				privatkontakt.getTelefonnummer(),
+				privatkontakt.getVorname(),
+				privatkontakt.getNachname(),
+				privatkontakt.getErstelltVon());
+		try {
+			Statement stmt = this.connection.createStatement();
+			ResultSet result = stmt.executeQuery(sql);
+			//Kontakt ist schon vorhanden
+			if(result.next()){
+				return true;
+			}
+		} catch (SQLException e) {
+			ErrorHandler.writeError(e);
+			e.printStackTrace();
+		}
+		return false;		
+	}
 
+	/**
+	 * Methode prüft ob ein übergebener Firmenkontakt bereits in der Datenbank vorhanden ist.
+	 * @author Dominik Ferber
+	 * @param firmenkontakt
+	 * @return
+	 */
+	public boolean istKontaktBereitsVorhanden(Firmenkontakt firmenkontakt){
+		String sql = String.format("SELECT kontaktId " +
+				"FROM %s " +
+				"WHERE " +
+				"plz = '%s' AND " +
+				"strasse = '%s' AND " +
+				"hausnummer = '%s' AND " +
+				"ort = '%s' AND " +
+				"email = '%s' AND " +
+				"telefonnummer = '%s' AND " +
+				"firmenname = '%s' AND " +
+				"ansprechpartner = '%s' AND " +
+				"istFirmenkontakt = 0 AND " +
+				"erstelltVon = %d;", 
+				tblKontakt, 
+				firmenkontakt.getPlz(), 
+				firmenkontakt.getStrasse(), 
+				firmenkontakt.getHausnummer(),
+				firmenkontakt.getOrt(),
+				firmenkontakt.getEmail(),
+				firmenkontakt.getTelefonnummer(),
+				firmenkontakt.getFirmenname(),
+				firmenkontakt.getAnsprechpartner(),
+				firmenkontakt.getErstelltVon());
+		try {
+			Statement stmt = this.connection.createStatement();
+			ResultSet result = stmt.executeQuery(sql);
+			//Kontakt ist schon vorhanden
+			if(result.next()){
+				return true;
+			}
+		} catch (SQLException e) {
+			ErrorHandler.writeError(e);
+			e.printStackTrace();
+		}
+		return false;		
+	}
+	
 	/**
 	 * Methode zum speichern von Firmenkontakten. Falls der übergebene Firmenkontakt schon
 	 * vorhanden ist wird dieser geupdated. Sonst wird ein neuer Datensatz eingetragen.
@@ -445,4 +533,3 @@ public class DatabaseConnection {
 		return manipulierteDatensaetze;
 	}
 }
-//Kommetar
