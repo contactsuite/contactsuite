@@ -93,6 +93,13 @@ public class DatabaseConnection {
 		return geaenderteDatensaetze;
 	}
 	
+	/**
+	 * Gibt Kontakt zurück, die zu einem übergebene Suchterm passen.
+	 * @author Dominik Ferber
+	 * @param searchTerm
+	 * @param benutzerId
+	 * @return
+	 */
 	public List<Kontakt> getKontakte(String searchTerm, int benutzerId){
 		List<Kontakt> lstKontakte = new ArrayList<Kontakt>();
 		lstKontakte.addAll(getPrivatkontakte(searchTerm, benutzerId));
@@ -100,6 +107,13 @@ public class DatabaseConnection {
 		return lstKontakte;
 	}
 	
+	/**
+	 * Gibt alle Privatkontakte zurück, die zu einem übergebene Suchterm und BenutzerId passen.
+	 * @author Dominik Ferber
+	 * @param searchTerm
+	 * @param benutzerId
+	 * @return
+	 */
 	public List<Privatkontakt> getPrivatkontakte(String searchTerm, int benutzerId) {
 		List<Privatkontakt> lstKontakte = new ArrayList<Privatkontakt>();
 		
