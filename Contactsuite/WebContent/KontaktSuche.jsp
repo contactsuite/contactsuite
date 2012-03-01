@@ -132,6 +132,8 @@ if(sitzung == null){
 				<%@ page import="contactsuite.*" %>
 				<%@ page import="java.util.*" %>
 				<%
+				DatabaseConnection dbConnect = DatabaseConnection.getInstance();
+				dbConnect.getFirmenkontakte();
 				
 				%>
 			</div>	
