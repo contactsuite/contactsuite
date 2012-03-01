@@ -94,13 +94,76 @@ public class DatabaseConnection {
 	}
 	
 	private List<Privatkontakt> getPrivatkontakte(String searchTerm) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Privatkontakt> lstKontakte = new ArrayList<Privatkontakt>();
+		
+		String sql = String.format("SELECT * " +
+				"FROM %s " +
+				"WHERE " +
+				"vorname LIKE '%s%' OR " +
+				"nachname LIKE '%s%' AND " +
+				"istFirmenkontakt = 0 AND " +
+				"istGeloescht = 0 " +
+				"ORDER BY nachname;",tblKontakt, searchTerm, searchTerm);
+		try{
+			Statement stmt = connection.createStatement();
+			ResultSet result = stmt.executeQuery(sql);
+			while(result.next()){
+				Privatkontakt tmpKontakt = new Privatkontakt();
+				tmpKontakt.setKontaktID(result.getInt("kontaktID"));
+				tmpKontakt.setPlz(result.getString("plz"));
+				tmpKontakt.setStrasse(result.getString("strasse"));
+				tmpKontakt.setHausnummer(result.getString("hausnummer"));
+				tmpKontakt.setOrt(result.getString("ort"));
+				tmpKontakt.setEmail(result.getString("email"));
+				tmpKontakt.setTelefonnummer(result.getString("telefonnummer"));
+				tmpKontakt.setBildpfad(result.getString("bildpfad"));
+				tmpKontakt.setVorname(result.getString("vorname"));
+				tmpKontakt.setNachname(result.getString("nachname"));
+				tmpKontakt.setIstOeffentlich(result.getBoolean("istOeffentlich"));
+				tmpKontakt.setErstelltVon(result.getInt("erstelltVon"));
+				tmpKontakt.setErstelltAm(result.getDate("erstelltAm"));
+				lstKontakte.add(tmpKontakt);
+			}
+		} catch (SQLException e) {
+			ErrorHandler.writeError(e);
+			e.printStackTrace();
+		}
+		return lstKontakte;
 	}
 	
 	private List<Firmenkontakt> getFirmenkontakte(String searchTerm){
-		// TODO Auto-generated method stub
-		return null;
+		List<Firmenkontakt> lstKontakte = new ArrayList<Firmenkontakt>();
+		String sql = String.format("SELECT * " +
+				"FROM %s " +
+				"WHERE firmenname LIKE '%s%' AND " +
+				"istFirmenkontakt = 1 " +
+				"AND istGeloescht = 0 " +
+				"ORDER BY firmenname;",tblKontakt, searchTerm);
+		try{
+			Statement stmt = connection.createStatement();
+			ResultSet result = stmt.executeQuery(sql);
+			while(result.next()){
+				Firmenkontakt tmpKontakt = new Firmenkontakt();
+				tmpKontakt.setKontaktID(result.getInt("kontaktID"));
+				tmpKontakt.setPlz(result.getString("plz"));
+				tmpKontakt.setStrasse(result.getString("strasse"));
+				tmpKontakt.setHausnummer(result.getString("hausnummer"));
+				tmpKontakt.setOrt(result.getString("ort"));
+				tmpKontakt.setEmail(result.getString("email"));
+				tmpKontakt.setTelefonnummer(result.getString("telefonnummer"));
+				tmpKontakt.setBildpfad(result.getString("bildpfad"));
+				tmpKontakt.setAnsprechpartner(result.getString("ansprechpartner"));
+				tmpKontakt.setFirmenname(result.getString("firmenname"));
+				tmpKontakt.setIstOeffentlich(result.getBoolean("istOeffentlich"));
+				tmpKontakt.setErstelltVon(result.getInt("erstelltVon"));
+				tmpKontakt.setErstelltAm(result.getDate("erstelltAm"));
+				lstKontakte.add(tmpKontakt);
+			}
+		} catch (SQLException e) {
+			ErrorHandler.writeError(e);
+			e.printStackTrace();
+		}
+		return lstKontakte;
 	}
 	
 	/**
