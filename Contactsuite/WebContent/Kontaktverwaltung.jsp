@@ -148,6 +148,7 @@ if(sitzung == null){
 				for(Privatkontakt  tmpKontakt : lstKontakt){
 
 					if(farbig){
+						request.setAttribute("benuzterID", tmpKontakt.getKontaktID());
 						out.println("<tr id=\"tabFarbig\"><td>");
 						out.println(tmpKontakt.getVorname());
 						out.println("</td><td>");
