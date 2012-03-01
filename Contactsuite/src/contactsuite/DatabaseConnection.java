@@ -193,28 +193,38 @@ public class DatabaseConnection {
 	public int SpeicherDaten(Firmenkontakt firmenkontakt)
 	{
 		int geaenderteDatensaetze = 0;
-		String sql = "SELECT kontaktID FROM "+tblKontakt+" WHERE kontaktID = "+firmenkontakt.getKontaktID();
+		String sql;
 		try {
-			Statement stmt = this.connection.createStatement();
-			ResultSet result = stmt.executeQuery(sql);
 			//Kontakt ist schon vorhanden
-			if(result.next()){				
-				sql = "UPDATE "+tblKontakt+" "+
-						"SET plz = '"+firmenkontakt.getPlz()+"', " +
-						"strasse = '"+firmenkontakt.getStrasse()+"', " +
-						"hausnummer = '"+firmenkontakt.getHausnummer()+"', " +
-						"ort = '"+firmenkontakt.getOrt()+"', " +
-						"email = '"+firmenkontakt.getEmail()+"', " +
-						"telefonnummer = '"+firmenkontakt.getTelefonnummer()+"', " +
-						"bildpfad = '"+firmenkontakt.getBildpfad()+"', " +
-						"firmenname = '"+firmenkontakt.getFirmenname()+"', " +
-						"ansprechpartner = '"+firmenkontakt.getAnsprechpartner()+"', " +
+			if(firmenkontakt.getKontaktID() != 0){				
+				sql = String.format("UPDATE %s "+
+						"SET plz = '%s', " +
+						"strasse = '%s', " +
+						"hausnummer = '%s', " +
+						"ort = '%s', " +
+						"email = '%s', " +
+						"telefonnummer = '%s', " +
+						"bildpfad = '%s', " +
+						"firmenname = '%s', " +
+						"ansprechpartner = '%s', " +
 						"vorname = '', " +
 						"nachname = '', " +
 						"istFirmenkontakt = 1, " +
-						"istOeffentlich = "+((firmenkontakt.isIstOeffentlich())?"1":"0")+", " +
-						"geaendertVon = "+firmenkontakt.getErstelltVon()+", " +
-						"geaendertAm = CURRENT_TIMESTAMP";
+						"istOeffentlich = %d, " +
+						"geaendertVon = %d, " +
+						"geaendertAm = CURRENT_TIMESTAMP;",
+						tblKontakt,
+						firmenkontakt.getPlz(),
+						firmenkontakt.getStrasse(),
+						firmenkontakt.getHausnummer(),
+						firmenkontakt.getOrt(),
+						firmenkontakt.getEmail(),
+						firmenkontakt.getTelefonnummer(),
+						firmenkontakt.getBildpfad(),
+						firmenkontakt.getFirmenname(),
+						firmenkontakt.getAnsprechpartner(),
+						((firmenkontakt.isIstOeffentlich())?1:0),
+						firmenkontakt.getGeaendertVon());
 			}
 			//Neuer Benutzer
 			else {
@@ -234,6 +244,7 @@ public class DatabaseConnection {
 						((firmenkontakt.isIstOeffentlich())?"1":"0")+"," +
 						firmenkontakt.getErstelltVon()+");";
 			}
+			Statement stmt = connection.createStatement();
 			geaenderteDatensaetze = stmt.executeUpdate(sql);
 		} catch (SQLException e) {
 			ErrorHandler.writeError(e);
@@ -433,6 +444,12 @@ public class DatabaseConnection {
 		return lstPrivatkontakte;
 	}
 	
+	/**
+	 * Liefert einen Privatkontakt anhand der KontaktId.
+	 * @author Dominik Ferber
+	 * @param privatkontaktId
+	 * @return
+	 */
 	public Privatkontakt getPrivatkontaktById(int privatkontaktId){
 		Privatkontakt privatkontakt = new Privatkontakt();
 		String sql = String.format("SELECT * " +
