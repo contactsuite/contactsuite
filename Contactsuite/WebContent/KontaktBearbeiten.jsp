@@ -14,7 +14,8 @@ String strasse = tmpKontakt.getStrasse();
 String hausnummer = tmpKontakt.getHausnummer();
 String plz = tmpKontakt.getPlz();
 String ort = tmpKontakt.getOrt();
-
+String email = tmpKontakt.getEmail();
+String telefon = tmpKontakt.getTelefonnummer();
 
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -90,14 +91,16 @@ String ort = tmpKontakt.getOrt();
 							<p>Telefon*:</p>
 						</div>
 						<div id="neuKontaktInput">
-							<input name="vorname" type="text" size="30" maxlength="30" id="vorname">
-							<input name="nachname" type="text" size="30" maxlength="30" id="nachname">
-							<input name="strasse" type="text" size="30" maxlength="30" id="strasse">
-							<input name="hausnummer" type="text" size="30" maxlength="30" id="hn">
-							<input name="plz" type="text" size="30" maxlength="30" id="plz">
-							<input name="ort" type="text" size="30" maxlength="30" id="ort">
-							<input name="email" type="E-Mail" size="30" maxlength="30" id="kontaktEmail">
-							<input name="telefon" type="text" size="30" maxlength="30" id="telefon">
+						<% 
+							out.println("<input name=\"vorname\" type=\"text\" size=\"30\" maxlength=\"30\" id=vorname value=" + vorname + ">");
+							out.println("<input name=\"nachname\" type=\"text\" size=\"30\" maxlength=\"30\" id=nachname value=" + nachname + " >");
+							out.println("<input name=\"strasse\" type=\"text\" size=\"30\" maxlength=\"30\" id=strasse value=" + strasse + ">");
+							out.println("<input name=\"hausnummer\" type=\"text\" size=\"30\" maxlength=\"30\" id=hn value=" + hausnummer + ">");
+							out.println("<input name=\"plz\" type=\"text\" size=\"30\" maxlength=\"30\" id=plz value=" + plz + ">");
+							out.println("<input name=\"ort\" type=\"text\" size=\"30\" maxlength=\"30\" id=ort value=" + ort + ">");
+							out.println("<input name=\"email\" type=\"E-Mail\" size=\"30\" maxlength=\"30\" id=kontaktEmail value=" + email +">");
+							out.println("<input name=\"telefon\" type=\"text\" size=\"30\" maxlength=\"30\" id=telefon value=" + telefon +">");
+						%>
 						</div>
 						<div id="oeffentlich">
 							 <p>Möchten Sie das dieser Kontakt öffentlich Angezeigt wird? </p>
