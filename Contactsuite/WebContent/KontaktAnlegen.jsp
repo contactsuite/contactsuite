@@ -20,6 +20,7 @@ String plz = request.getParameter("plz");
 String ort = request.getParameter("ort");
 String email = request.getParameter("email");
 String telefonnummer = request.getParameter("telefonnummer");
+int kontaktID = Integer.valueOf(request.getParameter("kontaktID"));
 
 Privatkontakt kon = new Privatkontakt();
 
@@ -31,6 +32,7 @@ kon.setPlz(plz);
 kon.setOrt(ort);
 kon.setEmail(email);
 kon.setTelefonnummer(telefonnummer);
+kon.setKontaktID(kontaktID);
 
 dbConnect.SpeicherDaten(kon);
 

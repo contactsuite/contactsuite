@@ -16,6 +16,7 @@ String plz = tmpKontakt.getPlz();
 String ort = tmpKontakt.getOrt();
 String email = tmpKontakt.getEmail();
 String telefon = tmpKontakt.getTelefonnummer();
+int kID = tmpKontakt.getKontaktID();
 
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
