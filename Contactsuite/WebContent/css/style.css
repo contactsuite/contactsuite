@@ -283,16 +283,18 @@ td { vertical-align: top; }
 }
 
 #loginInput input, #neuKontaktInput input {
-	border: 		1px solid #000000;
 	border-radius:	5px;
 	margin-bottom:	10px;
-	
-	
 	background: none repeat scroll 0 0 #fff;
-    border: 1px solid blue;
-    box-shadow: 0 1px 4px blue;
+    border: 1px solid black;
+    box-shadow: 0 1px 3px black;
     list-style: none outside none;
     padding-left: 5px;
+}
+
+#loginInput input:focus, #neuKontaktInput input:focus{
+	border: 1px solid blue;
+    box-shadow: 0 1px 3px blue;
 }
 
 #loginBeschriftung{
@@ -432,7 +434,7 @@ ul#navi li a{
 	margin-bottom:	10px;
 	background: none repeat scroll 0 0 #E0E0E0;
     border: 1px solid #990000;
-    box-shadow: 0 1px 4px #990000;
+    box-shadow: 0 1px 3px #990000;
     list-style: none outside none;
     padding-left:5px;
 }
