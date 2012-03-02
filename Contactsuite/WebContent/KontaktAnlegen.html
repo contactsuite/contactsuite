@@ -95,7 +95,7 @@
 
 					</div>
 				
-					<form id="kontaktForm" name="Eingabe" action="http://localhost:8080/Contactsuite/Controller?fcode=KontaktSpeichern" method="post">
+					<form id="kontaktForm" name="Eingabe" action="Controller?fcode=KontaktSpeichern" method="post">
 						<div id="neuKontaktBeschriftung">
 							<p>Vorname*:</p>
 							<p>Nachname*:</p>
@@ -110,7 +110,7 @@
 							<input name="vorname" type="text" size="30" maxlength="30" id="vorname">
 							<input name="nachname" type="text" size="30" maxlength="30" id="nachname">
 							<input name="strasse" type="text" size="30" maxlength="30" id="strasse">
-							<input name="hausnummer" type="text" size="30" maxlength="30" id="hn">
+							<input name="hausnummer" type="text" size="30" maxlength="30" id="hausnummer">
 							<input name="plz" type="text" size="30" maxlength="30" id="plz">
 							<input name="ort" type="text" size="30" maxlength="30" id="ort">
 							<input name="email" type="E-Mail" size="30" maxlength="30" id="kontaktEmail">
@@ -122,6 +122,7 @@
 							  <p>
 								<input type="radio" name="istOeffentlich" value="istOeffentlich"> Ja<br>
 								<input type="radio" name="istOeffentlich" value="istOeffentlich" checked> Nein<br>
+								<input type="hidden" name="kontaktID" value="0">
 							  </p>
 						</div>
 						<input type="Submit" id="anlegenButton" name="anlegenButton" value="Anlegen" >

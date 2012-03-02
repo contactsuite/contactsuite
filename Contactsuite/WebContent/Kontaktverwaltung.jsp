@@ -143,6 +143,7 @@ if(sitzung == null){
 				out.println("<th>Details</th>");
 				out.println("<th>Bearbeiten</th>");
 				out.println("<th>Löschen</th>");
+				out.println("<th>ID</th>");
 				
 				
 				for(Privatkontakt  tmpKontakt : lstKontakt){
@@ -160,6 +161,8 @@ if(sitzung == null){
 						out.println("<a href=Controller?fcode=KontaktBearbeiten&kontaktID=" + tmpKontakt.getKontaktID() + ">Bearbeiten</a>");
 						out.println("</td><td>");
 						out.println("<a href=#>Löschen</a>");
+						out.println("</td><td>");
+						out.println(tmpKontakt.getKontaktID());
 						out.println("</td></tr>");
 					}
 					else{
@@ -175,6 +178,8 @@ if(sitzung == null){
 						out.println("<a href=Controller?fcode=KontaktBearbeiten&kontaktID=" + tmpKontakt.getKontaktID() + ">Bearbeiten</a>");
 						out.println("</td><td>");
 						out.println("<a href=#>Löschen</a>");
+						out.println("</td><td>");
+						out.println(tmpKontakt.getKontaktID());
 						out.println("</td></tr>");
 					}
 					
