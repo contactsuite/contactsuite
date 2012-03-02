@@ -38,10 +38,11 @@ public class KontaktAnlegen extends HttpServlet {
 		String hausnummer = request.getParameter("hausnummer");
 		String plz = request.getParameter("plz");
 		String ort = request.getParameter("ort");
-		String mail = request.getParameter("kontaktEmail");
-		String vorwahl = request.getParameter("telefon");
-		String telefonnummer = request.getParameter("telefon2");
-		int kontaktID = Integer.valueOf(request.getParameter("kontaktID"));
+		String email = request.getParameter("email");
+		String telefonnummer = request.getParameter("telefonnummer");
+		int kontaktID = 0;
+		if(request.getParameterMap().containsKey("kontaktID"))
+			kontaktID = Integer.valueOf(request.getParameter("kontaktID"));
 
 		Privatkontakt kon = new Privatkontakt();
 
@@ -51,7 +52,7 @@ public class KontaktAnlegen extends HttpServlet {
 		kon.setHausnummer(hausnummer);
 		kon.setPlz(plz);
 		kon.setOrt(ort);
-		kon.setEmail(mail);
+		kon.setEmail(email);
 		kon.setTelefonnummer(telefonnummer);
 		kon.setKontaktID(kontaktID);
 
