@@ -20,7 +20,9 @@ String plz = request.getParameter("plz");
 String ort = request.getParameter("ort");
 String email = request.getParameter("email");
 String telefonnummer = request.getParameter("telefonnummer");
-int kontaktID = Integer.valueOf(request.getParameter("kontaktID"));
+int kontaktID = 0;
+if(request.getParameterMap().containsKey("kontaktID"))
+	kontaktID = Integer.valueOf(request.getParameter("kontaktID"));
 
 Privatkontakt kon = new Privatkontakt();
 

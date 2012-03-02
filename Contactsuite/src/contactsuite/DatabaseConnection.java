@@ -63,12 +63,14 @@ public class DatabaseConnection {
 						"istAdmin = %d, " +
 						"istFreigeschaltet = %d, " +
 						"geaendertVon = -1, " +
-						"geaendertAm = CURRENT_TIMESTAMP;",
+						"geaendertAm = CURRENT_TIMESTAMP " +
+						"WHERE benutzerId = %d;",
 						tblBenutzer,
 						benutzer.getEmail(),
 						benutzer.getPasswort(),
 						((benutzer.isIstAdmin())?1:0),
-						((benutzer.isIstFreigeschaltet())?1:0));
+						((benutzer.isIstFreigeschaltet())?1:0),
+						benutzer.getBenutzerID());
 			}
 			//Wenn der Benutzer noch nicht existiert.
 			else {
@@ -306,7 +308,8 @@ public class DatabaseConnection {
 						"istFirmenkontakt = 1, " +
 						"istOeffentlich = %d, " +
 						"geaendertVon = %d, " +
-						"geaendertAm = CURRENT_TIMESTAMP;",
+						"geaendertAm = CURRENT_TIMESTAMP " +
+						"WHERE kontaktId = %d;",
 						tblKontakt,
 						firmenkontakt.getPlz(),
 						firmenkontakt.getStrasse(),
@@ -318,7 +321,8 @@ public class DatabaseConnection {
 						firmenkontakt.getFirmenname(),
 						firmenkontakt.getAnsprechpartner(),
 						((firmenkontakt.isIstOeffentlich())?1:0),
-						firmenkontakt.getGeaendertVon());
+						firmenkontakt.getGeaendertVon(),
+						firmenkontakt.getKontaktID());
 			}
 			//Neuer Benutzer
 			else {
@@ -388,7 +392,8 @@ public class DatabaseConnection {
 						"istFirmenkontakt = 0, " +
 						"istOeffentlich = %d, " +
 						"geaendertVon = %d, " +
-						"geaendertAm = CURRENT_TIMESTAMP",
+						"geaendertAm = CURRENT_TIMESTAMP " +
+						"WHERE kontaktId = %d;",
 						tblKontakt,
 						privatkontakt.getPlz(),
 						privatkontakt.getStrasse(),
@@ -400,7 +405,8 @@ public class DatabaseConnection {
 						privatkontakt.getVorname(),
 						privatkontakt.getNachname(),
 						((privatkontakt.isIstOeffentlich())?1:0),
-						privatkontakt.getGeaendertVon());
+						privatkontakt.getGeaendertVon(),
+						privatkontakt.getKontaktID());
 			}
 			//Neuer Benutzer
 			else {
