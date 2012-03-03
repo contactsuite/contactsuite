@@ -206,13 +206,301 @@ public class DatabaseConnection {
 	}
 	
 	/**
+	 * Liest alle Privatkontakte aus der Datenbank aus.
+	 * @author Dominik Ferber
+	 * @return
+	 */
+	public List<Privatkontakt> getPrivatkontakte(){
+		List<Privatkontakt> lstKontakte = new ArrayList<Privatkontakt>();
+		
+		String sql = String.format("SELECT * " +
+				"FROM %s " +
+				"WHERE " +
+				"istFirmenkontakt = 0 " +
+				"AND istGeloescht = 0 " +
+				"ORDER BY nachname;",tblKontakt);
+		try{
+			Statement stmt = connection.createStatement();
+			ResultSet result = stmt.executeQuery(sql);
+			while(result.next()){
+				Privatkontakt tmpKontakt = new Privatkontakt();
+				tmpKontakt.setKontaktID(result.getInt("kontaktID"));
+				tmpKontakt.setPlz(result.getString("plz"));
+				tmpKontakt.setStrasse(result.getString("strasse"));
+				tmpKontakt.setHausnummer(result.getString("hausnummer"));
+				tmpKontakt.setOrt(result.getString("ort"));
+				tmpKontakt.setEmail(result.getString("email"));
+				tmpKontakt.setTelefonnummer(result.getString("telefonnummer"));
+				tmpKontakt.setBildpfad(result.getString("bildpfad"));
+				tmpKontakt.setVorname(result.getString("vorname"));
+				tmpKontakt.setNachname(result.getString("nachname"));
+				tmpKontakt.setIstOeffentlich(result.getBoolean("istOeffentlich"));
+				tmpKontakt.setErstelltVon(result.getInt("erstelltVon"));
+				tmpKontakt.setErstelltAm(result.getDate("erstelltAm"));
+				lstKontakte.add(tmpKontakt);
+			}
+		} catch (SQLException e) {
+			ErrorHandler.writeError(e);
+			e.printStackTrace();
+		}
+		return lstKontakte;
+	}
+
+	/**
+	 * Liest alle Firmenkontakte aus der Datenbank aus.
+	 * @author Dominik Ferber
+	 * @return
+	 */
+	public List<Firmenkontakt> getFirmenkontakte(){
+		List<Firmenkontakt> lstKontakte = new ArrayList<Firmenkontakt>();
+		String sql = String.format("SELECT * " +
+				"FROM %s " +
+				"WHERE istFirmenkontakt = 1 " +
+				"AND istGeloescht = 0 " +
+				"ORDER BY firmenname;",tblKontakt);
+		try{
+			Statement stmt = connection.createStatement();
+			ResultSet result = stmt.executeQuery(sql);
+			while(result.next()){
+				Firmenkontakt tmpKontakt = new Firmenkontakt();
+				tmpKontakt.setKontaktID(result.getInt("kontaktID"));
+				tmpKontakt.setPlz(result.getString("plz"));
+				tmpKontakt.setStrasse(result.getString("strasse"));
+				tmpKontakt.setHausnummer(result.getString("hausnummer"));
+				tmpKontakt.setOrt(result.getString("ort"));
+				tmpKontakt.setEmail(result.getString("email"));
+				tmpKontakt.setTelefonnummer(result.getString("telefonnummer"));
+				tmpKontakt.setBildpfad(result.getString("bildpfad"));
+				tmpKontakt.setAnsprechpartner(result.getString("ansprechpartner"));
+				tmpKontakt.setFirmenname(result.getString("firmenname"));
+				tmpKontakt.setIstOeffentlich(result.getBoolean("istOeffentlich"));
+				tmpKontakt.setErstelltVon(result.getInt("erstelltVon"));
+				tmpKontakt.setErstelltAm(result.getDate("erstelltAm"));
+				lstKontakte.add(tmpKontakt);
+			}
+		} catch (SQLException e) {
+			ErrorHandler.writeError(e);
+			e.printStackTrace();
+		}
+		return lstKontakte;
+	}
+
+	/**
+	 * Liesst alle Privatkontakte anhand einer BenutzerId aus.
+	 * @author Dominik Ferber
+	 * @param benutzerId
+	 * @return
+	 */
+	public List<Privatkontakt> getPrivatkontakteByBenutzerId(int benutzerId){
+		List<Privatkontakt> lstPrivatkontakte = new ArrayList<Privatkontakt>();		
+		String sql = String.format("SELECT * " +
+				"FROM %s " +
+				"WHERE erstelltVon = %d " +
+				"AND istFirmenkontakt = 0 " +
+				"AND istGeloescht = 0 " +
+				"ORDER BY nachname;", tblKontakt, benutzerId);
+		try{
+			Statement stmt = connection.createStatement();
+			ResultSet result = stmt.executeQuery(sql);			
+			while(result.next()){
+				Privatkontakt tmpKontakt = new Privatkontakt();
+				tmpKontakt.setKontaktID(result.getInt("kontaktID"));
+				tmpKontakt.setPlz(result.getString("plz"));
+				tmpKontakt.setStrasse(result.getString("strasse"));
+				tmpKontakt.setHausnummer(result.getString("hausnummer"));
+				tmpKontakt.setOrt(result.getString("ort"));
+				tmpKontakt.setEmail(result.getString("email"));
+				tmpKontakt.setTelefonnummer(result.getString("telefonnummer"));
+				tmpKontakt.setBildpfad(result.getString("bildpfad"));
+				tmpKontakt.setVorname(result.getString("vorname"));
+				tmpKontakt.setNachname(result.getString("nachname"));
+				tmpKontakt.setIstOeffentlich(result.getBoolean("istOeffentlich"));
+				tmpKontakt.setErstelltVon(result.getInt("erstelltVon"));
+				tmpKontakt.setErstelltAm(result.getDate("erstelltAm"));
+				lstPrivatkontakte.add(tmpKontakt);
+			}
+		} catch (SQLException e) {
+			ErrorHandler.writeError(e);
+			e.printStackTrace();
+		}		
+		return lstPrivatkontakte;
+	}
+
+	/**
+	 * Liefert einen Privatkontakt anhand der KontaktId.
+	 * @author Dominik Ferber
+	 * @param privatkontaktId
+	 * @return
+	 */
+	public Privatkontakt getPrivatkontaktById(int privatkontaktId){
+		Privatkontakt privatkontakt = new Privatkontakt();
+		String sql = String.format("SELECT * " +
+				"FROM %s " +
+				"WHERE kontaktId = %d " +
+				"AND istGeloescht = 0;", tblKontakt, privatkontaktId);
+		try{
+			Statement stmt = this.connection.createStatement();
+			ResultSet result = stmt.executeQuery(sql);
+			System.out.println(result.toString());			
+			while(result.next()){
+				privatkontakt.setKontaktID(result.getInt("kontaktID"));
+				privatkontakt.setPlz(result.getString("plz"));
+				privatkontakt.setStrasse(result.getString("strasse"));
+				privatkontakt.setHausnummer(result.getString("hausnummer"));
+				privatkontakt.setOrt(result.getString("ort"));
+				privatkontakt.setEmail(result.getString("email"));
+				privatkontakt.setTelefonnummer(result.getString("telefonnummer"));
+				privatkontakt.setBildpfad(result.getString("bildpfad"));
+				privatkontakt.setVorname(result.getString("vorname"));
+				privatkontakt.setNachname(result.getString("nachname"));
+				privatkontakt.setIstOeffentlich(result.getBoolean("istOeffentlich"));
+				privatkontakt.setErstelltVon(result.getInt("erstelltVon"));
+				privatkontakt.setErstelltAm(result.getDate("erstelltAm"));
+			}
+		} catch (SQLException e) {
+			ErrorHandler.writeError(e);
+			e.printStackTrace();
+		}
+		return privatkontakt;
+	}
+	
+	/**
+	 * Liefert einen Firmenkontakt anhand der KontaktId.
+	 * @author Dominik Ferber
+	 * @param privatkontaktId
+	 * @return
+	 */
+	public Firmenkontakt getFirmenkontaktById(int firmenkontaktId){
+		Firmenkontakt firmenkontakt = new Firmenkontakt();
+		String sql = String.format("SELECT * " +
+				"FROM %s " +
+				"WHERE kontaktId = %d " +
+				"AND istGeloescht = 0;", tblKontakt, firmenkontaktId);
+		try{
+			Statement stmt = this.connection.createStatement();
+			ResultSet result = stmt.executeQuery(sql);
+			System.out.println(result.toString());			
+			while(result.next()){
+				firmenkontakt.setKontaktID(result.getInt("kontaktID"));
+				firmenkontakt.setPlz(result.getString("plz"));
+				firmenkontakt.setStrasse(result.getString("strasse"));
+				firmenkontakt.setHausnummer(result.getString("hausnummer"));
+				firmenkontakt.setOrt(result.getString("ort"));
+				firmenkontakt.setEmail(result.getString("email"));
+				firmenkontakt.setTelefonnummer(result.getString("telefonnummer"));
+				firmenkontakt.setBildpfad(result.getString("bildpfad"));
+				firmenkontakt.setFirmenname(result.getString("firmenname"));
+				firmenkontakt.setAnsprechpartner(result.getString("ansprechpartner"));
+				firmenkontakt.setIstOeffentlich(result.getBoolean("istOeffentlich"));
+				firmenkontakt.setErstelltVon(result.getInt("erstelltVon"));
+				firmenkontakt.setErstelltAm(result.getDate("erstelltAm"));
+			}
+		} catch (SQLException e) {
+			ErrorHandler.writeError(e);
+			e.printStackTrace();
+		}
+		return firmenkontakt;
+	}
+	
+	/**
+	 * Methode liefert eine Liste aller Benutzer
+	 * @author Dominik Ferber
+	 * @return
+	 */
+	public List<Benutzer> getBenutzer(){
+		List<Benutzer> lstBenutzer = new ArrayList<Benutzer>();
+		String sql = String.format("SELECT * " +
+				"FROM %s " +
+				"WHERE istGeloescht = 0 " +
+				"ORDER BY email;",tblBenutzer);
+		try{
+			Statement stmt = connection.createStatement();
+			ResultSet result = stmt.executeQuery(sql);
+			while(result.next()){
+				Benutzer tmpBenutzer = new Benutzer();
+				tmpBenutzer.setBenutzerID(result.getInt("benutzerId"));
+				tmpBenutzer.setEmail(result.getString("email"));
+				tmpBenutzer.setIstAdmin(result.getBoolean("istAdmin"));
+				tmpBenutzer.setIstFreigeschaltet(result.getBoolean("istFreigeschaltet"));
+				lstBenutzer.add(tmpBenutzer);
+			}
+		} catch (SQLException e) {
+			ErrorHandler.writeError(e);
+			e.printStackTrace();
+		}
+		return lstBenutzer;
+	}
+
+	/**
+	 * Liest einen Benutzer anhand von einer übergebenen benutzerId aus.
+	 * @author Dominik Ferber
+	 * @param benutzerId
+	 * @return Benutzer mit der benutzerId
+	 */
+	public Benutzer getBenutzerById(int benutzerId) {
+		Benutzer benutzer = new Benutzer();
+		String sql = String.format("SELECT * " +
+				"FROM %s " +
+				"WHERE benutzerId = %d " +
+				"AND istGeloescht = 0;", tblBenutzer, benutzerId);
+		try{
+			Statement stmt = connection.createStatement();
+			ResultSet result = stmt.executeQuery(sql);
+			while(result.next()){
+				benutzer.setBenutzerID(result.getInt("benutzerId"));
+				benutzer.setEmail(result.getString("email"));
+				benutzer.setPasswort(result.getString("passwort"));
+				benutzer.setIstAdmin(result.getBoolean("istAdmin"));
+				benutzer.setIstFreigeschaltet(result.getBoolean("istFreigeschaltet"));
+				benutzer.setErstelltAm(result.getDate("erstelltAm"));
+				benutzer.setIstGeloescht(false);
+			}
+		} catch (SQLException e) {
+			ErrorHandler.writeError(e);
+			e.printStackTrace();
+		}
+		return benutzer;
+	}
+
+	/***
+	 * Liefert einen Benutzer anhand einer übergebenen email
+	 * @author Dominik Ferber
+	 * @param email
+	 * @return
+	 */
+	public Benutzer getBenutzerByEmail(String email){
+		Benutzer benutzer = new Benutzer();
+		String sql = String.format("SELECT * " +
+				"FROM %s " +
+				"WHERE email = '%s' " +
+				"AND istGeloescht = 0;", tblBenutzer, email);
+		try{
+			Statement stmt = connection.createStatement();
+			ResultSet result = stmt.executeQuery(sql);
+			while(result.next()){
+				benutzer.setBenutzerID(result.getInt("benutzerId"));
+				benutzer.setEmail(result.getString("email"));
+				benutzer.setPasswort(result.getString("passwort"));
+				benutzer.setIstAdmin(result.getBoolean("istAdmin"));
+				benutzer.setIstFreigeschaltet(result.getBoolean("istFreigeschaltet"));
+				benutzer.setErstelltAm(result.getDate("erstelltAm"));
+				benutzer.setIstGeloescht(false);
+			}
+		} catch (SQLException e) {
+			ErrorHandler.writeError(e);
+			e.printStackTrace();			
+		}
+		return benutzer;
+	}
+
+	/**
 	 * Methode löscht den Kontakt mit der übergebenen KontaktID aus der Datenbank.
 	 * @author Dominik Ferber
 	 * @param kontaktId
 	 * @return true wenn Löschvorgang erfolgreich sonst false.
 	 */
 	public boolean loescheKontakt(int kontaktId){
-		String sql = String.format("UPDATE %s SET IsDeleted = 1 WHERE kontaktID = %d;",tblKontakt, kontaktId);
+		String sql = String.format("UPDATE %s SET istGeloescht = 1 WHERE kontaktID = %d;",tblKontakt, kontaktId);
 		return (executeUpdateQuery(sql)>0);
 	}
 	
@@ -223,7 +511,7 @@ public class DatabaseConnection {
 	 * @return true wenn Löschvorgang erfolgreich sonst false.
 	 */
 	public boolean loescheBenutzer(int benutzerId){
-		String sql = String.format("UPDATE %s SET IsDeleted = 1 WHERE benutzerID = %d;",tblBenutzer, benutzerId);
+		String sql = String.format("UPDATE %s SET istGeloescht = 1 WHERE benutzerID = %d;",tblBenutzer, benutzerId);
 		return (executeUpdateQuery(sql)>0);
 	}
 	
@@ -508,226 +796,6 @@ public class DatabaseConnection {
 		return false;
 	}
 	
-	/**
-	 * Liest alle Privatkontakte aus der Datenbank aus.
-	 * @author Dominik Ferber
-	 * @return
-	 */
-	public List<Privatkontakt> getPrivatkontakte(){
-		List<Privatkontakt> lstKontakte = new ArrayList<Privatkontakt>();
-		
-		String sql = String.format("SELECT * " +
-				"FROM %s " +
-				"WHERE " +
-				"istFirmenkontakt = 0 " +
-				"AND istGeloescht = 0 " +
-				"ORDER BY nachname;",tblKontakt);
-		try{
-			Statement stmt = connection.createStatement();
-			ResultSet result = stmt.executeQuery(sql);
-			while(result.next()){
-				Privatkontakt tmpKontakt = new Privatkontakt();
-				tmpKontakt.setKontaktID(result.getInt("kontaktID"));
-				tmpKontakt.setPlz(result.getString("plz"));
-				tmpKontakt.setStrasse(result.getString("strasse"));
-				tmpKontakt.setHausnummer(result.getString("hausnummer"));
-				tmpKontakt.setOrt(result.getString("ort"));
-				tmpKontakt.setEmail(result.getString("email"));
-				tmpKontakt.setTelefonnummer(result.getString("telefonnummer"));
-				tmpKontakt.setBildpfad(result.getString("bildpfad"));
-				tmpKontakt.setVorname(result.getString("vorname"));
-				tmpKontakt.setNachname(result.getString("nachname"));
-				tmpKontakt.setIstOeffentlich(result.getBoolean("istOeffentlich"));
-				tmpKontakt.setErstelltVon(result.getInt("erstelltVon"));
-				tmpKontakt.setErstelltAm(result.getDate("erstelltAm"));
-				lstKontakte.add(tmpKontakt);
-			}
-		} catch (SQLException e) {
-			ErrorHandler.writeError(e);
-			e.printStackTrace();
-		}
-		return lstKontakte;
-	}
-	
-	/**
-	 * Liest alle Firmenkontakte aus der Datenbank aus.
-	 * @author Dominik Ferber
-	 * @return
-	 */
-	public List<Firmenkontakt> getFirmenkontakte(){
-		List<Firmenkontakt> lstKontakte = new ArrayList<Firmenkontakt>();
-		String sql = String.format("SELECT * " +
-				"FROM %s " +
-				"WHERE istFirmenkontakt = 1 " +
-				"AND istGeloescht = 0 " +
-				"ORDER BY firmenname;",tblKontakt);
-		try{
-			Statement stmt = connection.createStatement();
-			ResultSet result = stmt.executeQuery(sql);
-			while(result.next()){
-				Firmenkontakt tmpKontakt = new Firmenkontakt();
-				tmpKontakt.setKontaktID(result.getInt("kontaktID"));
-				tmpKontakt.setPlz(result.getString("plz"));
-				tmpKontakt.setStrasse(result.getString("strasse"));
-				tmpKontakt.setHausnummer(result.getString("hausnummer"));
-				tmpKontakt.setOrt(result.getString("ort"));
-				tmpKontakt.setEmail(result.getString("email"));
-				tmpKontakt.setTelefonnummer(result.getString("telefonnummer"));
-				tmpKontakt.setBildpfad(result.getString("bildpfad"));
-				tmpKontakt.setAnsprechpartner(result.getString("ansprechpartner"));
-				tmpKontakt.setFirmenname(result.getString("firmenname"));
-				tmpKontakt.setIstOeffentlich(result.getBoolean("istOeffentlich"));
-				tmpKontakt.setErstelltVon(result.getInt("erstelltVon"));
-				tmpKontakt.setErstelltAm(result.getDate("erstelltAm"));
-				lstKontakte.add(tmpKontakt);
-			}
-		} catch (SQLException e) {
-			ErrorHandler.writeError(e);
-			e.printStackTrace();
-		}
-		return lstKontakte;
-	}
-	
-	/**
-	 * Liesst alle Privatkontakte anhand einer BenutzerId aus.
-	 * @author Dominik Ferber
-	 * @param benutzerId
-	 * @return
-	 */
-	public List<Privatkontakt> getPrivatkontakteByBenutzerId(int benutzerId){
-		List<Privatkontakt> lstPrivatkontakte = new ArrayList<Privatkontakt>();		
-		String sql = String.format("SELECT * " +
-				"FROM %s " +
-				"WHERE erstelltVon = %d " +
-				"AND istFirmenkontakt = 0 " +
-				"AND istGeloescht = 0 " +
-				"ORDER BY nachname;", tblKontakt, benutzerId);
-		try{
-			Statement stmt = connection.createStatement();
-			ResultSet result = stmt.executeQuery(sql);			
-			while(result.next()){
-				Privatkontakt tmpKontakt = new Privatkontakt();
-				tmpKontakt.setKontaktID(result.getInt("kontaktID"));
-				tmpKontakt.setPlz(result.getString("plz"));
-				tmpKontakt.setStrasse(result.getString("strasse"));
-				tmpKontakt.setHausnummer(result.getString("hausnummer"));
-				tmpKontakt.setOrt(result.getString("ort"));
-				tmpKontakt.setEmail(result.getString("email"));
-				tmpKontakt.setTelefonnummer(result.getString("telefonnummer"));
-				tmpKontakt.setBildpfad(result.getString("bildpfad"));
-				tmpKontakt.setVorname(result.getString("vorname"));
-				tmpKontakt.setNachname(result.getString("nachname"));
-				tmpKontakt.setIstOeffentlich(result.getBoolean("istOeffentlich"));
-				tmpKontakt.setErstelltVon(result.getInt("erstelltVon"));
-				tmpKontakt.setErstelltAm(result.getDate("erstelltAm"));
-				lstPrivatkontakte.add(tmpKontakt);
-			}
-		} catch (SQLException e) {
-			ErrorHandler.writeError(e);
-			e.printStackTrace();
-		}		
-		return lstPrivatkontakte;
-	}
-	
-	/**
-	 * Liefert einen Privatkontakt anhand der KontaktId.
-	 * @author Dominik Ferber
-	 * @param privatkontaktId
-	 * @return
-	 */
-	public Privatkontakt getPrivatkontaktById(int privatkontaktId){
-		Privatkontakt privatkontakt = new Privatkontakt();
-		String sql = String.format("SELECT * " +
-				"FROM %s " +
-				"WHERE kontaktId = %d;", tblKontakt, privatkontaktId);
-		try{
-			Statement stmt = this.connection.createStatement();
-			ResultSet result = stmt.executeQuery(sql);
-			System.out.println(result.toString());			
-			while(result.next()){
-				privatkontakt.setKontaktID(result.getInt("kontaktID"));
-				privatkontakt.setPlz(result.getString("plz"));
-				privatkontakt.setStrasse(result.getString("strasse"));
-				privatkontakt.setHausnummer(result.getString("hausnummer"));
-				privatkontakt.setOrt(result.getString("ort"));
-				privatkontakt.setEmail(result.getString("email"));
-				privatkontakt.setTelefonnummer(result.getString("telefonnummer"));
-				privatkontakt.setBildpfad(result.getString("bildpfad"));
-				privatkontakt.setVorname(result.getString("vorname"));
-				privatkontakt.setNachname(result.getString("nachname"));
-				privatkontakt.setIstOeffentlich(result.getBoolean("istOeffentlich"));
-				privatkontakt.setErstelltVon(result.getInt("erstelltVon"));
-				privatkontakt.setErstelltAm(result.getDate("erstelltAm"));
-			}
-		} catch (SQLException e) {
-			ErrorHandler.writeError(e);
-			e.printStackTrace();
-		}
-		return privatkontakt;
-	}
-	
-	/**
-	 * Liest einen Benutzer anhand von einer übergebenen benutzerId aus.
-	 * @author Dominik Ferber
-	 * @param benutzerId
-	 * @return Benutzer mit der benutzerId
-	 */
-	public Benutzer getBenutzerById(int benutzerId) {
-		Benutzer benutzer = new Benutzer();
-		String sql = String.format("SELECT * " +
-				"FROM %s " +
-				"WHERE benutzerId = %d " +
-				"AND istGeloescht = 0;", tblBenutzer, benutzerId);
-		try{
-			Statement stmt = connection.createStatement();
-			ResultSet result = stmt.executeQuery(sql);
-			while(result.next()){
-				benutzer.setBenutzerID(result.getInt("benutzerId"));
-				benutzer.setEmail(result.getString("email"));
-				benutzer.setPasswort(result.getString("passwort"));
-				benutzer.setIstAdmin(result.getBoolean("istAdmin"));
-				benutzer.setIstFreigeschaltet(result.getBoolean("istFreigeschaltet"));
-				benutzer.setErstelltAm(result.getDate("erstelltAm"));
-				benutzer.setIstGeloescht(false);
-			}
-		} catch (SQLException e) {
-			ErrorHandler.writeError(e);
-			e.printStackTrace();
-		}
-		return benutzer;
-	}
-	
-	/***
-	 * Liefert einen Benutzer anhand einer übergebenen email
-	 * @author Dominik Ferber
-	 * @param email
-	 * @return
-	 */
-	public Benutzer getBenutzerByEmail(String email){
-		Benutzer benutzer = new Benutzer();
-		String sql = String.format("SELECT * " +
-				"FROM %s " +
-				"WHERE email = '%s' " +
-				"AND istGeloescht = 0;", tblBenutzer, email);
-		try{
-			Statement stmt = connection.createStatement();
-			ResultSet result = stmt.executeQuery(sql);
-			while(result.next()){
-				benutzer.setBenutzerID(result.getInt("benutzerId"));
-				benutzer.setEmail(result.getString("email"));
-				benutzer.setPasswort(result.getString("passwort"));
-				benutzer.setIstAdmin(result.getBoolean("istAdmin"));
-				benutzer.setIstFreigeschaltet(result.getBoolean("istFreigeschaltet"));
-				benutzer.setErstelltAm(result.getDate("erstelltAm"));
-				benutzer.setIstGeloescht(false);
-			}
-		} catch (SQLException e) {
-			ErrorHandler.writeError(e);
-			e.printStackTrace();			
-		}
-		return benutzer;
-	}
-
 	public int executeUpdateQuery(String sqlCommand){
 		int manipulierteDatensaetze = 0;
 		try {

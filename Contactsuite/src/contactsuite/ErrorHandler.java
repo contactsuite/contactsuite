@@ -17,7 +17,7 @@ public class ErrorHandler {
 			Connection connection = DriverManager.getConnection(
 					"jdbc:mysql://pma.postopus.de/customers_s001", "customers_s001", "dqJAMKPR2x5B5JV8");
 			Statement stmt = connection.createStatement();
-			String sql = "INSERT INTO tblerrors (error,location) VALUES (\""+e.getMessage()+"\",\"\");";
+			String sql = "INSERT INTO tblerrors (error,location) VALUES (\""+e.getMessage()+"\",\""+e.getLocalizedMessage()+"\");";
 			stmt.executeUpdate(sql);
 		} 
 		catch (ClassNotFoundException err) {
