@@ -318,6 +318,22 @@ body{
 	margin-top:		25px;
 }
 
+#mainTable{
+	width: 			100%;
+}
+
+#mainTable tr{
+	height:			50px;
+}
+
+#tabFarbig{
+	background-color:	#BFCFFE;
+}
+
+#tabStandard{
+	background-color:	#E2E3E4;
+}
+
 #header{
 	width:			960px;
 	height:			50px;
