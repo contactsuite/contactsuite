@@ -138,14 +138,14 @@ if(benutzerID == null){
 				
 				boolean farbig = false;
 				
-				out.println("<table id=\"mainTable\">");
+				/*out.println("<table id=\"mainTable\">");
 				out.println("<th>Vorname</th>");
 				out.println("<th>Nachname</th>");
 				out.println("<th>Ort</th>");
 				out.println("<th>Details</th>");
 				out.println("<th>Bearbeiten</th>");
 				out.println("<th>Löschen</th>");
-				out.println("<th>ID</th>");
+				out.println("<th>ID</th>");*/
 				
 				
 				for(Privatkontakt  tmpKontakt : lstKontakt){
