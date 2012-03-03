@@ -179,8 +179,8 @@ else{
 						<div id="oeffentlich">
 							 <p>Möchten Sie das dieser Kontakt öffentlich Angezeigt wird? </p>
 							  <p>
-								<input type="radio" name="istOeffentlich" value="istOeffentlich"> Ja<br>
-								<input type="radio" name="istOeffentlich" value="istOeffentlich" checked> Nein<br>
+								<input type="radio" name="istOeffentlich" value="oeffentlich"> Ja<br>
+								<input type="radio" name="istOeffentlich" value="privat" checked> Nein<br>
 								<%
 								out.println("<input type=\"hidden\" name=\"kontaktID\" value=" + kID + ">");
 								%>
