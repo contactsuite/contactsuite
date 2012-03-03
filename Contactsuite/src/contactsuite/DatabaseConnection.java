@@ -206,6 +206,28 @@ public class DatabaseConnection {
 	}
 	
 	/**
+	 * Methode löscht den Kontakt mit der übergebenen KontaktID aus der Datenbank.
+	 * @author Dominik Ferber
+	 * @param kontaktId
+	 * @return true wenn Löschvorgang erfolgreich sonst false.
+	 */
+	public boolean loescheKontakt(int kontaktId){
+		String sql = String.format("UPDATE %s SET IsDeleted = 1 WHERE kontaktID = %d;",tblKontakt, kontaktId);
+		return (executeUpdateQuery(sql)>0);
+	}
+	
+	/**
+	 * Methode löscht den Benutzer mit der übergebenen BenutzerID aus der Datenbank.
+	 * @author Dominik Ferber
+	 * @param benutzerId
+	 * @return true wenn Löschvorgang erfolgreich sonst false.
+	 */
+	public boolean loescheBenutzer(int benutzerId){
+		String sql = String.format("UPDATE %s SET IsDeleted = 1 WHERE benutzerID = %d;",tblBenutzer, benutzerId);
+		return (executeUpdateQuery(sql)>0);
+	}
+	
+	/**
 	 * Methode prüft ob ein übergebener Privatkontakt bereits in der Datenbank vorhanden ist.
 	 * @author Dominik Ferber
 	 * @param privatkontakt
