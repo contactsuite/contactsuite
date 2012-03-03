@@ -25,7 +25,7 @@ if(dbConnect.IstBenutzerVorhanden(user)){
 			HttpSession sitzung = request.getSession(true);
 			
 				sitzung.setAttribute("benutzerID", user.getBenutzerID());
-				sitzung.setMaxInactiveInterval(3);
+				sitzung.setMaxInactiveInterval(3600);
 				
 			request.getRequestDispatcher("Controller?fcode=Kontaktverwaltung").forward(request, response);
 		}
