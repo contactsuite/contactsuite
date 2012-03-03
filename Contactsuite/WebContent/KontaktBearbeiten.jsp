@@ -5,8 +5,9 @@
 
 <%
 
-String vorname = new String();
-String nachname = new String();
+// Für die Behandlung von Privatkontakten
+String name = new String();
+String name2 = new String();
 String strasse = new String();
 String hausnummer = new String();
 String plz = new String();
@@ -19,6 +20,8 @@ String telefonnummer = new String();
 
 int kID = 0;
 
+String typ = request.getParameter("typ");
+
 HttpSession sitzung = request.getSession(false);
 if(sitzung.getAttribute("benutzerID") == null){
 	request.getRequestDispatcher("Controller?fcode=Timeout").forward(request, response);
@@ -28,30 +31,60 @@ else{
 	int id = Integer.valueOf(request.getParameter("kontaktID")) ;
 
 	DatabaseConnection dbConnect = DatabaseConnection.getInstance();
-	Privatkontakt tmpKontakt = dbConnect.getPrivatkontaktById(id);
-
-	vorname = tmpKontakt.getVorname();
-	nachname = tmpKontakt.getNachname();
-	strasse = tmpKontakt.getStrasse();
-	hausnummer = tmpKontakt.getHausnummer();
-	plz = tmpKontakt.getPlz();
-	ort = tmpKontakt.getOrt();
-	email = tmpKontakt.getEmail();
-	telefon = tmpKontakt.getTelefonnummer();
-
-	String[] str = telefon.split("\\/");
-
-	try{
 	
-		vorwahl = str[0];
-		telefonnummer = str[1];
+	if(typ.equals("privat")){
+		
+		Privatkontakt tmpKontakt = dbConnect.getPrivatkontaktById(id);
 
-	}catch(ArrayIndexOutOfBoundsException err){
-		System.out.println("Über Array-Index hinaus geschrieben");
-		System.out.println(err);
+		name = tmpKontakt.getVorname();
+		name2 = tmpKontakt.getNachname();
+		strasse = tmpKontakt.getStrasse();
+		hausnummer = tmpKontakt.getHausnummer();
+		plz = tmpKontakt.getPlz();
+		ort = tmpKontakt.getOrt();
+		email = tmpKontakt.getEmail();
+		telefon = tmpKontakt.getTelefonnummer();
+
+		String[] str = telefon.split("\\/");
+
+		try{
+	
+			vorwahl = str[0];
+			telefonnummer = str[1];
+
+		}catch(ArrayIndexOutOfBoundsException err){
+			System.out.println("Über Array-Index hinaus geschrieben");
+			System.out.println(err);
+		}
+
+		kID = tmpKontakt.getKontaktID();
+	} else if(typ.equals("firma")){
+		
+		Firmenkontakt tmpKontakt = dbConnect.getFirmenkontaktById(id);
+
+		name = tmpKontakt.getFirmenname();
+		name2 = tmpKontakt.getAnsprechpartner();
+		strasse = tmpKontakt.getStrasse();
+		hausnummer = tmpKontakt.getHausnummer();
+		plz = tmpKontakt.getPlz();
+		ort = tmpKontakt.getOrt();
+		email = tmpKontakt.getEmail();
+		telefon = tmpKontakt.getTelefonnummer();
+
+		String[] str = telefon.split("\\/");
+
+		try{
+	
+			vorwahl = str[0];
+			telefonnummer = str[1];
+
+		}catch(ArrayIndexOutOfBoundsException err){
+			System.out.println("Über Array-Index hinaus geschrieben");
+			System.out.println(err);
+		}
+
+		kID = tmpKontakt.getKontaktID();
 	}
-
-	kID = tmpKontakt.getKontaktID();
 }
 
 %>
@@ -154,8 +187,17 @@ else{
 				
 					<form id="kontaktForm" name="Eingabe" action="Controller?fcode=KontaktSpeichern" method="post">
 						<div id="neuKontaktBeschriftung">
-							<p>Vorname*:</p>
-							<p>Nachname*:</p>
+						<%
+							if(typ.equals("privat")){
+								out.println("<p>Vorname*:</p>");
+								out.println("<p>Nachname*:</p>");
+							}else if(typ.equals("firma")){
+								out.println("<p>Firmenname*:</p>");
+								out.println("<p>Ansprechpartner*:</p>");
+							}
+						%>
+							
+							
 							<p>Strasse*:</p>
 							<p>Hausnummer*:</p>
 							<p>Postleitzahl*:</p>
@@ -165,8 +207,8 @@ else{
 						</div>
 						<div id="neuKontaktInput">
 						<% 
-							out.println("<input name=\"vorname\" type=\"text\" size=\"30\" maxlength=\"30\" id=vorname value=" + vorname + ">");
-							out.println("<input name=\"nachname\" type=\"text\" size=\"30\" maxlength=\"30\" id=nachname value=" + nachname + " >");
+							out.println("<input name=\"vorname\" type=\"text\" size=\"30\" maxlength=\"30\" id=vorname value=" + name + ">");
+							out.println("<input name=\"nachname\" type=\"text\" size=\"30\" maxlength=\"30\" id=nachname value=" + name2 + " >");
 							out.println("<input name=\"strasse\" type=\"text\" size=\"30\" maxlength=\"30\" id=strasse value=" + strasse + ">");
 							out.println("<input name=\"hausnummer\" type=\"text\" size=\"30\" maxlength=\"30\" id=hausnummer value=" + hausnummer + ">");
 							out.println("<input name=\"plz\" type=\"text\" size=\"30\" maxlength=\"30\" id=plz value=" + plz + ">");

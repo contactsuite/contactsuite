@@ -152,7 +152,7 @@ if(benutzerID == null){
 						out.println("</td><td>");
 						out.println("<a href=Controller?fcode=Details&typ=privat&kontaktID=" + tmpKontakt.getKontaktID() + ">Details</a>");
 						out.println("</td><td>");
-						out.println("<a href=Controller?fcode=KontaktBearbeiten&kontaktID=" + tmpKontakt.getKontaktID() + ">Bearbeiten</a>");
+						out.println("<a href=Controller?fcode=KontaktBearbeiten&typ=privat&kontaktID=" + tmpKontakt.getKontaktID() + ">Bearbeiten</a>");
 						out.println("</td><td>");
 						out.println("<a href=#>Löschen</a>");
 						out.println("</td><td>");
@@ -169,7 +169,7 @@ if(benutzerID == null){
 						out.println("</td><td>");
 						out.println("<a href=Controller?fcode=Details&typ=privat&kontaktID=" + tmpKontakt.getKontaktID() + ">Details</a>");
 						out.println("</td><td>");
-						out.println("<a href=Controller?fcode=KontaktBearbeiten&kontaktID=" + tmpKontakt.getKontaktID() + ">Bearbeiten</a>");
+						out.println("<a href=Controller?fcode=KontaktBearbeiten&typ=privat&kontaktID=" + tmpKontakt.getKontaktID() + ">Bearbeiten</a>");
 						out.println("</td><td>");
 						out.println("<a href=#>Löschen</a>");
 						out.println("</td><td>");

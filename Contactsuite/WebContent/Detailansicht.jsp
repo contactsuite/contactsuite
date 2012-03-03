@@ -31,11 +31,11 @@ if(typ.equals("privat")){
 	out.println("<p>Telefon: " + tmpKontakt.getTelefonnummer() + "</p>");
 }else if(typ.equals("firma")){
 	
-	Firmenkontakt tmpKontakt = new Firmenkontakt();
+	Firmenkontakt tmpKontakt = dbConnect.getFirmenkontaktById(id);
 
 	out.println("<h1>Detailansicht</h1>");
-	out.println("<p>Name: " + tmpKontakt.getFirmenname() + "</p>");
-	out.println("<p>Nachname: " + tmpKontakt.getAnsprechpartner() + "</p>");
+	out.println("<p>Firmenname: " + tmpKontakt.getFirmenname() + "</p>");
+	out.println("<p>Ansprechpartner: " + tmpKontakt.getAnsprechpartner() + "</p>");
 	out.println("<p>Strasse: " + tmpKontakt.getStrasse() + "</p>");
 	out.println("<p>Hausnummer: " + tmpKontakt.getHausnummer() + "</p>");
 	out.println("<p>Postleitzahl: " + tmpKontakt.getPlz() + "</p>");
