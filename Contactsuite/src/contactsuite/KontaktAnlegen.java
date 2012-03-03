@@ -4,9 +4,7 @@ package contactsuite;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import contactsuite.*;
 
 /**
@@ -29,36 +27,44 @@ public class KontaktAnlegen extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		DatabaseConnection dbConnect = DatabaseConnection.getInstance();
+		// Prüfung auf die Existenz einer gültigen Sitzung
+		HttpSession sitzung = request.getSession(false);
+		if(sitzung.getAttribute("benutzerID") == null){
+			request.getRequestDispatcher("Controller?fcode=Timeout").forward(request, response);
+		}
+		else{
+
+			DatabaseConnection dbConnect = DatabaseConnection.getInstance();
 
 
-		String vorname = request.getParameter("vorname");
-		String nachname = request.getParameter("nachname");
-		String strasse = request.getParameter("strasse");
-		String hausnummer = request.getParameter("hausnummer");
-		String plz = request.getParameter("plz");
-		String ort = request.getParameter("ort");
-		String email = request.getParameter("email");
-		String telefonnummer = request.getParameter("telefonnummer");
-		int kontaktID = 0;
-		if(request.getParameterMap().containsKey("kontaktID"))
-			kontaktID = Integer.valueOf(request.getParameter("kontaktID"));
+			String vorname = request.getParameter("vorname");
+			String nachname = request.getParameter("nachname");
+			String strasse = request.getParameter("strasse");
+			String hausnummer = request.getParameter("hausnummer");
+			String plz = request.getParameter("plz");
+			String ort = request.getParameter("ort");
+			String email = request.getParameter("email");
+			String telefonnummer = request.getParameter("telefon")+ "/" + request.getParameter("telefon2");
+			int kontaktID = 0;
+			if(request.getParameterMap().containsKey("kontaktID"))
+				kontaktID = Integer.valueOf(request.getParameter("kontaktID"));
 
-		Privatkontakt kon = new Privatkontakt();
+			Privatkontakt kon = new Privatkontakt();
 
-		kon.setVorname(vorname);
-		kon.setNachname(nachname);
-		kon.setStrasse(strasse);
-		kon.setHausnummer(hausnummer);
-		kon.setPlz(plz);
-		kon.setOrt(ort);
-		kon.setEmail(email);
-		kon.setTelefonnummer(telefonnummer);
-		kon.setKontaktID(kontaktID);
+			kon.setVorname(vorname);
+			kon.setNachname(nachname);
+			kon.setStrasse(strasse);
+			kon.setHausnummer(hausnummer);
+			kon.setPlz(plz);
+			kon.setOrt(ort);
+			kon.setEmail(email);
+			kon.setTelefonnummer(telefonnummer);
+			kon.setKontaktID(kontaktID);
 
-		dbConnect.SpeicherDaten(kon);
+			dbConnect.SpeicherDaten(kon);
 
-		request.getRequestDispatcher("Controller?fcode=Kontaktverwaltung").forward(request, response);
+			request.getRequestDispatcher("Controller?fcode=Kontaktverwaltung").forward(request, response);
+		}
 	}
 
 	/**

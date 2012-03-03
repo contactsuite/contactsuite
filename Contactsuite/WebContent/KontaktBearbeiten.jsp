@@ -2,21 +2,57 @@
     pageEncoding="ISO-8859-1"%>
 <%@ page import="java.util.*" %>
 <%@ page import="contactsuite.*" %>
+
 <%
-int id = Integer.valueOf(request.getParameter("kontaktID")) ;
 
-DatabaseConnection dbConnect = DatabaseConnection.getInstance();
-Privatkontakt tmpKontakt = dbConnect.getPrivatkontaktById(id);
+String vorname = new String();
+String nachname = new String();
+String strasse = new String();
+String hausnummer = new String();
+String plz = new String();
+String ort = new String();
+String email = new String();
+String telefon = new String();
 
-String vorname = tmpKontakt.getVorname();
-String nachname = tmpKontakt.getNachname();
-String strasse = tmpKontakt.getStrasse();
-String hausnummer = tmpKontakt.getHausnummer();
-String plz = tmpKontakt.getPlz();
-String ort = tmpKontakt.getOrt();
-String email = tmpKontakt.getEmail();
-String telefon = tmpKontakt.getTelefonnummer();
-int kID = tmpKontakt.getKontaktID();
+String vorwahl = new String();
+String telefonnummer = new String();
+
+int kID = 0;
+
+HttpSession sitzung = request.getSession(false);
+if(sitzung.getAttribute("benutzerID") == null){
+	request.getRequestDispatcher("Controller?fcode=Timeout").forward(request, response);
+}
+else{
+
+	int id = Integer.valueOf(request.getParameter("kontaktID")) ;
+
+	DatabaseConnection dbConnect = DatabaseConnection.getInstance();
+	Privatkontakt tmpKontakt = dbConnect.getPrivatkontaktById(id);
+
+	vorname = tmpKontakt.getVorname();
+	nachname = tmpKontakt.getNachname();
+	strasse = tmpKontakt.getStrasse();
+	hausnummer = tmpKontakt.getHausnummer();
+	plz = tmpKontakt.getPlz();
+	ort = tmpKontakt.getOrt();
+	email = tmpKontakt.getEmail();
+	telefon = tmpKontakt.getTelefonnummer();
+
+	String[] str = telefon.split("\\/");
+
+	try{
+	
+		vorwahl = str[0];
+		telefonnummer = str[1];
+
+	}catch(ArrayIndexOutOfBoundsException err){
+		System.out.println("Über Array-Index hinaus geschrieben");
+		System.out.println(err);
+	}
+
+	kID = tmpKontakt.getKontaktID();
+}
 
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -136,8 +172,8 @@ int kID = tmpKontakt.getKontaktID();
 							out.println("<input name=\"plz\" type=\"text\" size=\"30\" maxlength=\"30\" id=plz value=" + plz + ">");
 							out.println("<input name=\"ort\" type=\"text\" size=\"30\" maxlength=\"30\" id=ort value=" + ort + ">");
 							out.println("<input name=\"email\" type=\"E-Mail\" size=\"30\" maxlength=\"30\" id=kontaktEmail value=" + email +">");
-							out.println("<input name=\"telefon\" type=\"text\" size=\"5\" maxlength=\"30\" id=telefon value=" + telefon +"> /");
-							out.println("<input name=\"telefon2\" type=\"text\" size=\"17\" maxlength=\"30\" id=telefon2>");
+							out.println("<input name=\"telefon\" type=\"text\" size=\"5\" maxlength=\"30\" id=telefon value=" + vorwahl +"> /");
+							out.println("<input name=\"telefon2\" type=\"text\" size=\"17\" maxlength=\"30\" id=telefon2 value=" + telefonnummer +">");
 						%>
 						</div>
 						<div id="oeffentlich">
