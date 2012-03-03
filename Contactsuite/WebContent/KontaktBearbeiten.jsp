@@ -103,10 +103,10 @@ else{
 		<div id="navi">
 			<ul id="navi">
 				<li id="liLeft" class="active">
-					<a href="#"><span>Firmenkontakte</span></a>
+					<a href="Controller?fcode=Firmenkontakte"><span>Firmenkontakte</span></a>
 				</li>
 				<li>
-					<a href="#"><span>Privatkunden</span></a>
+					<a href="Controller?fcode=Privatkontakte"><span>Privatkontakte</span></a>
 				</li>
 				<li>
 					<a href="#"><span>Benutzer</span></a>

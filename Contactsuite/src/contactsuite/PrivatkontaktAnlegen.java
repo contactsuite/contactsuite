@@ -10,14 +10,14 @@ import contactsuite.*;
 /**
  * Servlet implementation class KontaktAnlegen
  */
-@WebServlet("/KontaktAnlegen")
-public class KontaktAnlegen extends HttpServlet {
+@WebServlet("/PrivatkontaktAnlegen")
+public class PrivatkontaktAnlegen extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public KontaktAnlegen() {
+    public PrivatkontaktAnlegen() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -70,7 +70,7 @@ public class KontaktAnlegen extends HttpServlet {
 
 			dbConnect.SpeicherDaten(kon);
 
-			request.getRequestDispatcher("Controller?fcode=Kontaktverwaltung").forward(request, response);
+			request.getRequestDispatcher("Controller?fcode=Privatkontakte").forward(request, response);
 		}
 	}
 

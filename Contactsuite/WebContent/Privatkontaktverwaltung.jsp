@@ -107,13 +107,13 @@ if(benutzerID == null){
 
 				<li id="liLeft" class="active">
 
-					<a href="#"><span>Firmenkontakte</span></a>
+					<a href="Controller?fcode=Firmenkontakte"><span>Firmenkontakte</span></a>
 
 				</li>
 
 				<li>
 
-					<a href="#"><span>Privatkontakte</span></a>
+					<a href="Controller?fcode=Privatkontakte"><span>Privatkontakte</span></a>
 
 				</li>
 
@@ -138,15 +138,7 @@ if(benutzerID == null){
 				
 				boolean farbig = false;
 				
-				out.println("<table id=\"mainTable\">");
-				/*out.println("<th>Vorname</th>");
-				out.println("<th>Nachname</th>");
-				out.println("<th>Ort</th>");
-				out.println("<th>Details</th>");
-				out.println("<th>Bearbeiten</th>");
-				out.println("<th>Löschen</th>");
-				out.println("<th>ID</th>");*/
-				
+				out.println("<table id=\"mainTable\">");	
 				
 				for(Privatkontakt  tmpKontakt : lstKontakt){
 
@@ -158,7 +150,7 @@ if(benutzerID == null){
 						out.println("</td><td>");
 						out.println(tmpKontakt.getOrt());
 						out.println("</td><td>");
-						out.println("<a href=Controller?fcode=Details&kontaktID=" + tmpKontakt.getKontaktID() + ">Details</a>");
+						out.println("<a href=Controller?fcode=Details&typ=privat&kontaktID=" + tmpKontakt.getKontaktID() + ">Details</a>");
 						out.println("</td><td>");
 						out.println("<a href=Controller?fcode=KontaktBearbeiten&kontaktID=" + tmpKontakt.getKontaktID() + ">Bearbeiten</a>");
 						out.println("</td><td>");
@@ -175,7 +167,7 @@ if(benutzerID == null){
 						out.println("</td><td>");
 						out.println(tmpKontakt.getOrt());
 						out.println("</td><td>");
-						out.println("<a href=Controller?fcode=Details&kontaktID=" + tmpKontakt.getKontaktID() + ">Details</a>");
+						out.println("<a href=Controller?fcode=Details&typ=privat&kontaktID=" + tmpKontakt.getKontaktID() + ">Details</a>");
 						out.println("</td><td>");
 						out.println("<a href=Controller?fcode=KontaktBearbeiten&kontaktID=" + tmpKontakt.getKontaktID() + ">Bearbeiten</a>");
 						out.println("</td><td>");
@@ -214,7 +206,7 @@ if(benutzerID == null){
 							<li><a href=#>Aktion</a></li>
 							<li><a href=#>Aktion</a></li>
 							<li><a href=#>Aktion</a></li>
-							<li><a href="http://localhost:8080/Contactsuite/Controller?fcode=Logout">Logout</a></li>
+							<li><a href="Controller?fcode=Logout">Logout</a></li>
 						</ul>
 						
 				</div>
