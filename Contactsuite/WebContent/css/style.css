@@ -334,6 +334,10 @@ body{
 	margin-left:	60px;
 }
 
+#tabSelected{
+	background-color:	blue;
+}
+
 ul#navi{
 	height: 		45px;
     margin: 		0;

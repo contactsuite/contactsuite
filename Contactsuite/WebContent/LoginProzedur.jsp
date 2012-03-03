@@ -32,7 +32,7 @@ if(dbConnect.IstBenutzerVorhanden(user)){
 				sitzung.setAttribute("benutzerID", user.getBenutzerID());
 				sitzung.setMaxInactiveInterval(240);  // Verbindungs-Timeout nach 4 Minuten
 				
-			request.getRequestDispatcher("Controller?fcode=Kontaktverwaltung").forward(request, response);
+			request.getRequestDispatcher("Controller?fcode=Privatkontakte").forward(request, response);
 			}else
 			{
 				out.print("<b>Sie wurden noch nicht durch unsere Administratoren zur Nutzung der Plattform freigeschaltet.</b><br>");

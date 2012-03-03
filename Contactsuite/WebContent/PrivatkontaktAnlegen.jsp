@@ -81,9 +81,9 @@ if(benutzerID == null){
 
 								<li><span><b>Folgende Felder enthalten Fehler:</b></span></li>
 
-								<li id="errorVorname" class="error"><span>Bitte tragen Sie den <b>Firmennamen</b> ein.</span></li>
+								<li id="errorVorname" class="error"><span>Bitte tragen Sie den <b>Vornamen</b> ein.</span></li>
 
-								<li id="errorNachname" class="error"><span>Bitte tragen Sie den <b>Ansprechpartner</b> ein.</span></li>
+								<li id="errorNachname" class="error"><span>Bitte tragen Sie den <b>Nachname</b> ein.</span></li>
 
 								<li id="errorStrasse" class="error"><span>Bitte tragen Sie die <b>Strasse</b> ein.</span></li>
 
@@ -109,10 +109,10 @@ if(benutzerID == null){
 
 					</div>
 				
-					<form id="kontaktForm" name="Eingabe" action="Controller?fcode=FirmenkontaktSpeichern" method="post">
+					<form id="kontaktForm" name="Eingabe" action="Controller?fcode=PrivatkontaktSpeichern" method="post">
 						<div id="neuKontaktBeschriftung">
-							<p>Firmenname*:</p>
-							<p>Ansprechpartner*:</p>
+							<p>Vorname*:</p>
+							<p>Nachname*:</p>
 							<p>Strasse*:</p>
 							<p>Hausnummer*:</p>
 							<p>Postleitzahl*:</p>
@@ -121,8 +121,8 @@ if(benutzerID == null){
 							<p>Telefon*:</p>
 						</div>
 						<div id="neuKontaktInput">
-							<input name="firmenname" type="text" size="30" maxlength="30" id="vorname">
-							<input name="ansprechpartner" type="text" size="30" maxlength="30" id="nachname">
+							<input name="vorname" type="text" size="30" maxlength="30" id="vorname">
+							<input name="nachname" type="text" size="30" maxlength="30" id="nachname">
 							<input name="strasse" type="text" size="30" maxlength="30" id="strasse">
 							<input name="hausnummer" type="text" size="30" maxlength="30" id="hausnummer">
 							<input name="plz" type="text" size="30" maxlength="30" id="plz">
@@ -130,7 +130,14 @@ if(benutzerID == null){
 							<input name="email" type="E-Mail" size="30" maxlength="30" id="kontaktEmail">
 							<input name="telefon" type="text" size="5" maxlength="30" id="telefon"> /
 							<input name="telefon2" type="text" size="17" maxlength="30" id="telefon2">
-							<input type="hidden" name="kontaktID" value="0">
+						</div>
+						<div id="oeffentlich">
+							 <p>Möchten Sie das dieser Kontakt öffentlich Angezeigt wird? </p>
+							  <p>
+								<input type="radio" name="istOeffentlich" value="oeffentlich"> Ja<br>
+								<input type="radio" name="istOeffentlich" value="privat" checked> Nein<br>
+								<input type="hidden" name="kontaktID" value="0">
+							  </p>
 						</div>
 						<input type="Submit" id="anlegenButton" name="anlegenButton" value="Anlegen" >
 					</form>

@@ -10,19 +10,39 @@
 <body>
 <%
 int id = Integer.valueOf(request.getParameter("kontaktID")) ;
+String typ = request.getParameter("typ");
 
 DatabaseConnection dbConnect = DatabaseConnection.getInstance();
-Privatkontakt tmpKontakt = dbConnect.getPrivatkontaktById(id);
 
-out.println("<h1>Detailansicht</h1>");
-out.println("<p>Name: " + tmpKontakt.getVorname() + "</p>");
-out.println("<p>Nachname: " + tmpKontakt.getNachname() + "</p>");
-out.println("<p>Strasse: " + tmpKontakt.getStrasse() + "</p>");
-out.println("<p>Hausnummer: " + tmpKontakt.getHausnummer() + "</p>");
-out.println("<p>Postleitzahl: " + tmpKontakt.getPlz() + "</p>");
-out.println("<p>Ort: " + tmpKontakt.getOrt() + "</p>");
-out.println("<p>E-Mail: " + tmpKontakt.getEmail() + "</p>");
-out.println("<p>Telefon: " + tmpKontakt.getTelefonnummer() + "</p>");
+// Für Privatkontakte
+
+if(typ.equals("privat")){
+
+	Privatkontakt tmpKontakt = dbConnect.getPrivatkontaktById(id);
+
+	out.println("<h1>Detailansicht</h1>");
+	out.println("<p>Name: " + tmpKontakt.getVorname() + "</p>");
+	out.println("<p>Nachname: " + tmpKontakt.getNachname() + "</p>");
+	out.println("<p>Strasse: " + tmpKontakt.getStrasse() + "</p>");
+	out.println("<p>Hausnummer: " + tmpKontakt.getHausnummer() + "</p>");
+	out.println("<p>Postleitzahl: " + tmpKontakt.getPlz() + "</p>");
+	out.println("<p>Ort: " + tmpKontakt.getOrt() + "</p>");
+	out.println("<p>E-Mail: " + tmpKontakt.getEmail() + "</p>");
+	out.println("<p>Telefon: " + tmpKontakt.getTelefonnummer() + "</p>");
+}else if(typ.equals("firma")){
+	
+	Firmenkontakt tmpKontakt = new Firmenkontakt();
+
+	out.println("<h1>Detailansicht</h1>");
+	out.println("<p>Name: " + tmpKontakt.getFirmenname() + "</p>");
+	out.println("<p>Nachname: " + tmpKontakt.getAnsprechpartner() + "</p>");
+	out.println("<p>Strasse: " + tmpKontakt.getStrasse() + "</p>");
+	out.println("<p>Hausnummer: " + tmpKontakt.getHausnummer() + "</p>");
+	out.println("<p>Postleitzahl: " + tmpKontakt.getPlz() + "</p>");
+	out.println("<p>Ort: " + tmpKontakt.getOrt() + "</p>");
+	out.println("<p>E-Mail: " + tmpKontakt.getEmail() + "</p>");
+	out.println("<p>Telefon: " + tmpKontakt.getTelefonnummer() + "</p>");
+}
 %>
 
 </body>
