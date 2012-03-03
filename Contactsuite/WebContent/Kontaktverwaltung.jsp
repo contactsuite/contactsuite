@@ -138,8 +138,8 @@ if(benutzerID == null){
 				
 				boolean farbig = false;
 				
-				/*out.println("<table id=\"mainTable\">");
-				out.println("<th>Vorname</th>");
+				out.println("<table id=\"mainTable\">");
+				/*out.println("<th>Vorname</th>");
 				out.println("<th>Nachname</th>");
 				out.println("<th>Ort</th>");
 				out.println("<th>Details</th>");
@@ -210,7 +210,7 @@ if(benutzerID == null){
 				<div id="sideNavi">
 						
 						<ul>
-							<li><a href="http://localhost:8080/Contactsuite/Controller?fcode=KontaktAnlegen">Neuer Kontakt</a></li>
+							<li><a href="Controller?fcode=PrivatkontaktAnlegen">Neuer Kontakt</a></li>
 							<li><a href=#>Aktion</a></li>
 							<li><a href=#>Aktion</a></li>
 							<li><a href=#>Aktion</a></li>

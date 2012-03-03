@@ -1,6 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+    
+<!doctype html>
+
+<!-- Auf Gültigkeit der Sitzung prüfen. Im Fall des Nichterfolgs weiterleiten auf eine Info-Seite.
+Andernfalls mit dem aktuellen Fenster fortfahren. -->
+<%
+HttpSession sitzung = request.getSession(false);
+Integer benutzerID = (Integer) sitzung.getAttribute("benutzerID");
+
+if(benutzerID == null){
+	request.getRequestDispatcher("Controller?fcode=Timeout").forward(request, response);
+}
+%>
 <!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
@@ -61,7 +73,43 @@
 		<div id="content">
 			<div id="mainContent">
 				<div id="kontaktForms">
-					<form id="kontaktForm" name="Eingabe" action="http://localhost:8080/Contactsuite/Controller?fcode=KontaktSpeichern" method="post">
+				<div id="errorForm">
+
+						<div id="errorFormSelect">
+
+							<ul id="errorOl">
+
+								<li><span><b>Folgende Felder enthalten Fehler:</b></span></li>
+
+								<li id="errorVorname" class="error"><span>Bitte tragen Sie den <b>Firmennamen</b> ein.</span></li>
+
+								<li id="errorNachname" class="error"><span>Bitte tragen Sie den <b>Ansprechpartner</b> ein.</span></li>
+
+								<li id="errorStrasse" class="error"><span>Bitte tragen Sie die <b>Strasse</b> ein.</span></li>
+
+								<li id="errorHn" class="error"><span>Bitte tragen Sie die <b>Hausnummer</b> ein.</span></li>
+
+								<li id="errorPlz" class="error"><span>Bitte tragen Sie die <b>Postleizahl</b> ein.</span></li>
+
+								<li id="errorPlzG" class="error"><span>Bitte tragen Sie die G�LTIGE <b>Postleizahl</b> ein (z.b. 59329).</span></li>
+
+								<li id="errorOrt" class="error"><span>Bitte tragen Sie den <b>Ort</b> ein.</span></li>
+
+								<li id="errorTn" class="error"><span>Bitte tragen Sie die <b>Telefonnummer</b> ein.</span></li>
+
+								<li id="errorTnG" class="error"><span>Bitte tragen Sie die G�LTIGE <b>Telefonnummer</b> ein.</span></li>
+
+								<li id="errorEmail" class="error"><span>Bitte tragen Sie die <b>E-Mail Adresse</b> ein.</span></li>
+
+								<li id="errorEmailG" class="error"><span>Bitte tragen Sie die G�LTIGE <b>E-Mail</b> Adresse ein.</span></li>
+
+							</ul>
+
+						</div>
+
+					</div>
+				
+					<form id="kontaktForm" name="Eingabe" action="Controller?fcode=KontaktSpeichern" method="post">
 						<div id="neuKontaktBeschriftung">
 							<p>Firmenname*:</p>
 							<p>Ansprechpartner*:</p>
@@ -73,16 +121,24 @@
 							<p>Telefon*:</p>
 						</div>
 						<div id="neuKontaktInput">
-							<input name="firmenname" type="text" size="30" maxlength="30" id="vorname">
-							<input name="ansprechpartner" type="text" size="30" maxlength="30" id="nachname">
+							<input name="vorname" type="text" size="30" maxlength="30" id="vorname">
+							<input name="nachname" type="text" size="30" maxlength="30" id="nachname">
 							<input name="strasse" type="text" size="30" maxlength="30" id="strasse">
-							<input name="hausnummer" type="text" size="30" maxlength="30" id="hn">
+							<input name="hausnummer" type="text" size="30" maxlength="30" id="hausnummer">
 							<input name="plz" type="text" size="30" maxlength="30" id="plz">
 							<input name="ort" type="text" size="30" maxlength="30" id="ort">
 							<input name="email" type="E-Mail" size="30" maxlength="30" id="kontaktEmail">
-							<input name="telefon" type="text" size="30" maxlength="30" id="telefon">
+							<input name="telefon" type="text" size="5" maxlength="30" id="telefon"> /
+							<input name="telefon2" type="text" size="17" maxlength="30" id="telefon2">
 						</div>
-						
+						<div id="oeffentlich">
+							 <p>Möchten Sie das dieser Kontakt öffentlich Angezeigt wird? </p>
+							  <p>
+								<input type="radio" name="istOeffentlich" value="istOeffentlich"> Ja<br>
+								<input type="radio" name="istOeffentlich" value="istOeffentlich" checked> Nein<br>
+								<input type="hidden" name="kontaktID" value="0">
+							  </p>
+						</div>
 						<input type="Submit" id="anlegenButton" name="anlegenButton" value="Anlegen" >
 					</form>
 					<div id="errorForm">

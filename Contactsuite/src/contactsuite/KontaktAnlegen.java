@@ -49,6 +49,10 @@ public class KontaktAnlegen extends HttpServlet {
 			int kontaktID = 0;
 			if(request.getParameterMap().containsKey("kontaktID"))
 				kontaktID = Integer.valueOf(request.getParameter("kontaktID"));
+			
+			// wird der Kontakt öffentlich (für Alle Nutzer sichtbar) oder privat (nur für den Ersteller sichtbar) abgespeichert?
+			String istOeffentlich = request.getParameter("istOeffentlich");
+			boolean oeffentlich = istOeffentlich.equals("oeffentlich") ? true : false;
 
 			Privatkontakt kon = new Privatkontakt();
 
@@ -62,6 +66,7 @@ public class KontaktAnlegen extends HttpServlet {
 			kon.setTelefonnummer(telefonnummer);
 			kon.setKontaktID(kontaktID);
 			kon.setErstelltVon(benutzerID);
+			kon.setIstOeffentlich(oeffentlich);
 
 			dbConnect.SpeicherDaten(kon);
 
