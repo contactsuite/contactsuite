@@ -81,7 +81,7 @@
 			</div>
 		</fieldset>
 	</div>
-	<%-- <%
+	<%
 	if(request.getParameterMap().containsKey("Login")){
 		
 		String email = request.getParameter("email");
@@ -104,7 +104,7 @@
 		}
 
 		}
-	%> --%>
+	%> 
 
   <!-- JavaScript at the bottom for fast page loading -->
 

@@ -19,24 +19,34 @@ String pw = request.getParameter("passwort");
 DatabaseConnection dbConnect = DatabaseConnection.getInstance();
 Benutzer user = dbConnect.getBenutzerByEmail(mail);
 
+// Existiert der Benutzer in der Datenbank?
 if(dbConnect.IstBenutzerVorhanden(user)){
 	
+		// Ist das eingegebene Passwrt korrekt?
 		if(pw.equals(user.getPasswort())){
-			HttpSession sitzung = request.getSession(true);
 			
+			// Ist der Nutzer durch einen Administrator freigeschaltet worden?
+			if(user.isIstFreigeschaltet()){
+				HttpSession sitzung = request.getSession(true);
+				
 				sitzung.setAttribute("benutzerID", user.getBenutzerID());
-				sitzung.setMaxInactiveInterval(3600);
+				sitzung.setMaxInactiveInterval(240);  // Verbindungs-Timeout nach 4 Minuten
 				
 			request.getRequestDispatcher("Controller?fcode=Kontaktverwaltung").forward(request, response);
+			}else
+			{
+				out.print("<b>Sie wurden noch nicht durch unsere Administratoren zur Nutzung der Plattform freigeschaltet.</b><br>");
+				out.print("<p>Bitte versuchen Sie es noch einmal, wenn die Freischaltung abgschlossen ist.</p>");
+			}
 		}
 		else{
 			out.print("<b>Das eingegebene Passwort ist falsch.</b><br>");
-			out.print("<a href='Login.jsp'>Nochmal versuchen.</a>");
+			out.print("<a href=Controller?fcode=Start>Nochmal versuchen.</a>");
 		}
 	}
 	else{
 		out.print("<b>Die eingegebene Email-Adresse ist falsch.</b><br>");
-		out.print("<a href='Login.jsp'>Nochmal versuchen.</a>");
+		out.print("<a href=Controller?fcode=Start>Nochmal versuchen.</a>");
 	}
 
 %>

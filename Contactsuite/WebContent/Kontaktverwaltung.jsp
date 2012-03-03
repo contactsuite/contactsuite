@@ -6,7 +6,9 @@
 Andernfalls mit dem aktuellen Fenster fortfahren. -->
 <%
 HttpSession sitzung = request.getSession(false);
-if(sitzung.getAttribute("benutzerID") == null){
+Integer benutzerID = (Integer) sitzung.getAttribute("benutzerID");
+
+if(benutzerID == null){
 	request.getRequestDispatcher("Controller?fcode=Timeout").forward(request, response);
 }
 %>
@@ -132,7 +134,7 @@ if(sitzung.getAttribute("benutzerID") == null){
 				<%@ page import="java.util.*" %>
 				<%
 				DatabaseConnection dbConnect = DatabaseConnection.getInstance();
-				List<Privatkontakt> lstKontakt = dbConnect.getPrivatkontakte();
+				List<Privatkontakt> lstKontakt = dbConnect.getPrivatkontakteByBenutzerId(benutzerID);
 				
 				boolean farbig = false;
 				
@@ -219,7 +221,6 @@ if(sitzung.getAttribute("benutzerID") == null){
 
 				<div id="options">
 					<%
-						Integer benutzerID = (Integer) sitzung.getAttribute("benutzerID");
 						out.write("<p>Benuzter ID: " + benutzerID + "</p>"); 
 					%>
 				</div>

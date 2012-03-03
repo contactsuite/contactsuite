@@ -36,6 +36,7 @@ public class KontaktAnlegen extends HttpServlet {
 
 			DatabaseConnection dbConnect = DatabaseConnection.getInstance();
 
+			Integer benutzerID = (Integer) sitzung.getAttribute("benutzerID");
 
 			String vorname = request.getParameter("vorname");
 			String nachname = request.getParameter("nachname");
@@ -60,6 +61,7 @@ public class KontaktAnlegen extends HttpServlet {
 			kon.setEmail(email);
 			kon.setTelefonnummer(telefonnummer);
 			kon.setKontaktID(kontaktID);
+			kon.setErstelltVon(benutzerID);
 
 			dbConnect.SpeicherDaten(kon);
 
