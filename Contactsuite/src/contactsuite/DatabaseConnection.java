@@ -44,58 +44,6 @@ public class DatabaseConnection {
     }
 	
 	/**
-	 * Methode zum speichern von Benutzern. Falls der übergebene Benutzer schon
-	 * vorhanden ist wird dieser geupdated. Sonst wird ein neuer Datensatz eingetragen.
-	 * @author Dominik Ferber
-	 * @param benutzer
-	 * @return Anzahl der veränderten Datensätze
-	 */
-	public int SpeicherDaten(Benutzer benutzer)
-	{
-		int geaenderteDatensaetze = 0;
-		String sql;
-		try {
-			//Wenn der Benutzer schon in der Datenbank existiert.
-			if(benutzer.getBenutzerID() != 0){
-				sql = String.format("UPDATE %s "+
-						"SET email = '%s', " +
-						"passwort = '%s', " +
-						"istAdmin = %d, " +
-						"istFreigeschaltet = %d, " +
-						"geaendertVon = -1, " +
-						"geaendertAm = CURRENT_TIMESTAMP " +
-						"WHERE benutzerId = %d;",
-						tblBenutzer,
-						benutzer.getEmail(),
-						benutzer.getPasswort(),
-						((benutzer.isIstAdmin())?1:0),
-						((benutzer.isIstFreigeschaltet())?1:0),
-						benutzer.getBenutzerID());
-			}
-			//Wenn der Benutzer noch nicht existiert.
-			else {
-				sql = String.format("INSERT INTO %s " +
-						"(email,passwort,istAdmin,istFreigeschaltet,erstelltVon) " +
-						"VALUES " +
-						"('%s'," +
-						"'%s'," +
-						"false," +
-						"false," +
-						"-1);",
-						tblBenutzer,
-						benutzer.getEmail(),
-						benutzer.getPasswort());
-			}
-			Statement stmt = connection.createStatement();
-			geaenderteDatensaetze = stmt.executeUpdate(sql);
-		} catch (SQLException e) {
-			ErrorHandler.writeError(e);
-			e.printStackTrace();
-		}
-		return geaenderteDatensaetze;
-	}
-	
-	/**
 	 * Gibt Kontakte zurück, die zu einem übergebene Suchterm passen.
 	 * @author Dominik Ferber
 	 * @param searchTerm
@@ -494,6 +442,65 @@ public class DatabaseConnection {
 	}
 
 	/**
+	 * Gibt die Anzahl der Firmenkontakte zurück die ein Benutzer angelegt hat.
+	 * @author Dominik Ferber
+	 * @param benutzerId 
+	 * @return anzahl der Firmenkontakte
+	 */
+	public int getAnzahlFirmenkontakte(int benutzerId){
+		String sql = String.format("SELECT count(kontaktId) AS anzahl " +
+				"FROM %s " +
+				"WHERE erstelltVon = %d " +
+				"AND istFirmenkontakt = 1 " +
+				"AND istGeloescht = 0;", tblKontakt,benutzerId);
+		try{
+			Statement stmt = connection.createStatement();
+			ResultSet result = stmt.executeQuery(sql);
+			while(result.next()){
+				return result.getInt("anzahl");
+			}
+		} catch (SQLException e){
+			ErrorHandler.writeError(e);
+		}
+		return 0;
+	}
+	
+	public int getAnzahlPrivatkontakte(int benutzerId){
+		String sql = String.format("SELECT count(kontaktId) AS anzahl " +
+				"FROM %s " +
+				"WHERE erstelltVon = %d " +
+				"AND istFirmenkontakt = 0 " +
+				"AND istGeloescht = 0;", tblKontakt,benutzerId);
+		try{
+			Statement stmt = connection.createStatement();
+			ResultSet result = stmt.executeQuery(sql);
+			while(result.next()){
+				return result.getInt("anzahl");
+			}
+		} catch (SQLException e){
+			ErrorHandler.writeError(e);
+		}
+		return 0;
+	}
+	
+	public int getAnzahlKontakte(int benutzerId){
+		String sql = String.format("SELECT count(kontaktId) AS anzahl " +
+				"FROM %s " +
+				"WHERE erstelltVon = %d " +
+				"AND istGeloescht = 0;", tblKontakt,benutzerId);
+		try{
+			Statement stmt = connection.createStatement();
+			ResultSet result = stmt.executeQuery(sql);
+			while(result.next()){
+				return result.getInt("anzahl");
+			}
+		} catch (SQLException e){
+			ErrorHandler.writeError(e);
+		}
+		return 0;
+	}
+	
+	/**
 	 * Methode löscht den Kontakt mit der übergebenen KontaktID aus der Datenbank.
 	 * @author Dominik Ferber
 	 * @param kontaktId
@@ -603,6 +610,59 @@ public class DatabaseConnection {
 		return false;		
 	}
 	
+	/**
+	 * Methode zum speichern von Benutzern. Falls der übergebene Benutzer schon
+	 * vorhanden ist wird dieser geupdated. Sonst wird ein neuer Datensatz eingetragen.
+	 * @author Dominik Ferber
+	 * @param benutzer
+	 * @return Anzahl der veränderten Datensätze
+	 */
+	public int SpeicherDaten(Benutzer benutzer)
+	{
+		int geaenderteDatensaetze = 0;
+		String sql;
+		String md5Passwort = MD5.getMd5Hash(benutzer.getPasswort());
+		try {
+			//Wenn der Benutzer schon in der Datenbank existiert.
+			if(benutzer.getBenutzerID() != 0){
+				sql = String.format("UPDATE %s "+
+						"SET email = '%s', " +
+						"passwort = '%s', " +
+						"istAdmin = %d, " +
+						"istFreigeschaltet = %d, " +
+						"geaendertVon = -1, " +
+						"geaendertAm = CURRENT_TIMESTAMP " +
+						"WHERE benutzerId = %d;",
+						tblBenutzer,
+						benutzer.getEmail(),
+						md5Passwort,
+						((benutzer.isIstAdmin())?1:0),
+						((benutzer.isIstFreigeschaltet())?1:0),
+						benutzer.getBenutzerID());
+			}
+			//Wenn der Benutzer noch nicht existiert.
+			else {
+				sql = String.format("INSERT INTO %s " +
+						"(email,passwort,istAdmin,istFreigeschaltet,erstelltVon) " +
+						"VALUES " +
+						"('%s'," +
+						"'%s'," +
+						"false," +
+						"false," +
+						"-1);",
+						tblBenutzer,
+						benutzer.getEmail(),
+						md5Passwort);
+			}
+			Statement stmt = connection.createStatement();
+			geaenderteDatensaetze = stmt.executeUpdate(sql);
+		} catch (SQLException e) {
+			ErrorHandler.writeError(e);
+			e.printStackTrace();
+		}
+		return geaenderteDatensaetze;
+	}
+
 	/**
 	 * Methode zum speichern von Firmenkontakten. Falls der übergebene Firmenkontakt schon
 	 * vorhanden ist wird dieser geupdated. Sonst wird ein neuer Datensatz eingetragen.
