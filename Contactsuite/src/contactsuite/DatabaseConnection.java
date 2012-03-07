@@ -243,7 +243,8 @@ public class DatabaseConnection {
 		List<Privatkontakt> lstPrivatkontakte = new ArrayList<Privatkontakt>();		
 		String sql = String.format("SELECT * " +
 				"FROM %s " +
-				"WHERE erstelltVon = %d " +
+				"WHERE (istOeffentlich = 1 " +
+				"OR erstelltVon = %d) " +
 				"AND istFirmenkontakt = 0 " +
 				"AND istGeloescht = 0 " +
 				"ORDER BY nachname;", tblKontakt, benutzerId);
