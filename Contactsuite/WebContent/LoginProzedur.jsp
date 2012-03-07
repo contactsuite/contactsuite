@@ -23,7 +23,7 @@ Benutzer user = dbConnect.getBenutzerByEmail(mail);
 if(dbConnect.IstBenutzerVorhanden(user)){
 	
 		// Ist das eingegebene Passwrt korrekt?
-		if(pw.equals(user.getPasswort())){
+		if(MD5.getMd5Hash(pw).equals(user.getPasswort())){
 			
 			// Ist der Nutzer durch einen Administrator freigeschaltet worden?
 			if(user.isIstFreigeschaltet()){
