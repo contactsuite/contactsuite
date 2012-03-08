@@ -28,7 +28,7 @@ if(sitzung.getAttribute("benutzerID") == null){
 }
 else{
 
-	int id = Integer.valueOf(request.getParameter("kontaktID")) ;
+	int id = Integer.valueOf(request.getParameter("ID")) ;
 
 	DatabaseConnection dbConnect = DatabaseConnection.getInstance();
 	
@@ -167,17 +167,17 @@ else{
 
 								<li id="errorPlz" class="error"><span>Bitte tragen Sie die <b>Postleizahl</b> ein.</span></li>
 
-								<li id="errorPlzG" class="error"><span>Bitte tragen Sie die GÜLTIGE <b>Postleizahl</b> ein (z.b. 59329).</span></li>
+								<li id="errorPlzG" class="error"><span>Bitte tragen Sie die Gï¿½LTIGE <b>Postleizahl</b> ein (z.b. 59329).</span></li>
 
 								<li id="errorOrt" class="error"><span>Bitte tragen Sie den <b>Ort</b> ein.</span></li>
 
 								<li id="errorTn" class="error"><span>Bitte tragen Sie die <b>Telefonnummer</b> ein.</span></li>
 
-								<li id="errorTnG" class="error"><span>Bitte tragen Sie die GÜLTIGE <b>Telefonnummer</b> ein.</span></li>
+								<li id="errorTnG" class="error"><span>Bitte tragen Sie die Gï¿½LTIGE <b>Telefonnummer</b> ein.</span></li>
 
 								<li id="errorEmail" class="error"><span>Bitte tragen Sie die <b>E-Mail Adresse</b> ein.</span></li>
 
-								<li id="errorEmailG" class="error"><span>Bitte tragen Sie die GÜLTIGE <b>E-Mail</b> Adresse ein.</span></li>
+								<li id="errorEmailG" class="error"><span>Bitte tragen Sie die Gï¿½LTIGE <b>E-Mail</b> Adresse ein.</span></li>
 
 							</ul>
 
@@ -185,7 +185,13 @@ else{
 
 					</div>
 				
-					<form id="kontaktForm" name="Eingabe" action="Controller?fcode=KontaktSpeichern" method="post">
+				<%
+					if(typ.equals("privat")){
+						out.println("<form id=\"kontaktForm\" name=\"Eingabe\" action=\"Controller?fcode=PrivatkontaktSpeichern\" method=\"post\">");
+					}else if(typ.equals("firma")){
+						out.println("<form id=\"kontaktForm\" name=\"Eingabe\" action=\"Controller?fcode=FirmenkontaktSpeichern\" method=\"post\">");
+					}
+				%>
 						<div id="neuKontaktBeschriftung">
 						<%
 							if(typ.equals("privat")){
@@ -219,7 +225,7 @@ else{
 						%>
 						</div>
 						<div id="oeffentlich">
-							 <p>Möchten Sie das dieser Kontakt Öffentlich Angezeigt wird? </p>
+							 <p>Mï¿½chten Sie das dieser Kontakt ï¿½ffentlich Angezeigt wird? </p>
 							  <p>
 								<input type="radio" name="istOeffentlich" value="oeffentlich"> Ja<br>
 								<input type="radio" name="istOeffentlich" value="privat" checked> Nein<br>

@@ -6,11 +6,9 @@
 Andernfalls mit dem aktuellen Fenster fortfahren. -->
 <%
 HttpSession sitzung = request.getSession(false);
-Integer benutzerID = 0;
+Integer benutzerID = (Integer) sitzung.getAttribute("benutzerID");
 
-if(sitzung != null){
-	benutzerID = (Integer) sitzung.getAttribute("benutzerID");
-}else{
+if(benutzerID == null){
 	request.getRequestDispatcher("Controller?fcode=Timeout").forward(request, response);
 }
 %>
@@ -156,7 +154,7 @@ if(sitzung != null){
 						out.println("</td><td>");
 						out.println("<a href=Controller?fcode=KontaktBearbeiten&typ=firma&ID=" + tmpKontakt.getKontaktID() + ">Bearbeiten</a>");
 						out.println("</td><td>");
-						out.println("<a href=#>Löschen</a>");
+						out.println("<a href=Controller?fcode=Loeschen&typ=firma&ID=" + tmpKontakt.getKontaktID() + ">Löschen</a>");
 						out.println("</td><td>");
 						out.println(tmpKontakt.getKontaktID());
 						out.println("</td></tr>");
@@ -173,7 +171,7 @@ if(sitzung != null){
 						out.println("</td><td>");
 						out.println("<a href=Controller?fcode=KontaktBearbeiten&typ=firma&ID=" + tmpKontakt.getKontaktID() + ">Bearbeiten</a>");
 						out.println("</td><td>");
-						out.println("<a href=#>Löschen</a>");
+						out.println("<a href=Controller?fcode=Loeschen&typ=firma&ID=" + tmpKontakt.getKontaktID() + ">Löschen</a>");
 						out.println("</td><td>");
 						out.println(tmpKontakt.getKontaktID());
 						out.println("</td></tr>");

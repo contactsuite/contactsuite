@@ -6,14 +6,12 @@
 Andernfalls mit dem aktuellen Fenster fortfahren. -->
 <%
 
-	HttpSession sitzung = request.getSession(false);
-	Integer benutzerID = 0;
+HttpSession sitzung = request.getSession(false);
+Integer benutzerID = (Integer) sitzung.getAttribute("benutzerID");
 
-	if(sitzung != null){
-		benutzerID = (Integer) sitzung.getAttribute("benutzerID");
-	}else{
-		request.getRequestDispatcher("Controller?fcode=Timeout").forward(request, response);
-	}
+if(benutzerID == null){
+	request.getRequestDispatcher("Controller?fcode=Timeout").forward(request, response);
+}
 
 %>
 
@@ -160,7 +158,7 @@ Andernfalls mit dem aktuellen Fenster fortfahren. -->
 						out.println("</td><td>");
 						out.println("<a href=#>Bearbeiten</a>");
 						out.println("</td><td>");
-						out.println("<a href=#>Löschen</a>");
+						out.println("<a href=Controller?fcode=Loeschen&typ=benutzer&ID=" + tmpUser.getBenutzerID() + ">Löschen</a>");
 						out.println("</td></tr>");
 					}
 					else{
@@ -177,7 +175,7 @@ Andernfalls mit dem aktuellen Fenster fortfahren. -->
 						out.println("</td><td>");
 						out.println("<a href=#>Bearbeiten</a>");
 						out.println("</td><td>");
-						out.println("<a href=#>Löschen</a>");
+						out.println("<a href=Controller?fcode=Loeschen&typ=benutzer&ID=" + tmpUser.getBenutzerID() + ">Löschen</a>");
 						out.println("</td></tr>");
 					}
 					
@@ -206,7 +204,7 @@ Andernfalls mit dem aktuellen Fenster fortfahren. -->
 				<div id="sideNavi">
 						
 						<ul>
-							<li><a href="Controller?fcode=PrivatkontaktAnlegen">Neuer Kontakt</a></li>
+							<li><a href="Controller?fcode=PrivatkontaktAnlegen">Neuer Benutzer</a></li>
 							<li><a href=#>Aktion</a></li>
 							<li><a href=#>Aktion</a></li>
 							<li><a href=#>Aktion</a></li>

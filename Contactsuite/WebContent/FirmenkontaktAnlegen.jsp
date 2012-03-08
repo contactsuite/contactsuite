@@ -121,8 +121,8 @@ if(benutzerID == null){
 							<p>Telefon*:</p>
 						</div>
 						<div id="neuKontaktInput">
-							<input name="firmenname" type="text" size="30" maxlength="30" id="vorname">
-							<input name="ansprechpartner" type="text" size="30" maxlength="30" id="nachname">
+							<input name="firmenname" type="text" size="30" maxlength="30" id="firmenname">
+							<input name="ansprechpartner" type="text" size="30" maxlength="30" id="ansprechpartner">
 							<input name="strasse" type="text" size="30" maxlength="30" id="strasse">
 							<input name="hausnummer" type="text" size="30" maxlength="30" id="hausnummer">
 							<input name="plz" type="text" size="30" maxlength="30" id="plz">
