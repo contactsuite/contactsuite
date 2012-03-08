@@ -159,7 +159,7 @@ if(benutzerID == null){
 						out.println("<a href=Controller?fcode=Loeschen&typ=privat&ID=" + tmpKontakt.getKontaktID() + ">Löschen</a>");
 						out.println("</td><td>");
 						String status = new String();
-						if (!tmpKontakt.isIstOeffentlich() &&  tmpKontakt.getGeaendertVon() == benutzerID){
+						if (!tmpKontakt.isIstOeffentlich()){
 							 status = "Privat";
 						} else {
 							status = "Öffentlich";
@@ -189,6 +189,8 @@ if(benutzerID == null){
 						} else {
 							status = "Öffentlich";
 						}
+						out.println(status);
+						out.println("</td><td>");
 						out.println(tmpKontakt.getKontaktID());
 						out.println("</td></tr>");
 					}
