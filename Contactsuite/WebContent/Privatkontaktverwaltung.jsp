@@ -5,12 +5,16 @@
 <!-- Auf Gültigkeit der Sitzung prüfen. Im Fall des Nichterfolgs weiterleiten auf eine Info-Seite.
 Andernfalls mit dem aktuellen Fenster fortfahren. -->
 <%
-HttpSession sitzung = request.getSession(false);
-Integer benutzerID = (Integer) sitzung.getAttribute("benutzerID");
 
-if(benutzerID == null){
-	request.getRequestDispatcher("Controller?fcode=Timeout").forward(request, response);
-}
+	HttpSession sitzung = request.getSession(false);
+	Integer benutzerID = 0;
+
+	if(sitzung != null){
+		benutzerID = (Integer) sitzung.getAttribute("benutzerID");
+	}else{
+		request.getRequestDispatcher("Controller?fcode=Timeout").forward(request, response);
+	}
+
 %>
 
 <!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
@@ -119,7 +123,7 @@ if(benutzerID == null){
 
 				<li>
 
-					<a href="#"><span>Benutzer</span></a>
+					<a href="Controller?fcode=Benutzer"><span>Benutzer</span></a>
 
 				</li>
 
@@ -150,9 +154,9 @@ if(benutzerID == null){
 						out.println("</td><td>");
 						out.println(tmpKontakt.getOrt());
 						out.println("</td><td>");
-						out.println("<a href=Controller?fcode=Details&typ=privat&kontaktID=" + tmpKontakt.getKontaktID() + ">Details</a>");
+						out.println("<a href=Controller?fcode=Details&typ=privat&ID=" + tmpKontakt.getKontaktID() + ">Details</a>");
 						out.println("</td><td>");
-						out.println("<a href=Controller?fcode=KontaktBearbeiten&typ=privat&kontaktID=" + tmpKontakt.getKontaktID() + ">Bearbeiten</a>");
+						out.println("<a href=Controller?fcode=KontaktBearbeiten&typ=privat&ID=" + tmpKontakt.getKontaktID() + ">Bearbeiten</a>");
 						out.println("</td><td>");
 						out.println("<a href=#>Löschen</a>");
 						out.println("</td><td>");
@@ -167,9 +171,9 @@ if(benutzerID == null){
 						out.println("</td><td>");
 						out.println(tmpKontakt.getOrt());
 						out.println("</td><td>");
-						out.println("<a href=Controller?fcode=Details&typ=privat&kontaktID=" + tmpKontakt.getKontaktID() + ">Details</a>");
+						out.println("<a href=Controller?fcode=Details&typ=privat&ID=" + tmpKontakt.getKontaktID() + ">Details</a>");
 						out.println("</td><td>");
-						out.println("<a href=Controller?fcode=KontaktBearbeiten&typ=privat&kontaktID=" + tmpKontakt.getKontaktID() + ">Bearbeiten</a>");
+						out.println("<a href=Controller?fcode=KontaktBearbeiten&typ=privat&ID=" + tmpKontakt.getKontaktID() + ">Bearbeiten</a>");
 						out.println("</td><td>");
 						out.println("<a href=#>Löschen</a>");
 						out.println("</td><td>");

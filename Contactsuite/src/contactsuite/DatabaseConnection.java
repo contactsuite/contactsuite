@@ -484,6 +484,12 @@ public class DatabaseConnection {
 		return 0;
 	}
 	
+	/**
+	 * Methode gibt an, wie viele Kontakte ein Benutzer insgesamt angelegt hat
+	 * @author Dominik Ferber
+	 * @param benutzerId: Id des Benutzers, dessen Kontakt-Anzahl ermittelt werden soll
+	 * @return Anzahl der Kontakte, die durch den Benutzer angelegt wurden
+	 */
 	public int getAnzahlKontakte(int benutzerId){
 		String sql = String.format("SELECT count(kontaktId) AS anzahl " +
 				"FROM %s " +

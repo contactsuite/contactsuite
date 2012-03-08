@@ -6,9 +6,11 @@
 Andernfalls mit dem aktuellen Fenster fortfahren. -->
 <%
 HttpSession sitzung = request.getSession(false);
-Integer benutzerID = (Integer) sitzung.getAttribute("benutzerID");
+Integer benutzerID = 0;
 
-if(benutzerID == null){
+if(sitzung != null){
+	benutzerID = (Integer) sitzung.getAttribute("benutzerID");
+}else{
 	request.getRequestDispatcher("Controller?fcode=Timeout").forward(request, response);
 }
 %>
@@ -119,7 +121,7 @@ if(benutzerID == null){
 
 				<li>
 
-					<a href="#"><span>Benutzer</span></a>
+					<a href="Controller?fcode=Benutzer"><span>Benutzer</span></a>
 
 				</li>
 
@@ -150,9 +152,9 @@ if(benutzerID == null){
 						out.println("</td><td>");
 						out.println(tmpKontakt.getOrt());
 						out.println("</td><td>");
-						out.println("<a href=Controller?fcode=Details&typ=firma&kontaktID=" + tmpKontakt.getKontaktID() + ">Details</a>");
+						out.println("<a href=Controller?fcode=Details&typ=firma&ID=" + tmpKontakt.getKontaktID() + ">Details</a>");
 						out.println("</td><td>");
-						out.println("<a href=Controller?fcode=KontaktBearbeiten&typ=firma&kontaktID=" + tmpKontakt.getKontaktID() + ">Bearbeiten</a>");
+						out.println("<a href=Controller?fcode=KontaktBearbeiten&typ=firma&ID=" + tmpKontakt.getKontaktID() + ">Bearbeiten</a>");
 						out.println("</td><td>");
 						out.println("<a href=#>Löschen</a>");
 						out.println("</td><td>");
@@ -167,9 +169,9 @@ if(benutzerID == null){
 						out.println("</td><td>");
 						out.println(tmpKontakt.getOrt());
 						out.println("</td><td>");
-						out.println("<a href=Controller?fcode=Details&typ=firma&kontaktID=" + tmpKontakt.getKontaktID() + ">Details</a>");
+						out.println("<a href=Controller?fcode=Details&typ=firma&ID=" + tmpKontakt.getKontaktID() + ">Details</a>");
 						out.println("</td><td>");
-						out.println("<a href=Controller?fcode=KontaktBearbeiten&typ=firma&kontaktID=" + tmpKontakt.getKontaktID() + ">Bearbeiten</a>");
+						out.println("<a href=Controller?fcode=KontaktBearbeiten&typ=firma&ID=" + tmpKontakt.getKontaktID() + ">Bearbeiten</a>");
 						out.println("</td><td>");
 						out.println("<a href=#>Löschen</a>");
 						out.println("</td><td>");

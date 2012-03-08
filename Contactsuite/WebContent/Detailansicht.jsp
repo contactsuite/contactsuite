@@ -9,8 +9,10 @@
 </head>
 <body>
 <%
-int id = Integer.valueOf(request.getParameter("kontaktID")) ;
 String typ = request.getParameter("typ");
+
+int id = Integer.valueOf(request.getParameter("ID")) ;
+
 
 DatabaseConnection dbConnect = DatabaseConnection.getInstance();
 
@@ -31,6 +33,8 @@ if(typ.equals("privat")){
 	out.println("<p>Telefon: " + tmpKontakt.getTelefonnummer() + "</p>");
 }else if(typ.equals("firma")){
 	
+	// Für Firmenkontakte
+	
 	Firmenkontakt tmpKontakt = dbConnect.getFirmenkontaktById(id);
 
 	out.println("<h1>Detailansicht</h1>");
@@ -42,6 +46,21 @@ if(typ.equals("privat")){
 	out.println("<p>Ort: " + tmpKontakt.getOrt() + "</p>");
 	out.println("<p>E-Mail: " + tmpKontakt.getEmail() + "</p>");
 	out.println("<p>Telefon: " + tmpKontakt.getTelefonnummer() + "</p>");
+}else if(typ.equals("benutzer")){
+	
+	// Für Benutzer
+	
+	Benutzer tmpUser = dbConnect.getBenutzerById(id);
+	
+	out.println("<h1>Detailansicht</h1>");
+	out.println("<p>E-Mail: " + tmpUser.getEmail() + "</p>");
+	
+	boolean freigeschaltet = tmpUser.isIstFreigeschaltet();
+	out.println(freigeschaltet ? "freigeschaltet" : "nicht freigeschaltet");
+	out.println("<br>");
+	
+	boolean admin = tmpUser.isIstAdmin();
+	out.println(admin ? "Admin" : "kein Admin");
 }
 %>
 

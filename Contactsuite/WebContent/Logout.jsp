@@ -8,7 +8,16 @@
 </head>
 <body>
 <%
-request.getRequestDispatcher("Controller?fcode=Start").forward(request, response);
+HttpSession sitzung = request.getSession(false);
+
+if(sitzung == null){
+	request.getRequestDispatcher("Controller?fcode=Timeout").forward(request, response);
+}else{
+	sitzung.invalidate();
+	out.println("<p> Der Logout war erfolgreich</p>");
+	out.println("<a href=Controller?fcode=Start>Erneut einloggen</a>");
+}
+
 %>
 
 </body>
