@@ -213,8 +213,15 @@ else{
 						</div>
 						<div id="neuKontaktInput">
 						<% 
+						
+						if(typ.equals("privat")){
 							out.println("<input name=\"vorname\" type=\"text\" size=\"30\" maxlength=\"30\" id=vorname value=" + name + ">");
 							out.println("<input name=\"nachname\" type=\"text\" size=\"30\" maxlength=\"30\" id=nachname value=" + name2 + " >");
+						}else if(typ.equals("firma")){
+							out.println("<input name=\"firmenname\" type=\"text\" size=\"30\" maxlength=\"30\" id=vorname value=" + name + ">");
+							out.println("<input name=\"ansprechpartner\" type=\"text\" size=\"30\" maxlength=\"30\" id=nachname value=" + name2 + " >");
+						}
+						
 							out.println("<input name=\"strasse\" type=\"text\" size=\"30\" maxlength=\"30\" id=strasse value=" + strasse + ">");
 							out.println("<input name=\"hausnummer\" type=\"text\" size=\"30\" maxlength=\"30\" id=hausnummer value=" + hausnummer + ">");
 							out.println("<input name=\"plz\" type=\"text\" size=\"30\" maxlength=\"30\" id=plz value=" + plz + ">");
@@ -225,7 +232,7 @@ else{
 						%>
 						</div>
 						<div id="oeffentlich">
-							 <p>M�chten Sie das dieser Kontakt �ffentlich Angezeigt wird? </p>
+							 <p>Möchten Sie das dieser Kontakt öffentlich Angezeigt wird? </p>
 							  <p>
 								<input type="radio" name="istOeffentlich" value="oeffentlich"> Ja<br>
 								<input type="radio" name="istOeffentlich" value="privat" checked> Nein<br>

@@ -19,6 +19,7 @@ public class Benutzer {
 	private String passwort;
 
 	private boolean istAdmin;
+	private boolean istOnline;
 	private boolean istFreigeschaltet;
 	private boolean istGeloescht;
 
