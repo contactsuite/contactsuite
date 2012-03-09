@@ -156,8 +156,6 @@ if(benutzerID == null){
 						out.println("</td><td>");
 						out.println("<a href=Controller?fcode=Loeschen&typ=firma&ID=" + tmpKontakt.getKontaktID() + ">Löschen</a>");
 						out.println("</td><td>");
-						out.println(tmpKontakt.getKontaktID());
-						out.println("</td></tr>");
 					}
 					else{
 						out.println("<tr id=\"tabStandard\"><td>");
@@ -173,8 +171,6 @@ if(benutzerID == null){
 						out.println("</td><td>");
 						out.println("<a href=Controller?fcode=Loeschen&typ=firma&ID=" + tmpKontakt.getKontaktID() + ">Löschen</a>");
 						out.println("</td><td>");
-						out.println(tmpKontakt.getKontaktID());
-						out.println("</td></tr>");
 					}
 					
 					farbig = !farbig;
