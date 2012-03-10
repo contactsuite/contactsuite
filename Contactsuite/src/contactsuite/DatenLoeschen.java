@@ -33,22 +33,24 @@ public class DatenLoeschen extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		String typ = request.getParameter("typ");
+		
+		HttpSession sitzung = request.getSession();
 
-		int id = Integer.valueOf(request.getParameter("ID"));
-		int benutezrid = Integer.valueOf(request.getParameter("benutzerID"));
+		int loeschID= Integer.valueOf(request.getParameter("ID"));
+		int benutezrID = (Integer) sitzung.getAttribute("benutzerID");
 
 		DatabaseConnection dbConnect = DatabaseConnection.getInstance();
 		
 		PrintWriter out = response.getWriter();
 
-		Kontakt pkontakt = dbConnect.getPrivatkontaktById(id);
+		Kontakt pkontakt = dbConnect.getPrivatkontaktById(loeschID);
 		int erstelltVon = pkontakt.getErstelltVon();
 
 		if (typ.equals("privat")) {
-			if (benutezrid == erstelltVon) {
+			if (benutezrID == erstelltVon) {
 
 				// Für Privatkontakte
-				dbConnect.loescheKontakt(id);
+				dbConnect.loescheKontakt(loeschID);
 				request.getRequestDispatcher("Controller?fcode=Privatkontakte")
 						.forward(request, response);
 
@@ -58,13 +60,13 @@ public class DatenLoeschen extends HttpServlet {
 		} else if (typ.equals("firma")) {
 
 			// Für Firmenkontakte
-			dbConnect.loescheKontakt(id);
+			dbConnect.loescheKontakt(loeschID);
 			request.getRequestDispatcher("Controller?fcode=Firmenkontakte")
 					.forward(request, response);
 
 		} else if (typ.equals("benutzer")) {
 			// Für Benutzer
-			dbConnect.loescheBenutzer(id);
+			dbConnect.loescheBenutzer(loeschID);
 			request.getRequestDispatcher("Controller?fcode=Benutzer").forward(
 					request, response);
 		}
