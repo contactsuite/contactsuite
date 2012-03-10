@@ -1,6 +1,8 @@
 package contactsuite;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
@@ -36,6 +38,8 @@ public class DatenLoeschen extends HttpServlet {
 		int benutezrid = Integer.valueOf(request.getParameter("benutzerID"));
 
 		DatabaseConnection dbConnect = DatabaseConnection.getInstance();
+		
+		PrintWriter out = response.getWriter();
 
 		Kontakt pkontakt = dbConnect.getPrivatkontaktById(id);
 		int erstelltVon = pkontakt.getErstelltVon();
@@ -49,9 +53,7 @@ public class DatenLoeschen extends HttpServlet {
 						.forward(request, response);
 
 			} else {
-				//TODO muss noch eine Fehlermeldung eingebaut werden
-				System.out
-						.println("Sie haben keine Rechte diesen Kontakt zu löschen!");
+				out.println("<p>Sie haben keine Berechtigung diesen Kontakt zu löschen</p>");
 			}
 		} else if (typ.equals("firma")) {
 

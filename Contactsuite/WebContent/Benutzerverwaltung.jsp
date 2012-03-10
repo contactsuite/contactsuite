@@ -147,6 +147,7 @@ if(!isAdmin){
 				<%
 				List<Benutzer> lstUser = dbConnect.getBenutzer();
 				
+				int gesperrteBenutzer = 0;
 				boolean farbig = false;
 				
 				out.println("<table id=\"mainTable\">");	
@@ -188,6 +189,9 @@ if(!isAdmin){
 						out.println("</td></tr>");
 					}
 					
+					if(!(tmpUser.isIstFreigeschaltet())){
+						gesperrteBenutzer++;
+					}
 					farbig = !farbig;
 				}
 				
@@ -224,7 +228,10 @@ if(!isAdmin){
 
 				<div id="options">
 					<%
-						out.write("<p>Benuzter ID: " + benutzerID + "</p>"); 
+						if(gesperrteBenutzer != 0){
+							out.write("<p>Es warten noch " + gesperrteBenutzer + " Benutzer auf Freischaltung </p>"); 
+						}
+						
 					%>
 				</div>
 

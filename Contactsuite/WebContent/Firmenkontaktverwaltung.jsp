@@ -218,9 +218,7 @@ if(benutzerID == null){
 				</div>
 
 				<div id="options">
-					<%
-						out.write("<p>Benuzter ID: " + benutzerID + "</p>"); 
-					%>
+					
 				</div>
 
 			</div>
