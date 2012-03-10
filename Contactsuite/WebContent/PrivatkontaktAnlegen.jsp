@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="contactsuite.*" %>
+<%@ page import="java.util.*" %>
     
 <!doctype html>
 
@@ -65,9 +67,18 @@ if(benutzerID == null){
 				<li>
 					<a href="Controller?fcode=Privatkontakte"><span>Privatkontakte</span></a>
 				</li>
-				<li>
-					<a href="#"><span>Benutzer</span></a>
-				</li>
+				<%
+					DatabaseConnection dbConnect = DatabaseConnection.getInstance();
+					Benutzer user = dbConnect.getBenutzerById(benutzerID);
+					
+					boolean admin = user.isIstAdmin();
+					
+					if(admin){
+						out.println("<li>");
+						out.println("<a href=\"Controller?fcode=Benutzer\"><span>Benutzer</span></a>");
+						out.println("</li>");
+					}
+				%>
 			</ul>
 		</div>
 		<div id="content">
@@ -91,17 +102,17 @@ if(benutzerID == null){
 
 								<li id="errorPlz" class="error"><span>Bitte tragen Sie die <b>Postleizahl</b> ein.</span></li>
 
-								<li id="errorPlzG" class="error"><span>Bitte tragen Sie die GÜLTIGE <b>Postleizahl</b> ein (z.b. 59329).</span></li>
+								<li id="errorPlzG" class="error"><span>Bitte tragen Sie die Gï¿½LTIGE <b>Postleizahl</b> ein (z.b. 59329).</span></li>
 
 								<li id="errorOrt" class="error"><span>Bitte tragen Sie den <b>Ort</b> ein.</span></li>
 
 								<li id="errorTn" class="error"><span>Bitte tragen Sie die <b>Telefonnummer</b> ein.</span></li>
 
-								<li id="errorTnG" class="error"><span>Bitte tragen Sie die GÜLTIGE <b>Telefonnummer</b> ein.</span></li>
+								<li id="errorTnG" class="error"><span>Bitte tragen Sie die Gï¿½LTIGE <b>Telefonnummer</b> ein.</span></li>
 
 								<li id="errorEmail" class="error"><span>Bitte tragen Sie die <b>E-Mail Adresse</b> ein.</span></li>
 
-								<li id="errorEmailG" class="error"><span>Bitte tragen Sie die GÜLTIGE <b>E-Mail</b> Adresse ein.</span></li>
+								<li id="errorEmailG" class="error"><span>Bitte tragen Sie die Gï¿½LTIGE <b>E-Mail</b> Adresse ein.</span></li>
 
 							</ul>
 

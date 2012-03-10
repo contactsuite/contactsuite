@@ -217,7 +217,7 @@ if(!isAdmin){
 				<div id="sideNavi">
 						
 						<ul>
-							<li><a href="Controller?fcode=PrivatkontaktAnlegen">Neuer Benutzer</a></li>
+							<li><a href="Controller?fcode=BenutzerAnlegen">Neuer Benutzer</a></li>
 							<li><a href=#>Aktion</a></li>
 							<li><a href=#>Aktion</a></li>
 							<li><a href=#>Aktion</a></li>
@@ -229,7 +229,7 @@ if(!isAdmin){
 				<div id="options">
 					<%
 						if(gesperrteBenutzer != 0){
-							out.write("<p>Es warten noch " + gesperrteBenutzer + " Benutzer auf Freischaltung </p>"); 
+							out.write("<b>Es warten noch " + gesperrteBenutzer + " Benutzer auf Freischaltung </bS>"); 
 						}
 						
 					%>

@@ -141,9 +141,19 @@ else{
 				<li>
 					<a href="Controller?fcode=Privatkontakte"><span>Privatkontakte</span></a>
 				</li>
-				<li>
-					<a href="#"><span>Benutzer</span></a>
-				</li>
+				<%
+					int benutzerID = (Integer) sitzung.getAttribute("benutzerID");
+					DatabaseConnection dbConnect = DatabaseConnection.getInstance();
+					Benutzer user = dbConnect.getBenutzerById(benutzerID);
+					
+					boolean admin = user.isIstAdmin();
+					
+					if(admin){
+						out.println("<li>");
+						out.println("<a href=\"Controller?fcode=Benutzer\"><span>Benutzer</span></a>");
+						out.println("</li>");
+					}
+				%>
 			</ul>
 		</div>
 		<div id="content">

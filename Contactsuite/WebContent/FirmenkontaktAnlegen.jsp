@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="contactsuite.*" %>
+<%@ page import="java.util.*" %>
     
 <!doctype html>
 
@@ -65,9 +67,18 @@ if(benutzerID == null){
 				<li>
 					<a href="Controller?fcode=Privatkontakte"><span>Privatkontakte</span></a>
 				</li>
-				<li>
-					<a href="#"><span>Benutzer</span></a>
-				</li>
+				<%
+					DatabaseConnection dbConnect = DatabaseConnection.getInstance();
+					Benutzer user = dbConnect.getBenutzerById(benutzerID);
+					
+					boolean admin = user.isIstAdmin();
+					
+					if(admin){
+						out.println("<li>");
+						out.println("<a href=\"Controller?fcode=Benutzer\"><span>Benutzer</span></a>");
+						out.println("</li>");
+					}
+				%>
 			</ul>
 		</div>
 		<div id="content">
