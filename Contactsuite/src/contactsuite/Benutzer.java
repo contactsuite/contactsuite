@@ -36,6 +36,7 @@ public class Benutzer {
 		passwort = "";
 
 		istAdmin = false;
+		istOnline = false;
 		istFreigeschaltet = false;
 		istGeloescht = false;
 
@@ -107,6 +108,14 @@ public class Benutzer {
 
 	public void setIstAdmin(boolean istAdmin) {
 		this.istAdmin = istAdmin;
+	}
+	
+	public boolean isIstOnline() {
+		return istOnline;
+	}
+	
+	public void setIstOnline(boolean online) {
+		this.istOnline = online;
 	}
 
 	public boolean isIstFreigeschaltet() {

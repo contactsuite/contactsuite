@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="contactsuite.*" %>
+<%@ page import="java.util.*" %>
 <!doctype html>
 
 <!-- Auf Gültigkeit der Sitzung prüfen. Im Fall des Nichterfolgs weiterleiten auf eine Info-Seite.
@@ -117,11 +119,20 @@ if(benutzerID == null){
 
 				</li>
 
-				<li>
 
-					<a href="Controller?fcode=Benutzer"><span>Benutzer</span></a>
+				<%
+					DatabaseConnection dbConnect = DatabaseConnection.getInstance();
+					Benutzer user = dbConnect.getBenutzerById(benutzerID);
+					
+					boolean admin = user.isIstAdmin();
+					
+					if(admin){
+						out.println("<li>");
+						out.println("<a href=\"Controller?fcode=Benutzer\"><span>Benutzer</span></a>");
+						out.println("</li>");
+					}
+				%>
 
-				</li>
 
 			</ul>
 
@@ -130,10 +141,9 @@ if(benutzerID == null){
 		<div id="content">
 
 			<div id="mainContent">
-				<%@ page import="contactsuite.*" %>
-				<%@ page import="java.util.*" %>
+				
 				<%
-				DatabaseConnection dbConnect = DatabaseConnection.getInstance();
+				
 				List<Firmenkontakt> lstKontakt = dbConnect.getFirmenkontakte();
 				
 				boolean farbig = false;

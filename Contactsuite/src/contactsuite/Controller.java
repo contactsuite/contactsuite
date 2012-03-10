@@ -40,7 +40,7 @@ public class Controller extends HttpServlet {
     	new String [] { "BenutzerAnlegen", "/BenutzerAnlegen.jsp"},
     	new String [] { "Loeschen", "DatenLoeschen" },
     	new String [] { "Registrierung", "/Registrierung.jsp"},
-    	new String [] { "Impressum", "/Impressum.jsp"},
+    	new String [] { "ZugriffVerweigert", "/ZugriffVerweigert.jsp"},
     	new String [] { "Timeout", "/Timeout.html"}
     	
     };

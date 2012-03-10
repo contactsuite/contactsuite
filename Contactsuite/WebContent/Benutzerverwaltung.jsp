@@ -13,6 +13,16 @@ if(benutzerID == null){
 	request.getRequestDispatcher("Controller?fcode=Timeout").forward(request, response);
 }
 
+DatabaseConnection dbConnect = DatabaseConnection.getInstance();
+Benutzer user = dbConnect.getBenutzerById(benutzerID);
+
+boolean isAdmin = user.isIstAdmin();
+
+if(!isAdmin){
+	request.getRequestDispatcher("Controller?fcode=ZugriffVerweigert").forward(request, response);
+}
+
+
 %>
 
 <!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
@@ -135,7 +145,6 @@ if(benutzerID == null){
 				<%@ page import="contactsuite.*" %>
 				<%@ page import="java.util.*" %>
 				<%
-				DatabaseConnection dbConnect = DatabaseConnection.getInstance();
 				List<Benutzer> lstUser = dbConnect.getBenutzer();
 				
 				boolean farbig = false;
