@@ -42,7 +42,8 @@ public class Controller extends HttpServlet {
     	new String [] { "Loeschen", "DatenLoeschen" },
     	new String [] { "Registrierung", "/Registrierung.jsp"},
     	new String [] { "ZugriffVerweigert", "/ZugriffVerweigert.jsp"},
-    	new String [] { "Timeout", "/Timeout.html"}
+    	new String [] { "Timeout", "/Timeout.html"},
+    	new String [] { "BenutzerBearbeiten", "/BenutzerBearbeiten.jsp"}
     	
     };
     

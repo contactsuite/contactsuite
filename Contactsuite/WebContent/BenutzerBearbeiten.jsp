@@ -48,13 +48,13 @@
 		<div id="navi">
 			<ul id="navi">
 				<li id="liLeft" class="active">
-					<a href="#"><span>Firmenkontakte</span></a>
+					<a href="Controller?fcode=Firmenkontakte"><span>Firmenkontakte</span></a>
 				</li>
 				<li>
-					<a href="#"><span>Privatkunden</span></a>
+					<a href="Controller?fcode=Privatkontakte"><span>Privatkontakt</span></a>
 				</li>
 				<li>
-					<a href="#"><span>Benutzer</span></a>
+					<a href="Controller?fcode=Benutzer" ><span>Benutzer</span></a>
 				</li>
 			</ul>
 		</div>
@@ -69,6 +69,14 @@
 						<div id="neuKontaktInput">
 							<input name="email" type="text" size="30" maxlength="30" id="email">
 							<input name="passwort" type="text" size="30" maxlength="30" id="passwort">
+						</div>
+						<div id="oeffentlich">
+							 <p>Möchten Sie diesen Benutzer freischalten? </p>
+							  <p>
+								<input type="radio" name="istOeffentlich" value="freigeschaltet"> Ja<br>
+								<input type="radio" name="istOeffentlich" value="gesperrt" checked> Nein<br>
+								
+							  </p>
 						</div>
 						<input type="Submit" id="anlegenButton" name="anlegenButton" value="Anlegen" >
 					</form>

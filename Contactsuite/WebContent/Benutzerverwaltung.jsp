@@ -170,7 +170,7 @@ if(!isAdmin){
 						out.println("</td><td>");
 						out.println("<a href=Controller?fcode=Details&typ=benutzer&ID=" + tmpUser.getBenutzerID() + ">Details</a>");
 						out.println("</td><td>");
-						out.println("<a href=#>Bearbeiten</a>");
+						out.println("<a href=Controller?fcode=BenutzerBearbeiten&ID="+tmpUser.getBenutzerID()+">Bearbeiten</a>");
 						out.println("</td><td>");
 						out.println("<a href=Controller?fcode=Loeschen&typ=benutzer&ID=" + tmpUser.getBenutzerID() + ">Löschen</a>");
 						out.println("</td></tr>");
