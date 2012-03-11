@@ -33,29 +33,33 @@ public class DatenLoeschen extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		String typ = request.getParameter("typ");
-		
+
 		HttpSession sitzung = request.getSession();
 
-		int loeschID= Integer.valueOf(request.getParameter("ID"));
+		int loeschID = Integer.valueOf(request.getParameter("ID"));
 		int benutezrID = (Integer) sitzung.getAttribute("benutzerID");
 
 		DatabaseConnection dbConnect = DatabaseConnection.getInstance();
-		
+
 		PrintWriter out = response.getWriter();
 
 		Kontakt pkontakt = dbConnect.getPrivatkontaktById(loeschID);
 		int erstelltVon = pkontakt.getErstelltVon();
 
 		if (typ.equals("privat")) {
+			// Für Privatkontakte
 			if (benutezrID == erstelltVon) {
 
-				// Für Privatkontakte
 				dbConnect.loescheKontakt(loeschID);
 				request.getRequestDispatcher("Controller?fcode=Privatkontakte")
 						.forward(request, response);
 
 			} else {
+
 				out.println("<p>Sie haben keine Berechtigung diesen Kontakt zu löschen</p>");
+				request.getRequestDispatcher("Controller?fcode=Privatkontakte")
+						.forward(request, response);
+
 			}
 		} else if (typ.equals("firma")) {
 
@@ -66,9 +70,17 @@ public class DatenLoeschen extends HttpServlet {
 
 		} else if (typ.equals("benutzer")) {
 			// Für Benutzer
-			dbConnect.loescheBenutzer(loeschID);
+			if (benutezrID != loeschID)
+				dbConnect.loescheBenutzer(loeschID);
 			request.getRequestDispatcher("Controller?fcode=Benutzer").forward(
 					request, response);
+
+		} else {
+
+			out.println("<p>Sie können sich nicht selber löschen!</p>");
+			request.getRequestDispatcher("Controller?fcode=Benutzer").forward(
+					request, response);
+
 		}
 	}
 
