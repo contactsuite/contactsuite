@@ -50,8 +50,8 @@ body { margin: 0; font-size: 1em; line-height: 1.4; }
    Links
    ========================================================================== */
 
-a { color: #00e; }
-a:visited { color: #551a8b; }
+a { color: #00e; text-decoration: none; }
+a:visited { color: #00e; }
 a:hover { color: #06e; }
 a:focus { outline: thin dotted; }
 
@@ -217,6 +217,10 @@ td { vertical-align: top; }
 /* ==|== primary styles =====================================================
    Author: FHDW-Contact Group
    ========================================================================== */
+.clear{
+	clear:			both;
+}
+
 
 #loginbox{
 	margin:			0 auto;
