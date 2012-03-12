@@ -62,10 +62,10 @@ if(benutzerID == null){
 		</div>
 		<div id="navi">
 			<ul id="navi">
-				<li id="liLeft" class="active">
+				<li id="liLeft">
 					<a href="Controller?fcode=Firmenkontakte"><span>Firmenkontakte</span></a>
 				</li>
-				<li>
+				<li class="active">
 					<a href="Controller?fcode=Privatkontakte"><span>Privatkontakte</span></a>
 				</li>
 				<%

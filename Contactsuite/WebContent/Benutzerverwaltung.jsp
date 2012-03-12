@@ -114,7 +114,7 @@ if(!isAdmin){
 
 				<ul id="navi">
 
-					<li id="liLeft" class="active"><a
+					<li id="liLeft"><a
 						href="Controller?fcode=Firmenkontakte"><span>Firmenkontakte</span></a>
 
 					</li>
@@ -123,7 +123,7 @@ if(!isAdmin){
 
 					</li>
 
-					<li><a href="Controller?fcode=Benutzer"><span>Benutzer</span></a>
+					<li class="active"><a href="Controller?fcode=Benutzer"><span>Benutzer</span></a>
 
 					</li>
 

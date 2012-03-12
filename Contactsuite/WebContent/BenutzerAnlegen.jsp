@@ -62,7 +62,7 @@ if(benutzerID == null){
 		</div>
 		<div id="navi">
 			<ul id="navi">
-				<li id="liLeft" class="active">
+				<li id="liLeft">
 					<a href="Controller?fcode=Firmenkontakte"><span>Firmenkontakte</span></a>
 				</li>
 				<li>
@@ -75,7 +75,7 @@ if(benutzerID == null){
 					boolean admin = user.isIstAdmin();
 					
 					if(admin){
-						out.println("<li>");
+						out.println("<li class=\"active\">");
 						out.println("<a href=\"Controller?fcode=Benutzer\"><span>Benutzer</span></a>");
 						out.println("</li>");
 					}

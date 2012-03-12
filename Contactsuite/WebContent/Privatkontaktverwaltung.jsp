@@ -107,12 +107,12 @@ if(benutzerID == null){
 
 				<ul id="navi">
 
-					<li id="liLeft" class="active"><a
+					<li id="liLeft"><a
 						href="Controller?fcode=Firmenkontakte"><span>Firmenkontakte</span></a>
 
 					</li>
 
-					<li><a href="Controller?fcode=Privatkontakte"><span>Privatkontakte</span></a>
+					<li class="active"><a href="Controller?fcode=Privatkontakte"><span>Privatkontakte</span></a>
 
 					</li>
 
