@@ -52,7 +52,7 @@ public class DatabaseConnection {
 	 */
 	public List<Kontakt> getKontakte(int benutzerId, String searchTerm){
 		List<Kontakt> lstKontakte = new ArrayList<Kontakt>();
-		lstKontakte.addAll(getPrivatkontakte(searchTerm, benutzerId));
+		lstKontakte.addAll(getPrivatkontakte(searchTerm, benutzerId, "nachname"));
 		lstKontakte.addAll(getFirmenkontakte(searchTerm));
 		return lstKontakte;
 	}
@@ -66,7 +66,7 @@ public class DatabaseConnection {
 	 */
 	public List<Kontakt> getKontakte(int benutzerId){
 		List<Kontakt> lstKontakte = new ArrayList<Kontakt>();
-		lstKontakte.addAll(getPrivatkontakte("", benutzerId));
+		lstKontakte.addAll(getPrivatkontakte("", benutzerId, "nachname"));
 		lstKontakte.addAll(getFirmenkontakte(""));
 		return lstKontakte;
 	}
@@ -78,7 +78,7 @@ public class DatabaseConnection {
 	 * @param benutzerId
 	 * @return
 	 */
-	public List<Privatkontakt> getPrivatkontakte(String searchTerm, int benutzerId) {
+	public List<Privatkontakt> getPrivatkontakte(String searchTerm, int benutzerId, String sortierSpalte) {
 		List<Privatkontakt> lstKontakte = new ArrayList<Privatkontakt>();
 		
 		String sql = String.format("SELECT * " +
@@ -90,7 +90,7 @@ public class DatabaseConnection {
 				"istGeloescht = 0 AND " +
 				"(istOeffentlich = 1 OR " +
 				"(istOeffentlich = 0 AND erstelltVon = %d)) " +
-				"ORDER BY nachname;",tblKontakt, searchTerm+'%', searchTerm+'%', benutzerId);
+				"ORDER BY %s;",tblKontakt, searchTerm+'%', searchTerm+'%', benutzerId, sortierSpalte);
 		System.out.println(sql);
 		try{
 			Statement stmt = connection.createStatement();
@@ -119,8 +119,7 @@ public class DatabaseConnection {
 		return lstKontakte;
 	}
 	
-	
-	public List<Firmenkontakt> getFirmenkontakte(String searchTerm){
+	public List<Firmenkontakt> getFirmenkontakte(String searchTerm, String sortierSpalte){
 		List<Firmenkontakt> lstKontakte = new ArrayList<Firmenkontakt>();
 		System.out.println("test");
 		String sql = String.format("SELECT * " +
@@ -128,7 +127,7 @@ public class DatabaseConnection {
 				"WHERE firmenname LIKE '%s' AND " +
 				"istFirmenkontakt = 1 " +
 				"AND istGeloescht = 0 " +
-				"ORDER BY firmenname;",tblKontakt, searchTerm+'%');
+				"ORDER BY %s;",tblKontakt, searchTerm+'%', sortierSpalte);
 		System.out.println(sql);
 		try{
 			Statement stmt = connection.createStatement();
@@ -158,11 +157,12 @@ public class DatabaseConnection {
 	}
 	
 	/**
-	 * Liest alle Privatkontakte aus der Datenbank aus.
+	 * Liest alle Privatkontakte aus der Datenbank aus und sortiert diese nach einem
+	 * übergebenen Kriterium.
 	 * @author Dominik Ferber
 	 * @return
 	 */
-	public List<Privatkontakt> getPrivatkontakte(){
+	public List<Privatkontakt> getPrivatkontakte(String sortierSpalte){
 		List<Privatkontakt> lstKontakte = new ArrayList<Privatkontakt>();
 		
 		String sql = String.format("SELECT * " +
@@ -170,7 +170,7 @@ public class DatabaseConnection {
 				"WHERE " +
 				"istFirmenkontakt = 0 " +
 				"AND istGeloescht = 0 " +
-				"ORDER BY nachname;",tblKontakt);
+				"ORDER BY %s;",tblKontakt, sortierSpalte);
 		try{
 			Statement stmt = connection.createStatement();
 			ResultSet result = stmt.executeQuery(sql);
@@ -203,13 +203,13 @@ public class DatabaseConnection {
 	 * @author Dominik Ferber
 	 * @return
 	 */
-	public List<Firmenkontakt> getFirmenkontakte(){
+	public List<Firmenkontakt> getFirmenkontakte(String sortierSpalte){
 		List<Firmenkontakt> lstKontakte = new ArrayList<Firmenkontakt>();
 		String sql = String.format("SELECT * " +
 				"FROM %s " +
 				"WHERE istFirmenkontakt = 1 " +
 				"AND istGeloescht = 0 " +
-				"ORDER BY firmenname;",tblKontakt);
+				"ORDER BY %s;",tblKontakt,sortierSpalte);
 		try{
 			Statement stmt = connection.createStatement();
 			ResultSet result = stmt.executeQuery(sql);
@@ -236,14 +236,14 @@ public class DatabaseConnection {
 		}
 		return lstKontakte;
 	}
-
+	
 	/**
 	 * Liesst alle Privatkontakte anhand einer BenutzerId aus.
 	 * @author Dominik Ferber
 	 * @param benutzerId
 	 * @return
 	 */
-	public List<Privatkontakt> getPrivatkontakteByBenutzerId(int benutzerId){
+	public List<Privatkontakt> getPrivatkontakteByBenutzerId(int benutzerId, String sortierSpalte){
 		List<Privatkontakt> lstPrivatkontakte = new ArrayList<Privatkontakt>();		
 		String sql = String.format("SELECT * " +
 				"FROM %s " +
@@ -251,7 +251,7 @@ public class DatabaseConnection {
 				"OR erstelltVon = %d) " +
 				"AND istFirmenkontakt = 0 " +
 				"AND istGeloescht = 0 " +
-				"ORDER BY nachname;", tblKontakt, benutzerId);
+				"ORDER BY %s;", tblKontakt, benutzerId, sortierSpalte);
 		try{
 			Statement stmt = connection.createStatement();
 			ResultSet result = stmt.executeQuery(sql);			
