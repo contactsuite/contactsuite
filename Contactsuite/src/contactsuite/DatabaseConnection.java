@@ -525,7 +525,24 @@ public class DatabaseConnection {
 	 * @return true wenn Löschvorgang erfolgreich sonst false.
 	 */
 	public boolean loescheKontakt(int kontaktId){
-		String sql = String.format("UPDATE %s SET istGeloescht = 1 WHERE kontaktID = %d;",tblKontakt, kontaktId);
+		String sql = String.format("UPDATE %s " +
+				"SET istGeloescht = 1 " +
+				"WHERE kontaktID = %d " +
+				"AND istGeloescht = 0;",tblKontakt, kontaktId);
+		return (executeUpdateQuery(sql)>0);
+	}
+	
+	/**
+	 * Löscht alle Kontakte die zu einem Benutzer gehören.
+	 * @author Dominik Ferber
+	 * @param benutzerId
+	 * @return
+	 */
+	public boolean loescheKontakteByBenutzerId(int benutzerId){
+		String sql = String.format("UPDATE %s " +
+				"SET istGeloescht = 1 " +
+				"WHERE erstelltVon = %d AND " +
+				"istGeloescht = 0;", tblKontakt, benutzerId);
 		return (executeUpdateQuery(sql)>0);
 	}
 	
@@ -877,6 +894,13 @@ public class DatabaseConnection {
 		return geaenderteDatensaetze;
 	}
 	
+	/**
+	 * Methode führt einen übergeben SQL UPDATE oder INSERT befehl aus und gibt die Anzahl der
+	 * betroffenen Datensätze zurück.
+	 * @author Dominik Ferber
+	 * @param sqlCommand
+	 * @return Anzahl der betroffenen Datensätze.
+	 */
 	public int executeUpdateQuery(String sqlCommand){
 		int manipulierteDatensaetze = 0;
 		try {
