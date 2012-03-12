@@ -138,7 +138,7 @@ if(benutzerID == null){
 
 				<div id="mainContent">
 
-					<%
+				<%
 				List<Privatkontakt> lstKontakt = dbConnect.getPrivatkontakteByBenutzerId(benutzerID);
 				
 				boolean farbig = false;
