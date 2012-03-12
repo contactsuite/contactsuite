@@ -84,13 +84,14 @@ public class DatabaseConnection {
 		String sql = String.format("SELECT * " +
 				"FROM %s " +
 				"WHERE " +
-				"vorname LIKE '%s%' OR " +
-				"nachname LIKE '%s%' AND " +
+				"(vorname LIKE '%s' OR " +
+				"nachname LIKE '%s') AND " +
 				"istFirmenkontakt = 0 AND " +
 				"istGeloescht = 0 AND " +
 				"(istOeffentlich = 1 OR " +
 				"(istOeffentlich = 0 AND erstelltVon = %d)) " +
-				"ORDER BY nachname;",tblKontakt, searchTerm, searchTerm, benutzerId);
+				"ORDER BY nachname;",tblKontakt, searchTerm+'%', searchTerm+'%', benutzerId);
+		System.out.println(sql);
 		try{
 			Statement stmt = connection.createStatement();
 			ResultSet result = stmt.executeQuery(sql);
@@ -121,12 +122,14 @@ public class DatabaseConnection {
 	
 	public List<Firmenkontakt> getFirmenkontakte(String searchTerm){
 		List<Firmenkontakt> lstKontakte = new ArrayList<Firmenkontakt>();
+		System.out.println("test");
 		String sql = String.format("SELECT * " +
 				"FROM %s " +
-				"WHERE firmenname LIKE '%s%' AND " +
+				"WHERE firmenname LIKE '%s' AND " +
 				"istFirmenkontakt = 1 " +
 				"AND istGeloescht = 0 " +
-				"ORDER BY firmenname;",tblKontakt, searchTerm);
+				"ORDER BY firmenname;",tblKontakt, searchTerm+'%');
+		System.out.println(sql);
 		try{
 			Statement stmt = connection.createStatement();
 			ResultSet result = stmt.executeQuery(sql);

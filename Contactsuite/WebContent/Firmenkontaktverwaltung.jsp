@@ -196,18 +196,15 @@ if(benutzerID == null){
 
 				<div id="sideBox">
 
-					<div id="searchBox">
-
-						<form action="Controller?fcode=KontaktSuche" method="post">
-
-							<input name="searchField" type="text" size="20" maxlength="30"><br>
-
-							<input type="submit" id="searchButton" name="search"
-								value="Suche"> <input type="hidden" id="loginButton"
-								name="fcode" value="KontaktSuche">
-						</form>
-
-					</div>
+				<div id="searchBox">
+					<form action="Controller?fcode=FirmenkontaktSuche" method="post">
+						<%
+							String sucheingabe = (request.getParameterMap().containsKey("searchField"))?request.getParameter("searchField"):"";
+							out.println("<input name=\"searchField\" type=\"text\" size=\"20\" maxlength=\"30\" value=\""+sucheingabe+"\"><br>");
+						%>
+						<input type="submit" id="searchButton" name="search" value="Suche">
+					</form>
+				</div>
 
 					<div id="sideNavi">
 

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="contactsuite.*"%>
+<%@ page import="java.util.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 
@@ -7,8 +9,9 @@
 Andernfalls mit dem aktuellen Fenster fortfahren. -->
 <%
 HttpSession sitzung = request.getSession(false);
-if(sitzung == null){
-	request.getRequestDispatcher("/Info.jsp").forward(request, response);
+Integer benutzerID = (Integer) sitzung.getAttribute("benutzerID");
+if(benutzerID == null){
+	request.getRequestDispatcher("Controller?fcode=Timeout").forward(request, response);
 }
 %>
 
@@ -106,21 +109,28 @@ if(sitzung == null){
 
 				<li id="liLeft" class="active">
 
-					<a href="#"><span>Firmenkontakte</span></a>
+					<a href="Controller?fcode=Firmenkontakte"><span>Firmenkontakte</span></a>
 
 				</li>
 
 				<li>
 
-					<a href="#"><span>Privatkontakte</span></a>
+					<a href="Controller?fcode=Privatkontakte"><span>Privatkontakte</span></a>
 
 				</li>
 
-				<li>
-
-					<a href="#"><span>Benutzer</span></a>
-
-				</li>
+				<%
+					DatabaseConnection dbConnect = DatabaseConnection.getInstance();
+					Benutzer user = dbConnect.getBenutzerById(benutzerID);
+					
+					boolean admin = user.isIstAdmin();
+					
+					if(admin){
+						out.println("<li>");
+						out.println("<a href=\"Controller?fcode=Benutzer\"><span>Benutzer</span></a>");
+						out.println("</li>");
+					}
+				%>
 
 			</ul>
 
@@ -129,30 +139,98 @@ if(sitzung == null){
 		<div id="content">
 
 			<div id="mainContent">
-				<%@ page import="contactsuite.*" %>
-				<%@ page import="java.util.*" %>
-				<%
+
+					<%
+					String suchEingabe = request.getParameter("searchField");
+				List<Privatkontakt> lstKontakt = dbConnect.getPrivatkontakte(suchEingabe, benutzerID);
 				
-				String suchEingabe = request.getParameter("searchField");
+				boolean farbig = false;
 				
-				DatabaseConnection dbConnect = DatabaseConnection.getInstance();
-				dbConnect.getFirmenkontakte(suchEingabe);
+				out.println("<table id=\"mainTable\">");	
+				
+				out.println("<tr id=\"tabFarbig\"><td>");
+				out.println("<b>Vorname</b>");
+				out.println("</td><td>");
+				out.println("<b>Nachname</b>");
+				out.println("</td><td>");
+				out.println("<b>Ort</b>");
+				out.println("</td><td>");
+				out.println("<b>Status</b>");
+				out.println("</td><td colspan=\"3\">");
+				out.println("<b>Aktion</b>");
+				out.println("</td><td>");
+				
+				for(Privatkontakt  tmpKontakt : lstKontakt){
+
+					
+					
+					if(farbig){
+						out.println("<tr id=\"tabFarbig\"><td>");
+						out.println(tmpKontakt.getVorname());
+						out.println("</td><td>");
+						out.println(tmpKontakt.getNachname());
+						out.println("</td><td>");
+						out.println(tmpKontakt.getOrt());
+						out.println("</td><td>");
+						String status = new String();
+						if (!tmpKontakt.isIstOeffentlich()){
+							 status = "Privat";
+						} else {
+							status = "Öffentlich";
+						}
+						out.println(status);
+						out.println("</td><td>");
+						out.println("<a href=Controller?fcode=Details&typ=privat&ID=" + tmpKontakt.getKontaktID() + ">Details</a>");
+						out.println("</td><td>");
+						out.println("<a href=Controller?fcode=KontaktBearbeiten&typ=privat&ID=" + tmpKontakt.getKontaktID() + ">Bearbeiten</a>");
+						out.println("</td><td>");
+						out.println("<a href=Controller?fcode=Loeschen&typ=privat&ID=" + tmpKontakt.getKontaktID() +"&benutzerID="+benutzerID+ ">Löschen</a>");
+						out.println("</td><td>");
+						
+					}
+					else{
+						out.println("<tr id=\"tabStandard\"><td>");
+						out.println(tmpKontakt.getVorname());
+						out.println("</td><td>");
+						out.println(tmpKontakt.getNachname());
+						out.println("</td><td>");
+						out.println(tmpKontakt.getOrt());
+						out.println("</td><td>");
+						String status = new String();
+						if (!tmpKontakt.isIstOeffentlich()){
+							 status = "Privat";
+						} else {
+							status = "Öffentlich";
+						}
+						out.println(status);
+						out.println("</td><td>");
+						out.println("<a href=Controller?fcode=Details&typ=privat&ID=" + tmpKontakt.getKontaktID() + ">Details</a>");
+						out.println("</td><td>");
+						out.println("<a href=Controller?fcode=KontaktBearbeiten&typ=privat&ID=" + tmpKontakt.getKontaktID() + ">Bearbeiten</a>");
+						out.println("</td><td>");
+						out.println("<a href=Controller?fcode=Loeschen&typ=privat&ID=" + tmpKontakt.getKontaktID()+"&benutzerID="+ benutzerID + ">Löschen</a>");
+						out.println("</td><td>");
+						
+					}
+					
+					farbig = !farbig;
+				}
+				
+				out.println("</table>");
 				
 				%>
-			</div>	
+				</div>
 
 			<div id="sideBox">
 
 				<div id="searchBox">
-
-					<form action="Controller?fcode=KontaktSuche">
-
-						<input name="searchField" type="text" size="20" maxlength="30"><br>
-
+					<form action="Controller?fcode=PrivatkontaktSuche" method="post">
+						<%
+							String sucheingabe = (request.getParameterMap().containsKey("searchField"))?request.getParameter("searchField"):"";
+							out.println("<input name=\"searchField\" type=\"text\" size=\"20\" maxlength=\"30\" value=\""+sucheingabe+"\"><br>");
+						%>
 						<input type="submit" id="searchButton" name="search" value="Suche">
-
 					</form>
-
 				</div>
 
 				<div id="sideNavi">
@@ -168,10 +246,6 @@ if(sitzung == null){
 				</div>
 
 				<div id="options">
-					<%
-						Integer benutzerID = (Integer) sitzung.getAttribute("benutzerID");
-						out.write("<p>Benuzter ID: " + benutzerID + "</p>"); 
-					%>
 				</div>
 
 			</div>
