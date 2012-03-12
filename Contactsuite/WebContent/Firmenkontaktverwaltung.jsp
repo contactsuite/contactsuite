@@ -135,19 +135,19 @@ if(benutzerID == null){
 			<div id="content">
 
 				<div id="mainContent">
-
-					<%
-				
-				List<Firmenkontakt> lstKontakt = (request.getParameterMap().containsKey("searchField"))?dbConnect.getFirmenkontakte(request.getParameter("searchField")):dbConnect.getFirmenkontakte("firmenname");
+				<form name="suche" action="Controller?fcode=Firmenkontakte" method="post">
+				<input type="hidden" name="sortierSpalte" />
+				<%
+				String sortierSpalte = (request.getParameterMap().containsKey("sortierSpalte") && !request.getParameter("sortierSpalte").equals(""))?request.getParameter("sortierSpalte"):"firmenname";
+				List<Firmenkontakt> lstKontakt = (request.getParameterMap().containsKey("searchField"))?dbConnect.getFirmenkontakte(request.getParameter("searchField"), sortierSpalte):dbConnect.getFirmenkontakte(sortierSpalte);
 				
 				boolean farbig = false;
 				
 				out.println("<table id=\"mainTable\">");
-				
 				out.println("<tr id=\"tabFarbig\"><td>");
-				out.println("<b>Firmenname</b>");
+				out.println("<b><a href='Controller?fcode=Firmenkontakte&sortierSpalte=firmenname'>Firmenname</a></b>");
 				out.println("</td><td>");
-				out.println("<b>Ansprechpartner</b>");
+				out.println("<b><a href='Controller?fcode=Firmenkontakte&sortierSpalte=ansprechpartner'>Ansprechpartner</a></b>");
 				out.println("</td><td>");
 				out.println("<b>Ort</b>");
 				out.println("</td><td colspan=\"3\">");
@@ -198,7 +198,6 @@ if(benutzerID == null){
 				<div id="sideBox">
 
 				<div id="searchBox">
-					<form action="Controller?fcode=Firmenkontakte" method="post">
 						<%
 							String sucheingabe = (request.getParameterMap().containsKey("searchField"))?request.getParameter("searchField"):"";
 							out.println("<input name=\"searchField\" type=\"text\" size=\"20\" maxlength=\"30\" value=\""+sucheingabe+"\"><br>");

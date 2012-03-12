@@ -121,7 +121,7 @@ public class DatabaseConnection {
 	
 	public List<Firmenkontakt> getFirmenkontakte(String searchTerm, String sortierSpalte){
 		List<Firmenkontakt> lstKontakte = new ArrayList<Firmenkontakt>();
-		System.out.println("test");
+		System.out.println(sortierSpalte);
 		String sql = String.format("SELECT * " +
 				"FROM %s " +
 				"WHERE firmenname LIKE '%s' AND " +
@@ -210,6 +210,7 @@ public class DatabaseConnection {
 				"WHERE istFirmenkontakt = 1 " +
 				"AND istGeloescht = 0 " +
 				"ORDER BY %s;",tblKontakt,sortierSpalte);
+		System.out.println(sql);
 		try{
 			Statement stmt = connection.createStatement();
 			ResultSet result = stmt.executeQuery(sql);
