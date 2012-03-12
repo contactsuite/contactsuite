@@ -115,17 +115,17 @@ if(benutzerID == null){
 
 
 					<%
-					DatabaseConnection dbConnect = DatabaseConnection.getInstance();
-					Benutzer user = dbConnect.getBenutzerById(benutzerID);
-					
-					boolean admin = user.isIstAdmin();
-					
-					if(admin){
-						out.println("<li>");
-						out.println("<a href=\"Controller?fcode=Benutzer\"><span>Benutzer</span></a>");
-						out.println("</li>");
-					}
-				%>
+						Datenbankverbindung dbConnect = Datenbankverbindung.getInstance();
+								Benutzer user = dbConnect.getBenutzerById(benutzerID);
+								
+								boolean admin = user.isIstAdmin();
+								
+								if(admin){
+									out.println("<li>");
+									out.println("<a href=\"Controller?fcode=Benutzer\"><span>Benutzer</span></a>");
+									out.println("</li>");
+								}
+					%>
 
 
 				</ul>

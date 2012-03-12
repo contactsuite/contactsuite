@@ -16,7 +16,7 @@
 String mail = request.getParameter("email");
 String pw = request.getParameter("passwort");
 
-DatabaseConnection dbConnect = DatabaseConnection.getInstance();
+Datenbankverbindung dbConnect = Datenbankverbindung.getInstance();
 Benutzer user = dbConnect.getBenutzerByEmail(mail);
 
 // Existiert der Benutzer in der Datenbank?

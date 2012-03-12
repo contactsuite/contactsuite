@@ -12,20 +12,20 @@ import java.util.*;
  * 
  *
  */
-public class DatabaseConnection {
-	private static DatabaseConnection instance = null;
+public class Datenbankverbindung {
+	private static Datenbankverbindung instance = null;
 	
 	private final String dbBenutzername = "customers_s001";
 	private final String dbPasswort = "dqJAMKPR2x5B5JV8";
 	private final String dbName = "jdbc:mysql://pma.postopus.de/customers_s001";
 	private final String tblBenutzer = "tblbenutzer";
 	private final String tblKontakt = "tblkontakt";
-	private Connection connection;
+	private Connection verbindung;
 	
-	private DatabaseConnection(){
+	private Datenbankverbindung(){
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
-			this.connection = DriverManager.getConnection(
+			this.verbindung = DriverManager.getConnection(
 					this.dbName, this.dbBenutzername, this.dbPasswort);
 		} 
 		catch (ClassNotFoundException err) {
@@ -36,9 +36,9 @@ public class DatabaseConnection {
 		}
 	}
 	
-	public static DatabaseConnection getInstance() {
+	public static Datenbankverbindung getInstance() {
         if (instance == null) {
-            instance = new DatabaseConnection();
+            instance = new Datenbankverbindung();
         }
         return instance;
     }
@@ -93,7 +93,7 @@ public class DatabaseConnection {
 				"ORDER BY %s;",tblKontakt, searchTerm+'%', searchTerm+'%', benutzerId, sortierSpalte);
 		System.out.println(sql);
 		try{
-			Statement stmt = connection.createStatement();
+			Statement stmt = verbindung.createStatement();
 			ResultSet result = stmt.executeQuery(sql);
 			while(result.next()){
 				Privatkontakt tmpKontakt = new Privatkontakt();
@@ -130,7 +130,7 @@ public class DatabaseConnection {
 				"ORDER BY %s;",tblKontakt, searchTerm+'%', sortierSpalte);
 		System.out.println(sql);
 		try{
-			Statement stmt = connection.createStatement();
+			Statement stmt = verbindung.createStatement();
 			ResultSet result = stmt.executeQuery(sql);
 			while(result.next()){
 				Firmenkontakt tmpKontakt = new Firmenkontakt();
@@ -172,7 +172,7 @@ public class DatabaseConnection {
 				"AND istGeloescht = 0 " +
 				"ORDER BY %s;",tblKontakt, sortierSpalte);
 		try{
-			Statement stmt = connection.createStatement();
+			Statement stmt = verbindung.createStatement();
 			ResultSet result = stmt.executeQuery(sql);
 			while(result.next()){
 				Privatkontakt tmpKontakt = new Privatkontakt();
@@ -212,7 +212,7 @@ public class DatabaseConnection {
 				"ORDER BY %s;",tblKontakt,sortierSpalte);
 		System.out.println(sql);
 		try{
-			Statement stmt = connection.createStatement();
+			Statement stmt = verbindung.createStatement();
 			ResultSet result = stmt.executeQuery(sql);
 			while(result.next()){
 				Firmenkontakt tmpKontakt = new Firmenkontakt();
@@ -254,7 +254,7 @@ public class DatabaseConnection {
 				"AND istGeloescht = 0 " +
 				"ORDER BY %s;", tblKontakt, benutzerId, sortierSpalte);
 		try{
-			Statement stmt = connection.createStatement();
+			Statement stmt = verbindung.createStatement();
 			ResultSet result = stmt.executeQuery(sql);			
 			while(result.next()){
 				Privatkontakt tmpKontakt = new Privatkontakt();
@@ -293,7 +293,7 @@ public class DatabaseConnection {
 				"WHERE kontaktId = %d " +
 				"AND istGeloescht = 0;", tblKontakt, privatkontaktId);
 		try{
-			Statement stmt = this.connection.createStatement();
+			Statement stmt = this.verbindung.createStatement();
 			ResultSet result = stmt.executeQuery(sql);
 			System.out.println(result.toString());			
 			while(result.next()){
@@ -331,7 +331,7 @@ public class DatabaseConnection {
 				"WHERE kontaktId = %d " +
 				"AND istGeloescht = 0;", tblKontakt, firmenkontaktId);
 		try{
-			Statement stmt = this.connection.createStatement();
+			Statement stmt = this.verbindung.createStatement();
 			ResultSet result = stmt.executeQuery(sql);
 			System.out.println(result.toString());			
 			while(result.next()){
@@ -368,7 +368,7 @@ public class DatabaseConnection {
 				"WHERE istGeloescht = 0 " +
 				"ORDER BY email;",tblBenutzer);
 		try{
-			Statement stmt = connection.createStatement();
+			Statement stmt = verbindung.createStatement();
 			ResultSet result = stmt.executeQuery(sql);
 			while(result.next()){
 				Benutzer tmpBenutzer = new Benutzer();
@@ -398,7 +398,7 @@ public class DatabaseConnection {
 				"WHERE benutzerId = %d " +
 				"AND istGeloescht = 0;", tblBenutzer, benutzerId);
 		try{
-			Statement stmt = connection.createStatement();
+			Statement stmt = verbindung.createStatement();
 			ResultSet result = stmt.executeQuery(sql);
 			while(result.next()){
 				benutzer.setBenutzerID(result.getInt("benutzerId"));
@@ -429,7 +429,7 @@ public class DatabaseConnection {
 				"WHERE email = '%s' " +
 				"AND istGeloescht = 0;", tblBenutzer, email);
 		try{
-			Statement stmt = connection.createStatement();
+			Statement stmt = verbindung.createStatement();
 			ResultSet result = stmt.executeQuery(sql);
 			while(result.next()){
 				benutzer.setBenutzerID(result.getInt("benutzerId"));
@@ -460,7 +460,7 @@ public class DatabaseConnection {
 				"AND istFirmenkontakt = 1 " +
 				"AND istGeloescht = 0;", tblKontakt,benutzerId);
 		try{
-			Statement stmt = connection.createStatement();
+			Statement stmt = verbindung.createStatement();
 			ResultSet result = stmt.executeQuery(sql);
 			while(result.next()){
 				return result.getInt("anzahl");
@@ -484,7 +484,7 @@ public class DatabaseConnection {
 				"AND istFirmenkontakt = 0 " +
 				"AND istGeloescht = 0;", tblKontakt,benutzerId);
 		try{
-			Statement stmt = connection.createStatement();
+			Statement stmt = verbindung.createStatement();
 			ResultSet result = stmt.executeQuery(sql);
 			while(result.next()){
 				return result.getInt("anzahl");
@@ -507,7 +507,7 @@ public class DatabaseConnection {
 				"WHERE erstelltVon = %d " +
 				"AND istGeloescht = 0;", tblKontakt,benutzerId);
 		try{
-			Statement stmt = connection.createStatement();
+			Statement stmt = verbindung.createStatement();
 			ResultSet result = stmt.executeQuery(sql);
 			while(result.next()){
 				return result.getInt("anzahl");
@@ -529,7 +529,7 @@ public class DatabaseConnection {
 				"SET istGeloescht = 1 " +
 				"WHERE kontaktID = %d " +
 				"AND istGeloescht = 0;",tblKontakt, kontaktId);
-		return (executeUpdateQuery(sql)>0);
+		return (befehlAusfuehren(sql)>0);
 	}
 	
 	/**
@@ -543,7 +543,7 @@ public class DatabaseConnection {
 				"SET istGeloescht = 1 " +
 				"WHERE erstelltVon = %d AND " +
 				"istGeloescht = 0;", tblKontakt, benutzerId);
-		return (executeUpdateQuery(sql)>0);
+		return (befehlAusfuehren(sql)>0);
 	}
 	
 	/**
@@ -554,7 +554,7 @@ public class DatabaseConnection {
 	 */
 	public boolean loescheBenutzer(int benutzerId){
 		String sql = String.format("UPDATE %s SET istGeloescht = 1 WHERE benutzerID = %d;",tblBenutzer, benutzerId);
-		return (executeUpdateQuery(sql)>0);
+		return (befehlAusfuehren(sql)>0);
 	}
 	
 	/**
@@ -588,7 +588,7 @@ public class DatabaseConnection {
 				privatkontakt.getNachname(),
 				privatkontakt.getErstelltVon());
 		try {
-			Statement stmt = this.connection.createStatement();
+			Statement stmt = this.verbindung.createStatement();
 			ResultSet result = stmt.executeQuery(sql);
 			//Kontakt ist schon vorhanden
 			if(result.next()){
@@ -632,7 +632,7 @@ public class DatabaseConnection {
 				firmenkontakt.getAnsprechpartner(),
 				firmenkontakt.getErstelltVon());
 		try {
-			Statement stmt = this.connection.createStatement();
+			Statement stmt = this.verbindung.createStatement();
 			ResultSet result = stmt.executeQuery(sql);
 			//Kontakt ist schon vorhanden
 			if(result.next()){
@@ -656,7 +656,7 @@ public class DatabaseConnection {
 				"FROM %s " +
 				"WHERE email = '%s';", tblBenutzer, benutzer.getEmail());
 		try {
-			Statement stmt = connection.createStatement();
+			Statement stmt = verbindung.createStatement();
 			ResultSet result = stmt.executeQuery(sql);
 			//Kontakt ist schon vorhanden
 			if(result.next()){
@@ -669,7 +669,6 @@ public class DatabaseConnection {
 		return false;
 	}
 
-	
 	/**
 	 * Methode zum speichern von Benutzern. Falls der übergebene Benutzer schon
 	 * vorhanden ist wird dieser geupdated. Sonst wird ein neuer Datensatz eingetragen.
@@ -716,7 +715,7 @@ public class DatabaseConnection {
 						((benutzer.isIstAdmin())?1:0),
 						((benutzer.isIstFreigeschaltet())?1:0));
 			}
-			Statement stmt = connection.createStatement();
+			Statement stmt = verbindung.createStatement();
 			geaenderteDatensaetze = stmt.executeUpdate(sql);
 		} catch (SQLException e) {
 			ErrorHandler.writeError(e);
@@ -800,7 +799,7 @@ public class DatabaseConnection {
 						((firmenkontakt.isIstOeffentlich())?1:0),
 						firmenkontakt.getErstelltVon());
 			}
-			Statement stmt = connection.createStatement();
+			Statement stmt = verbindung.createStatement();
 			geaenderteDatensaetze = stmt.executeUpdate(sql);
 		} catch (SQLException e) {
 			ErrorHandler.writeError(e);
@@ -885,7 +884,7 @@ public class DatabaseConnection {
 						((privatkontakt.isIstOeffentlich())?1:0),
 						privatkontakt.getErstelltVon());
 			}
-			Statement stmt = connection.createStatement();
+			Statement stmt = verbindung.createStatement();
 			geaenderteDatensaetze = stmt.executeUpdate(sql);
 		} catch (SQLException e) {
 			ErrorHandler.writeError(e);
@@ -901,10 +900,10 @@ public class DatabaseConnection {
 	 * @param sqlCommand
 	 * @return Anzahl der betroffenen Datensätze.
 	 */
-	public int executeUpdateQuery(String sqlCommand){
+	private int befehlAusfuehren(String sqlCommand){
 		int manipulierteDatensaetze = 0;
 		try {
-			Statement stmt = this.connection.createStatement();
+			Statement stmt = this.verbindung.createStatement();
 			manipulierteDatensaetze = stmt.executeUpdate(sqlCommand);
 		} catch (SQLException e) {
 			ErrorHandler.writeError(e);

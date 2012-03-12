@@ -24,70 +24,70 @@
 	HttpSession sitzung = request.getSession(false);
 	if (sitzung.getAttribute("benutzerID") == null) {
 		request.getRequestDispatcher("Controller?fcode=Timeout")
-				.forward(request, response);
+		.forward(request, response);
 		return;
 	} else {
 
 		int id = Integer.valueOf(request.getParameter("ID"));
 
-		DatabaseConnection dbConnect = DatabaseConnection.getInstance();
+		Datenbankverbindung dbConnect = Datenbankverbindung.getInstance();
 
 		if (typ.equals("privat")) {
 
-			Privatkontakt tmpKontakt = dbConnect
-					.getPrivatkontaktById(id);
+	Privatkontakt tmpKontakt = dbConnect
+			.getPrivatkontaktById(id);
 
-			name = tmpKontakt.getVorname();
-			name2 = tmpKontakt.getNachname();
-			strasse = tmpKontakt.getStrasse();
-			hausnummer = tmpKontakt.getHausnummer();
-			plz = tmpKontakt.getPlz();
-			ort = tmpKontakt.getOrt();
-			email = tmpKontakt.getEmail();
-			telefon = tmpKontakt.getTelefonnummer();
+	name = tmpKontakt.getVorname();
+	name2 = tmpKontakt.getNachname();
+	strasse = tmpKontakt.getStrasse();
+	hausnummer = tmpKontakt.getHausnummer();
+	plz = tmpKontakt.getPlz();
+	ort = tmpKontakt.getOrt();
+	email = tmpKontakt.getEmail();
+	telefon = tmpKontakt.getTelefonnummer();
 
-			String[] str = telefon.split("\\/");
+	String[] str = telefon.split("\\/");
 
-			try {
+	try {
 
-				vorwahl = str[0];
-				telefonnummer = str[1];
+		vorwahl = str[0];
+		telefonnummer = str[1];
 
-			} catch (ArrayIndexOutOfBoundsException err) {
-				System.out
-						.println("Über Array-Index hinaus geschrieben");
-				System.out.println(err);
-			}
+	} catch (ArrayIndexOutOfBoundsException err) {
+		System.out
+				.println("Über Array-Index hinaus geschrieben");
+		System.out.println(err);
+	}
 
-			kID = tmpKontakt.getKontaktID();
+	kID = tmpKontakt.getKontaktID();
 		} else if (typ.equals("firma")) {
 
-			Firmenkontakt tmpKontakt = dbConnect
-					.getFirmenkontaktById(id);
+	Firmenkontakt tmpKontakt = dbConnect
+			.getFirmenkontaktById(id);
 
-			name = tmpKontakt.getFirmenname();
-			name2 = tmpKontakt.getAnsprechpartner();
-			strasse = tmpKontakt.getStrasse();
-			hausnummer = tmpKontakt.getHausnummer();
-			plz = tmpKontakt.getPlz();
-			ort = tmpKontakt.getOrt();
-			email = tmpKontakt.getEmail();
-			telefon = tmpKontakt.getTelefonnummer();
+	name = tmpKontakt.getFirmenname();
+	name2 = tmpKontakt.getAnsprechpartner();
+	strasse = tmpKontakt.getStrasse();
+	hausnummer = tmpKontakt.getHausnummer();
+	plz = tmpKontakt.getPlz();
+	ort = tmpKontakt.getOrt();
+	email = tmpKontakt.getEmail();
+	telefon = tmpKontakt.getTelefonnummer();
 
-			String[] str = telefon.split("\\/");
+	String[] str = telefon.split("\\/");
 
-			try {
+	try {
 
-				vorwahl = str[0];
-				telefonnummer = str[1];
+		vorwahl = str[0];
+		telefonnummer = str[1];
 
-			} catch (ArrayIndexOutOfBoundsException err) {
-				System.out
-						.println("Über Array-Index hinaus geschrieben");
-				System.out.println(err);
-			}
+	} catch (ArrayIndexOutOfBoundsException err) {
+		System.out
+				.println("Über Array-Index hinaus geschrieben");
+		System.out.println(err);
+	}
 
-			kID = tmpKontakt.getKontaktID();
+	kID = tmpKontakt.getKontaktID();
 		}
 	}
 %>
@@ -144,16 +144,16 @@
 					</li>
 					<%
 						int benutzerID = (Integer) sitzung.getAttribute("benutzerID");
-						DatabaseConnection dbConnect = DatabaseConnection.getInstance();
-						Benutzer user = dbConnect.getBenutzerById(benutzerID);
+									Datenbankverbindung dbConnect = Datenbankverbindung.getInstance();
+									Benutzer user = dbConnect.getBenutzerById(benutzerID);
 
-						boolean admin = user.isIstAdmin();
+									boolean admin = user.isIstAdmin();
 
-						if (admin) {
-							out.println("<li>");
-							out.println("<a href=\"Controller?fcode=Benutzer\"><span>Benutzer</span></a>");
-							out.println("</li>");
-						}
+									if (admin) {
+										out.println("<li>");
+										out.println("<a href=\"Controller?fcode=Benutzer\"><span>Benutzer</span></a>");
+										out.println("</li>");
+									}
 					%>
 				</ul>
 			</div>

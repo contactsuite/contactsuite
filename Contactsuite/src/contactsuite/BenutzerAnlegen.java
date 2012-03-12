@@ -34,7 +34,7 @@ public class BenutzerAnlegen extends HttpServlet {
 		}
 		else{
 
-			DatabaseConnection dbConnect = DatabaseConnection.getInstance();
+			Datenbankverbindung dbConnect = Datenbankverbindung.getInstance();
 
 			Integer benutzerID = (Integer) sitzung.getAttribute("benutzerID");
 

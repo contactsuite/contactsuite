@@ -5,8 +5,7 @@
 <!-- Auf Gültigkeit der Sitzung prüfen. Im Fall des Nichterfolgs weiterleiten auf eine Info-Seite.
 Andernfalls mit dem aktuellen Fenster fortfahren. -->
 <%
-
-HttpSession sitzung = request.getSession(false);
+	HttpSession sitzung = request.getSession(false);
 Integer benutzerID = (Integer) sitzung.getAttribute("benutzerID");
 
 if(benutzerID == null){
@@ -14,7 +13,7 @@ if(benutzerID == null){
 	return;
 }
 
-DatabaseConnection dbConnect = DatabaseConnection.getInstance();
+Datenbankverbindung dbConnect = Datenbankverbindung.getInstance();
 Benutzer user = dbConnect.getBenutzerById(benutzerID);
 
 boolean isAdmin = user.isIstAdmin();
@@ -22,8 +21,6 @@ boolean isAdmin = user.isIstAdmin();
 if(!isAdmin){
 	request.getRequestDispatcher("Controller?fcode=ZugriffVerweigert").forward(request, response);
 }
-
-
 %>
 
 <!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->

@@ -39,7 +39,7 @@ public class DatenLoeschen extends HttpServlet {
 		int loeschID = Integer.valueOf(request.getParameter("ID"));
 		int benutezrID = (Integer) sitzung.getAttribute("benutzerID");
 
-		DatabaseConnection dbConnect = DatabaseConnection.getInstance();
+		Datenbankverbindung dbConnect = Datenbankverbindung.getInstance();
 
 		PrintWriter out = response.getWriter();
 

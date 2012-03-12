@@ -1,8 +1,10 @@
 <%-- <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%> --%>
-<%@page import="contactsuite.DatabaseConnection"%>
+<%@page import="contactsuite.Datenbankverbindung"%>
 <%@page import="contactsuite.Benutzer"%>
-<% String id = "Login"; %>
+<%
+	String id = "Login";
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
@@ -83,27 +85,27 @@
 	</div>
 	<%
 		if(request.getParameterMap().containsKey("Login")){
-		
-		String email = request.getParameter("email");
-		String passwort = request.getParameter("passwort");
-		String passwort2 = request.getParameter("passwort2");
-		
-		
-		Benutzer neuerBenutzer = new Benutzer();
-		neuerBenutzer.setEmail(email);
-		neuerBenutzer.setPasswort(passwort);
-		//Abfragen ob der Benutzer schon existiert
-		if(DatabaseConnection.getInstance().istBenutzerVorhanden(neuerBenutzer)){
-			out.println("Der Benutzer existierts bereits");
-		}
-		else if(DatabaseConnection.getInstance().speicherDaten(neuerBenutzer)==1){
-			out.println("Der Benutzer wurde erfolgreich gespeichert.");
-		}
-		else{
-			out.println("Der Benutzer wurde nicht erfolgreich gespeichert.");
-		}
+			
+			String email = request.getParameter("email");
+			String passwort = request.getParameter("passwort");
+			String passwort2 = request.getParameter("passwort2");
+			
+			
+			Benutzer neuerBenutzer = new Benutzer();
+			neuerBenutzer.setEmail(email);
+			neuerBenutzer.setPasswort(passwort);
+			//Abfragen ob der Benutzer schon existiert
+			if(Datenbankverbindung.getInstance().istBenutzerVorhanden(neuerBenutzer)){
+		out.println("Der Benutzer existierts bereits");
+			}
+			else if(Datenbankverbindung.getInstance().speicherDaten(neuerBenutzer)==1){
+		out.println("Der Benutzer wurde erfolgreich gespeichert.");
+			}
+			else{
+		out.println("Der Benutzer wurde nicht erfolgreich gespeichert.");
+			}
 
-		}
+			}
 	%> 
 
   <!-- JavaScript at the bottom for fast page loading -->

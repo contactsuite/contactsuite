@@ -20,12 +20,12 @@ if(benutzerID == null){
 </head>
 <body>
 <%
-String typ = request.getParameter("typ");
+	String typ = request.getParameter("typ");
 
 int id = Integer.valueOf(request.getParameter("ID")) ;
 
 
-DatabaseConnection dbConnect = DatabaseConnection.getInstance();
+Datenbankverbindung dbConnect = Datenbankverbindung.getInstance();
 
 // Für Privatkontakte
 
