@@ -138,7 +138,7 @@ if(benutzerID == null){
 
 					<%
 				
-				List<Firmenkontakt> lstKontakt = dbConnect.getFirmenkontakte();
+				List<Firmenkontakt> lstKontakt = (request.getParameterMap().containsKey("searchField"))?dbConnect.getFirmenkontakte(request.getParameter("searchField")):dbConnect.getFirmenkontakte();
 				
 				boolean farbig = false;
 				
@@ -198,7 +198,7 @@ if(benutzerID == null){
 				<div id="sideBox">
 
 				<div id="searchBox">
-					<form action="Controller?fcode=FirmenkontaktSuche" method="post">
+					<form action="Controller?fcode=Firmenkontakte" method="post">
 						<%
 							String sucheingabe = (request.getParameterMap().containsKey("searchField"))?request.getParameter("searchField"):"";
 							out.println("<input name=\"searchField\" type=\"text\" size=\"20\" maxlength=\"30\" value=\""+sucheingabe+"\"><br>");

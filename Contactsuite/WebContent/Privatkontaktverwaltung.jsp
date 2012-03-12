@@ -140,7 +140,7 @@ if(benutzerID == null){
 				<div id="mainContent">
 
 				<%
-				List<Privatkontakt> lstKontakt = dbConnect.getPrivatkontakteByBenutzerId(benutzerID);
+				List<Privatkontakt> lstKontakt = (request.getParameterMap().containsKey("searchField"))?dbConnect.getPrivatkontakte(request.getParameter("searchField"), benutzerID):dbConnect.getPrivatkontakteByBenutzerId(benutzerID);
 				
 				boolean farbig = false;
 				
@@ -222,7 +222,7 @@ if(benutzerID == null){
 				<div id="sideBox">
 
 				<div id="searchBox">
-					<form action="Controller?fcode=PrivatkontaktSuche" method="post">
+					<form action="Controller?fcode=Privatkontakte" method="post">
 						<%
 							String sucheingabe = (request.getParameterMap().containsKey("searchField"))?request.getParameter("searchField"):"";
 							out.println("<input name=\"searchField\" type=\"text\" size=\"20\" maxlength=\"30\" value=\""+sucheingabe+"\"><br>");
