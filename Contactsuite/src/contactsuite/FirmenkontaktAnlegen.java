@@ -64,7 +64,7 @@ public class FirmenkontaktAnlegen extends HttpServlet {
 					kon.setErstelltVon(benutzerID);
 					kon.setIstOeffentlich(true);
 
-					dbConnect.SpeicherDaten(kon);
+					dbConnect.speicherDaten(kon);
 
 					request.getRequestDispatcher("Controller?fcode=Firmenkontakte").forward(request, response);
 				}

@@ -68,7 +68,7 @@ public class PrivatkontaktAnlegen extends HttpServlet {
 			kon.setErstelltVon(benutzerID);
 			kon.setIstOeffentlich(oeffentlich);
 
-			dbConnect.SpeicherDaten(kon);
+			dbConnect.speicherDaten(kon);
 
 			request.getRequestDispatcher("Controller?fcode=Privatkontakte").forward(request, response);
 		}

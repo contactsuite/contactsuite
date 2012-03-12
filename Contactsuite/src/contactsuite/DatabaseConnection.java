@@ -648,6 +648,7 @@ public class DatabaseConnection {
 		return false;
 	}
 
+	
 	/**
 	 * Methode zum speichern von Benutzern. Falls der übergebene Benutzer schon
 	 * vorhanden ist wird dieser geupdated. Sonst wird ein neuer Datensatz eingetragen.
@@ -655,7 +656,7 @@ public class DatabaseConnection {
 	 * @param benutzer
 	 * @return Anzahl der veränderten Datensätze
 	 */
-	public int SpeicherDaten(Benutzer benutzer)
+	public int speicherDaten(Benutzer benutzer)
 	{
 		int geaenderteDatensaetze = 0;
 		String sql;
@@ -710,7 +711,7 @@ public class DatabaseConnection {
 	 * @param firmenkontakt
 	 * @return Anzahl der veränderten Datensätze
 	 */
-	public int SpeicherDaten(Firmenkontakt firmenkontakt)
+	public int speicherDaten(Firmenkontakt firmenkontakt)
 	{
 		int geaenderteDatensaetze = 0;
 		String sql;
@@ -794,7 +795,7 @@ public class DatabaseConnection {
 	 * @param privatkontakt
 	 * @return Anzahl der veränderten Datensätze
 	 */
-	public int SpeicherDaten(Privatkontakt privatkontakt)
+	public int speicherDaten(Privatkontakt privatkontakt)
 	{
 		int geaenderteDatensaetze = 0;
 		String sql;
