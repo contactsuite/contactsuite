@@ -102,7 +102,7 @@ if(!isAdmin){
 
 	<div role="main">
 
-		<div id="mainFrame">
+		<div id="mainFrame" class="clear">
 
 			<div id="header">
 
