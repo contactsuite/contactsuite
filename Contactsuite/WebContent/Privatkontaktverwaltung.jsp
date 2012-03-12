@@ -140,7 +140,7 @@ if(benutzerID == null){
 				<div id="mainContent">
 
 				<%
-				List<Privatkontakt> lstKontakt = (request.getParameterMap().containsKey("searchField"))?dbConnect.getPrivatkontakte(request.getParameter("searchField"), benutzerID):dbConnect.getPrivatkontakteByBenutzerId(benutzerID);
+				List<Privatkontakt> lstKontakt = (request.getParameterMap().containsKey("searchField"))?dbConnect.getPrivatkontakte(request.getParameter("searchField"), benutzerID, "nachname"):dbConnect.getPrivatkontakteByBenutzerId(benutzerID,"nachname");
 				
 				boolean farbig = false;
 				

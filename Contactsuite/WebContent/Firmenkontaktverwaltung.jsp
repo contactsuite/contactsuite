@@ -138,7 +138,7 @@ if(benutzerID == null){
 
 					<%
 				
-				List<Firmenkontakt> lstKontakt = (request.getParameterMap().containsKey("searchField"))?dbConnect.getFirmenkontakte(request.getParameter("searchField")):dbConnect.getFirmenkontakte();
+				List<Firmenkontakt> lstKontakt = (request.getParameterMap().containsKey("searchField"))?dbConnect.getFirmenkontakte(request.getParameter("searchField")):dbConnect.getFirmenkontakte("firmenname");
 				
 				boolean farbig = false;
 				
