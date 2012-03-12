@@ -9,6 +9,7 @@ Andernfalls mit dem aktuellen Fenster fortfahren. -->
 HttpSession sitzung = request.getSession(false);
 if(sitzung == null){
 	request.getRequestDispatcher("/Info.jsp").forward(request, response);
+	return;
 }
 %>
 

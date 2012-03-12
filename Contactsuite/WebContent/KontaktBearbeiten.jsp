@@ -25,6 +25,7 @@
 	if (sitzung.getAttribute("benutzerID") == null) {
 		request.getRequestDispatcher("Controller?fcode=Timeout")
 				.forward(request, response);
+		return;
 	} else {
 
 		int id = Integer.valueOf(request.getParameter("ID"));
