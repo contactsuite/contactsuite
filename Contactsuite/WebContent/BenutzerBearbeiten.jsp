@@ -1,6 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page import="contactsuite.*" %>
+<%@ page import="java.util.*" %>
+    
+<!doctype html>
+
+<!-- Auf Gültigkeit der Sitzung prüfen. Im Fall des Nichterfolgs weiterleiten auf eine Info-Seite.
+Andernfalls mit dem aktuellen Fenster fortfahren. -->
+<%
+HttpSession sitzung = request.getSession(false);
+Integer benutzerID = (Integer) sitzung.getAttribute("benutzerID");
+
+if(benutzerID == null){
+	request.getRequestDispatcher("Controller?fcode=Timeout").forward(request, response);
+}
+%>
 <!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
@@ -29,8 +43,8 @@
   <!-- All JavaScript at the bottom, except this Modernizr build.
        Modernizr enables HTML5 elements & feature detects for optimal performance.
        Create your own custom Modernizr build: www.modernizr.com/download/ -->
-  <script src="js/libs/modernizr-2.5.2.min.js"></script>
-  <script src="js/slider.js"></script>
+  <!-- <script src="js/libs/modernizr-2.5.2.min.js"></script>
+  <script src="js/slider.js"></script> -->
 </head>
 <body>
   <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you support IE 6.
@@ -51,30 +65,58 @@
 					<a href="Controller?fcode=Firmenkontakte"><span>Firmenkontakte</span></a>
 				</li>
 				<li>
-					<a href="Controller?fcode=Privatkontakte"><span>Privatkontakt</span></a>
+					<a href="Controller?fcode=Privatkontakte"><span>Privatkontakte</span></a>
 				</li>
-				<li>
-					<a href="Controller?fcode=Benutzer" ><span>Benutzer</span></a>
-				</li>
+				<%
+					DatabaseConnection dbConnect = DatabaseConnection.getInstance();
+					Benutzer user = dbConnect.getBenutzerById(benutzerID);
+					
+					boolean admin = user.isIstAdmin();
+					
+					if(admin){
+						out.println("<li>");
+						out.println("<a href=\"Controller?fcode=Benutzer\"><span>Benutzer</span></a>");
+						out.println("</li>");
+					}
+				%>
 			</ul>
 		</div>
 		<div id="content">
 			<div id="mainContent">
 				<div id="kontaktForms">
-					<form id="kontaktForm" name="Eingabe" action="http://localhost:8080/Contactsuite/Controller?fcode=KontaktSpeichern" method="post">
+					<form id="kontaktForm" name="Eingabe" action="Controller?fcode=BenutzerSpeichern" method="post">
 						<div id="neuKontaktBeschriftung">
-							<p>Email*:</p>
+							<p>E-Mail*:</p>
 							<p>Passwort*:</p>
 						</div>
+						<%
+								int id = Integer.valueOf(request.getParameter("ID")) ;
+						
+								Benutzer tmpUser = dbConnect.getBenutzerById(id);
+						%>
 						<div id="neuKontaktInput">
-							<input name="email" type="text" size="30" maxlength="30" id="email">
-							<input name="passwort" type="text" size="30" maxlength="30" id="passwort">
+						<%
+								out.println("<input name=\"email\" type=\"text\" size=\"30\" maxlength=\"30\" id=email value=" + tmpUser.getEmail() + ">");
+								out.println("<input name=\"passwort\" type=\"password\" size=\"30\" maxlength=\"30\" id=passwort \">");
+								out.println("<input type=\"hidden\" name=\"userID\" value=" + tmpUser.getBenutzerID() + ">");
+						%>
 						</div>
-						<div id="oeffentlich">
-							 <p>Möchten Sie diesen Benutzer freischalten? </p>
+						<div id="freigeschaltet">
 							  <p>
-								<input type="radio" name="istOeffentlich" value="freigeschaltet"> Ja<br>
-								<input type="radio" name="istOeffentlich" value="gesperrt" checked> Nein<br>
+							  <%
+							  		boolean freigeschaltet = tmpUser.isIstFreigeschaltet();
+							  		out.println("<input type=\"radio\" name=\"istFreigeschaltet\" value=\"freigeschaltet\"" + ((freigeschaltet) ? "checked" : "\"\"") + ">freischalten<br>");
+							  		out.println("<input type=\"radio\" name=\"istFreigeschaltet\" value=\"gesperrt\"" + ((freigeschaltet) ? "\"\"" : "checked") + "> sperren<br>");
+							  %>
+							  </p>
+						</div>
+						<div id="admin">
+							  <p>
+							  <%
+							  		boolean tAdmin = tmpUser.isIstAdmin();
+							  		out.println("<input type=\"radio\" name=\"istAdmin\" value=\"admin\"" + ((tAdmin) ? "checked" : "\"\"") + "> Admin<br>");
+							  		out.println("<input type=\"radio\" name=\"istAdmin\" value=\"keinAdmin\"" + ((tAdmin) ? "\"\"" : "checked" ) + "> Kein Admin<br>");
+							  %>
 								
 							  </p>
 						</div>
@@ -112,12 +154,12 @@
   <!-- JavaScript at the bottom for fast page loading -->
 
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-  <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\/script>')</script>
+ <!--  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\/script>')</script> -->
 
   <!-- scripts concatenated and minified via build script -->
-  <script src="js/plugins.js"></script>
-  <script src="js/script.js"></script>
+  <!-- <script src="js/plugins.js"></script>
+  <script src="js/script.js"></script> -->
   <!-- end scripts -->
 
   <!-- Asynchronous Google Analytics snippet. Change UA-XXXXX-X to be your site's ID.

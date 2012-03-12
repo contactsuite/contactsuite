@@ -49,12 +49,17 @@ public class BenutzerAnlegen extends HttpServlet {
 			String istAdmin = request.getParameter("istAdmin");
 			boolean admin = istAdmin.equals("admin") ? true : false;
 			
+			int userID = 0;
+			if(request.getParameterMap().containsKey("userID"))
+				userID = Integer.valueOf(request.getParameter("userID"));
+			
 			Benutzer user = new Benutzer();
 			
 			user.setEmail(email);
 			user.setPasswort(passwort);
 			user.setIstFreigeschaltet(freigeschaltet);
 			user.setIstAdmin(admin);
+			user.setBenutzerID(userID);
 
 			dbConnect.speicherDaten(user);
 
