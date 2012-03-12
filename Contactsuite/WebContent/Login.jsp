@@ -82,28 +82,28 @@
 		</fieldset>
 	</div>
 	<%
-	if(request.getParameterMap().containsKey("Login")){
-		
-		String email = request.getParameter("email");
-		String passwort = request.getParameter("passwort");
-		String passwort2 = request.getParameter("passwort2");
-		
-		
-		Benutzer neuerBenutzer = new Benutzer();
-		neuerBenutzer.setEmail(email);
-		neuerBenutzer.setPasswort(passwort);
-		//Abfragen ob der Benutzer schon existiert
-		if(DatabaseConnection.getInstance().IstBenutzerVorhanden(neuerBenutzer)){
-			out.println("Der Benutzer existierts bereits");
-		}
-		else if(DatabaseConnection.getInstance().SpeicherDaten(neuerBenutzer)==1){
-			out.println("Der Benutzer wurde erfolgreich gespeichert.");
-		}
-		else{
-			out.println("Der Benutzer wurde nicht erfolgreich gespeichert.");
-		}
+		if(request.getParameterMap().containsKey("Login")){
+			
+			String email = request.getParameter("email");
+			String passwort = request.getParameter("passwort");
+			String passwort2 = request.getParameter("passwort2");
+			
+			
+			Benutzer neuerBenutzer = new Benutzer();
+			neuerBenutzer.setEmail(email);
+			neuerBenutzer.setPasswort(passwort);
+			//Abfragen ob der Benutzer schon existiert
+			if(DatabaseConnection.getInstance().istBenutzerVorhanden(neuerBenutzer)){
+		out.println("Der Benutzer existierts bereits");
+			}
+			else if(DatabaseConnection.getInstance().SpeicherDaten(neuerBenutzer)==1){
+		out.println("Der Benutzer wurde erfolgreich gespeichert.");
+			}
+			else{
+		out.println("Der Benutzer wurde nicht erfolgreich gespeichert.");
+			}
 
-		}
+			}
 	%> 
 
   <!-- JavaScript at the bottom for fast page loading -->
