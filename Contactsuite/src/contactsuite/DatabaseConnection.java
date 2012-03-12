@@ -646,6 +646,7 @@ public class DatabaseConnection {
 						((benutzer.isIstAdmin())?1:0),
 						((benutzer.isIstFreigeschaltet())?1:0),
 						benutzer.getBenutzerID());
+				System.out.println(sql);
 			}
 			//Wenn der Benutzer noch nicht existiert.
 			else {
@@ -654,12 +655,15 @@ public class DatabaseConnection {
 						"VALUES " +
 						"('%s'," +
 						"'%s'," +
-						"false," +
-						"false," +
+						"%d," +
+						"%d," +
 						"-1);",
 						tblBenutzer,
 						benutzer.getEmail(),
-						md5Passwort);
+						md5Passwort,
+						((benutzer.isIstAdmin())?1:0),
+						((benutzer.isIstFreigeschaltet())?1:0));
+				System.out.println(sql);
 			}
 			Statement stmt = connection.createStatement();
 			geaenderteDatensaetze = stmt.executeUpdate(sql);
