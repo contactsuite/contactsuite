@@ -140,18 +140,19 @@ if(benutzerID == null){
 				<div id="mainContent">
 
 				<%
-				List<Privatkontakt> lstKontakt = (request.getParameterMap().containsKey("searchField"))?dbConnect.getPrivatkontakte(request.getParameter("searchField"), benutzerID, "nachname"):dbConnect.getPrivatkontakteByBenutzerId(benutzerID,"nachname");
+				String sortierSpalte = (request.getParameterMap().containsKey("sortierSpalte") && !request.getParameter("sortierSpalte").equals(""))?request.getParameter("sortierSpalte"):"nachname";
+				List<Privatkontakt> lstKontakt = (request.getParameterMap().containsKey("searchField"))?dbConnect.getPrivatkontakte(request.getParameter("searchField"), benutzerID, sortierSpalte):dbConnect.getPrivatkontakteByBenutzerId(benutzerID,sortierSpalte);
 				
 				boolean farbig = false;
 				
 				out.println("<table id=\"mainTable\">");	
 				
 				out.println("<tr id=\"tabFarbig\"><td>");
-				out.println("<b>Vorname</b>");
+				out.println("<b><a href='Controller?fcode=Privatkontakte&sortierSpalte=vorname'>Vorname</a></b>");
 				out.println("</td><td>");
-				out.println("<b>Nachname</b>");
+				out.println("<b><a href='Controller?fcode=Privatkontakte&sortierSpalte=nachname'>Nachname</a></b>");
 				out.println("</td><td>");
-				out.println("<b>Ort</b>");
+				out.println("<b><a href='Controller?fcode=Privatkontakte&sortierSpalte=ort'>Ort</a></b>");
 				out.println("</td><td>");
 				out.println("<b>Status</b>");
 				out.println("</td><td colspan=\"3\">");
