@@ -56,7 +56,7 @@ public class BenutzerAnlegen extends HttpServlet {
 			user.setIstFreigeschaltet(freigeschaltet);
 			user.setIstAdmin(admin);
 
-			dbConnect.SpeicherDaten(user);
+			dbConnect.speicherDaten(user);
 
 			request.getRequestDispatcher("Controller?fcode=Benutzer").forward(request, response);
 		}

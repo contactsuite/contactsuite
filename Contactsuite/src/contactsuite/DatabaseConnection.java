@@ -118,6 +118,7 @@ public class DatabaseConnection {
 		return lstKontakte;
 	}
 	
+	
 	public List<Firmenkontakt> getFirmenkontakte(String searchTerm){
 		List<Firmenkontakt> lstKontakte = new ArrayList<Firmenkontakt>();
 		String sql = String.format("SELECT * " +
@@ -446,7 +447,7 @@ public class DatabaseConnection {
 	 * Gibt die Anzahl der Firmenkontakte zurück die ein Benutzer angelegt hat.
 	 * @author Dominik Ferber
 	 * @param benutzerId 
-	 * @return anzahl der Firmenkontakte
+	 * @return Anzahl der Firmenkontakte
 	 */
 	public int getAnzahlFirmenkontakte(int benutzerId){
 		String sql = String.format("SELECT count(kontaktId) AS anzahl " +
@@ -466,6 +467,12 @@ public class DatabaseConnection {
 		return 0;
 	}
 	
+	/**
+	 * Gibt die Anzahl der Privatkontakte zurück die ein Benutzer angelegt hat.
+	 * @author Dominik Ferber
+	 * @param benutzerId
+	 * @return Anzahl der Privatkontakte
+	 */
 	public int getAnzahlPrivatkontakte(int benutzerId){
 		String sql = String.format("SELECT count(kontaktId) AS anzahl " +
 				"FROM %s " +
@@ -618,13 +625,38 @@ public class DatabaseConnection {
 	}
 	
 	/**
+	 * Methode prüft ob ein übergebener Benutzer bereits in der Datenbank vorhanden ist.
+	 * @author Dominik Ferber
+	 * @param benutzer
+	 * @return true falls Benutzer bereits vorhanden, sonst false.
+	 */
+	public boolean istBenutzerVorhanden(Benutzer benutzer){	
+		String sql = String.format("SELECT benutzerID " +
+				"FROM %s " +
+				"WHERE email = '%s';", tblBenutzer, benutzer.getEmail());
+		try {
+			Statement stmt = connection.createStatement();
+			ResultSet result = stmt.executeQuery(sql);
+			//Kontakt ist schon vorhanden
+			if(result.next()){
+				return true;
+			}
+		} catch (SQLException e) {
+			ErrorHandler.writeError(e);
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	
+	/**
 	 * Methode zum speichern von Benutzern. Falls der übergebene Benutzer schon
 	 * vorhanden ist wird dieser geupdated. Sonst wird ein neuer Datensatz eingetragen.
 	 * @author Dominik Ferber
 	 * @param benutzer
 	 * @return Anzahl der veränderten Datensätze
 	 */
-	public int SpeicherDaten(Benutzer benutzer)
+	public int speicherDaten(Benutzer benutzer)
 	{
 		int geaenderteDatensaetze = 0;
 		String sql;
@@ -654,12 +686,14 @@ public class DatabaseConnection {
 						"VALUES " +
 						"('%s'," +
 						"'%s'," +
-						"false," +
-						"false," +
+						"%d," +
+						"%d," +
 						"-1);",
 						tblBenutzer,
 						benutzer.getEmail(),
-						md5Passwort);
+						md5Passwort,
+						((benutzer.isIstAdmin())?1:0),
+						((benutzer.isIstFreigeschaltet())?1:0));
 			}
 			Statement stmt = connection.createStatement();
 			geaenderteDatensaetze = stmt.executeUpdate(sql);
@@ -677,7 +711,7 @@ public class DatabaseConnection {
 	 * @param firmenkontakt
 	 * @return Anzahl der veränderten Datensätze
 	 */
-	public int SpeicherDaten(Firmenkontakt firmenkontakt)
+	public int speicherDaten(Firmenkontakt firmenkontakt)
 	{
 		int geaenderteDatensaetze = 0;
 		String sql;
@@ -761,7 +795,7 @@ public class DatabaseConnection {
 	 * @param privatkontakt
 	 * @return Anzahl der veränderten Datensätze
 	 */
-	public int SpeicherDaten(Privatkontakt privatkontakt)
+	public int speicherDaten(Privatkontakt privatkontakt)
 	{
 		int geaenderteDatensaetze = 0;
 		String sql;
@@ -837,30 +871,6 @@ public class DatabaseConnection {
 			e.printStackTrace();
 		}
 		return geaenderteDatensaetze;
-	}
-	
-	/**
-	 * Methode prüft ob ein übergebener Benutzer bereits in der Datenbank vorhanden ist.
-	 * @author Dominik Ferber
-	 * @param benutzer
-	 * @return true falls Benutzer bereits vorhanden, sonst false.
-	 */
-	public boolean IstBenutzerVorhanden(Benutzer benutzer){	
-		String sql = String.format("SELECT benutzerID " +
-				"FROM %s " +
-				"WHERE email = '%s';", tblBenutzer, benutzer.getEmail());
-		try {
-			Statement stmt = connection.createStatement();
-			ResultSet result = stmt.executeQuery(sql);
-			//Kontakt ist schon vorhanden
-			if(result.next()){
-				return true;
-			}
-		} catch (SQLException e) {
-			ErrorHandler.writeError(e);
-			e.printStackTrace();
-		}
-		return false;
 	}
 	
 	public int executeUpdateQuery(String sqlCommand){
