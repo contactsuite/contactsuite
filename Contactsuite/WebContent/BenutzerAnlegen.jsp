@@ -13,6 +13,7 @@ Integer benutzerID = (Integer) sitzung.getAttribute("benutzerID");
 
 if(benutzerID == null){
 	request.getRequestDispatcher("Controller?fcode=Timeout").forward(request, response);
+	return;
 }
 %>
 <!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->

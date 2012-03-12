@@ -14,6 +14,7 @@ Integer benutzerID = (Integer) sitzung.getAttribute("benutzerID");
 
 if(benutzerID == null){
 	request.getRequestDispatcher("Controller?fcode=Timeout").forward(request, response);
+	return;
 }
 
 %>
