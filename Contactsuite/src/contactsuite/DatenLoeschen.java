@@ -72,6 +72,7 @@ public class DatenLoeschen extends HttpServlet {
 			// Für Benutzer
 			if (benutezrID != loeschID)
 				dbConnect.loescheBenutzer(loeschID);
+				dbConnect.loescheKontakteByBenutzerId(loeschID);
 			request.getRequestDispatcher("Controller?fcode=Benutzer").forward(
 					request, response);
 

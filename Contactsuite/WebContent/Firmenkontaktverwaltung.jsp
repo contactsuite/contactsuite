@@ -149,7 +149,7 @@ if(benutzerID == null){
 				out.println("</td><td>");
 				out.println("<b><a href='Controller?fcode=Firmenkontakte&sortierSpalte=ansprechpartner'>Ansprechpartner</a></b>");
 				out.println("</td><td>");
-				out.println("<b>Ort</b>");
+				out.println("<b><a href='Controller?fcode=Firmenkontakte&sortierSpalte=ort'>Ort</a></b>");
 				out.println("</td><td colspan=\"3\">");
 				out.println("<b>Aktion</b>");
 				out.println("</td><td>");

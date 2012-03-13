@@ -400,16 +400,18 @@ ul#navi li a{
 
 #mainContent{
 	width:			710px;
-	min-height:		500px;
+	height:		500px;
 	border:			4px solid #afb7b6;
 	border-radius:	10px;
 	background:		white;
 	float:			left;
+	overflow-y:		scroll;
 
 }	
 
 #content{
 	width:			960px;
+	height:			500px;
 }
 
 #sideBox{
@@ -497,7 +499,57 @@ ul#navi li a{
     margin-bottom: 10px;
     padding: 0 10px 5px;
 }
+
+#sideNavi ul li {
+	list-style:			none;
+	color:				black;	
+}
+
+#sideNavi ul li a{
+	color:				black;
+
+	font-size:			17px;	
+}
+
+#sideNavi ul li a:hover{
 	
+		font-weight:		bold;
+}
+
+#tabStandard td span{
+		margin-top:		10px;
+}
+
+
+#fieldKontakt{
+	margin:			15px;
+	padding:		10px;
+	border:			1px solid black;
+	border-radius:	5px;
+}
+
+#fieldKontakt legend{
+	font-weight:	bold;
+	font-size:		16px;
+}
+#kontaktOutput{
+	margin-left:	130px;
+}
+
+.outputDetail{
+	margin:			16px 0;
+	height:			22px;
+}
+
+#kontaktBeschriftung{
+	float:			left;
+	width:			110px;
+}
+
+#copyright{
+	display:		none;
+}
+
 /* ==|== media queries ======================================================
    EXAMPLE Media Query for Responsive Design.
    This example overrides the primary ('mobile first') styles

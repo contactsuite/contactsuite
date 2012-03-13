@@ -91,7 +91,6 @@ public class Datenbankverbindung {
 				"(istOeffentlich = 1 OR " +
 				"(istOeffentlich = 0 AND erstelltVon = %d)) " +
 				"ORDER BY %s;",tblKontakt, searchTerm+'%', searchTerm+'%', benutzerId, sortierSpalte);
-		System.out.println(sql);
 		try{
 			Statement stmt = verbindung.createStatement();
 			ResultSet result = stmt.executeQuery(sql);
@@ -121,14 +120,12 @@ public class Datenbankverbindung {
 	
 	public List<Firmenkontakt> getFirmenkontakte(String searchTerm, String sortierSpalte){
 		List<Firmenkontakt> lstKontakte = new ArrayList<Firmenkontakt>();
-		System.out.println(sortierSpalte);
 		String sql = String.format("SELECT * " +
 				"FROM %s " +
 				"WHERE firmenname LIKE '%s' AND " +
 				"istFirmenkontakt = 1 " +
 				"AND istGeloescht = 0 " +
 				"ORDER BY %s;",tblKontakt, searchTerm+'%', sortierSpalte);
-		System.out.println(sql);
 		try{
 			Statement stmt = verbindung.createStatement();
 			ResultSet result = stmt.executeQuery(sql);
@@ -210,7 +207,6 @@ public class Datenbankverbindung {
 				"WHERE istFirmenkontakt = 1 " +
 				"AND istGeloescht = 0 " +
 				"ORDER BY %s;",tblKontakt,sortierSpalte);
-		System.out.println(sql);
 		try{
 			Statement stmt = verbindung.createStatement();
 			ResultSet result = stmt.executeQuery(sql);
@@ -294,8 +290,7 @@ public class Datenbankverbindung {
 				"AND istGeloescht = 0;", tblKontakt, privatkontaktId);
 		try{
 			Statement stmt = this.verbindung.createStatement();
-			ResultSet result = stmt.executeQuery(sql);
-			System.out.println(result.toString());			
+			ResultSet result = stmt.executeQuery(sql);		
 			while(result.next()){
 				privatkontakt.setKontaktID(result.getInt("kontaktID"));
 				privatkontakt.setPlz(result.getString("plz"));
@@ -332,8 +327,7 @@ public class Datenbankverbindung {
 				"AND istGeloescht = 0;", tblKontakt, firmenkontaktId);
 		try{
 			Statement stmt = this.verbindung.createStatement();
-			ResultSet result = stmt.executeQuery(sql);
-			System.out.println(result.toString());			
+			ResultSet result = stmt.executeQuery(sql);		
 			while(result.next()){
 				firmenkontakt.setKontaktID(result.getInt("kontaktID"));
 				firmenkontakt.setPlz(result.getString("plz"));
@@ -542,6 +536,7 @@ public class Datenbankverbindung {
 		String sql = String.format("UPDATE %s " +
 				"SET istGeloescht = 1 " +
 				"WHERE erstelltVon = %d AND " +
+				"istFirmenkontakt = 0 " +
 				"istGeloescht = 0;", tblKontakt, benutzerId);
 		return (befehlAusfuehren(sql)>0);
 	}
