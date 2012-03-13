@@ -164,13 +164,13 @@ if(benutzerID == null){
 					
 					
 					if(farbig){
-						out.println("<tr id=\"tabFarbig\"><td>");
+						out.println("<tr id=\"tabFarbig\"><td><span>");
 						out.println(tmpKontakt.getVorname());
-						out.println("</td><td>");
+						out.println("</span></td><td><span>");
 						out.println(tmpKontakt.getNachname());
-						out.println("</td><td>");
+						out.println("</span></td><td><span>");
 						out.println(tmpKontakt.getOrt());
-						out.println("</td><td>");
+						out.println("</span></td><td><span>");
 						String status = new String();
 						if (!tmpKontakt.isIstOeffentlich()){
 							 status = "Privat";
@@ -178,23 +178,23 @@ if(benutzerID == null){
 							status = "Öffentlich";
 						}
 						out.println(status);
-						out.println("</td><td>");
+						out.println("</span></td><td><span>");
 						out.println("<a href=Controller?fcode=Details&typ=privat&ID=" + tmpKontakt.getKontaktID() + ">Details</a>");
-						out.println("</td><td>");
+						out.println("</span></td><td><span>");
 						out.println("<a href=Controller?fcode=KontaktBearbeiten&typ=privat&ID=" + tmpKontakt.getKontaktID() + ">Bearbeiten</a>");
-						out.println("</td><td>");
+						out.println("</span></td><td><span>");
 						out.println("<a href=Controller?fcode=Loeschen&typ=privat&ID=" + tmpKontakt.getKontaktID() +"&benutzerID="+benutzerID+ ">Löschen</a>");
-						out.println("</td><td>");
+						out.println("</span></td><td></td><span>");
 						
 					}
 					else{
-						out.println("<tr id=\"tabStandard\"><td>");
+						out.println("</span><tr id=\"tabStandard\"><td><span>");
 						out.println(tmpKontakt.getVorname());
-						out.println("</td><td>");
+						out.println("</span></td><td><span>");
 						out.println(tmpKontakt.getNachname());
-						out.println("</td><td>");
+						out.println("</span></td><td><span>");
 						out.println(tmpKontakt.getOrt());
-						out.println("</td><td>");
+						out.println("</span></td><td><span>");
 						String status = new String();
 						if (!tmpKontakt.isIstOeffentlich()){
 							 status = "Privat";
@@ -202,13 +202,13 @@ if(benutzerID == null){
 							status = "Öffentlich";
 						}
 						out.println(status);
-						out.println("</td><td>");
+						out.println("</span></td><td><span>");
 						out.println("<a href=Controller?fcode=Details&typ=privat&ID=" + tmpKontakt.getKontaktID() + ">Details</a>");
-						out.println("</td><td>");
+						out.println("</span></td><td><span>");
 						out.println("<a href=Controller?fcode=KontaktBearbeiten&typ=privat&ID=" + tmpKontakt.getKontaktID() + ">Bearbeiten</a>");
-						out.println("</td><td>");
+						out.println("</span></td><td><span>");
 						out.println("<a href=Controller?fcode=Loeschen&typ=privat&ID=" + tmpKontakt.getKontaktID()+"&benutzerID="+ benutzerID + ">Löschen</a>");
-						out.println("</td><td>");
+						out.println("</span></td><td><span>");
 						
 					}
 					
