@@ -103,17 +103,17 @@ if(benutzerID == null){
 
 								<li id="errorPlz" class="error"><span>Bitte tragen Sie die <b>Postleizahl</b> ein.</span></li>
 
-								<li id="errorPlzG" class="error"><span>Bitte tragen Sie die G�LTIGE <b>Postleizahl</b> ein (z.b. 59329).</span></li>
+								<li id="errorPlzG" class="error"><span>Bitte tragen Sie die G&Uuml;LTIGE <b>Postleizahl</b> ein (z.b. 59329).</span></li>
 
 								<li id="errorOrt" class="error"><span>Bitte tragen Sie den <b>Ort</b> ein.</span></li>
 
 								<li id="errorTn" class="error"><span>Bitte tragen Sie die <b>Telefonnummer</b> ein.</span></li>
 
-								<li id="errorTnG" class="error"><span>Bitte tragen Sie die G�LTIGE <b>Telefonnummer</b> ein.</span></li>
+								<li id="errorTnG" class="error"><span>Bitte tragen Sie die G&Uuml;LTIGE <b>Telefonnummer</b> ein.</span></li>
 
 								<li id="errorEmail" class="error"><span>Bitte tragen Sie die <b>E-Mail Adresse</b> ein.</span></li>
 
-								<li id="errorEmailG" class="error"><span>Bitte tragen Sie die G�LTIGE <b>E-Mail</b> Adresse ein.</span></li>
+								<li id="errorEmailG" class="error"><span>Bitte tragen Sie die G&Uuml;LTIGE <b>E-Mail</b> Adresse ein.</span></li>
 
 							</ul>
 

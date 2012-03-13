@@ -275,7 +275,7 @@
 							%>
 						</div>
 						<div id="oeffentlich">
-							<p>Möchten Sie das dieser Kontakt öffentlich Angezeigt
+							<p>M&ouml;chten Sie das dieser Kontakt &ouml;ffentlich Angezeigt
 								wird?</p>
 							<p>
 								<input type="radio" name="istOeffentlich" value="oeffentlich">
