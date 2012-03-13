@@ -551,7 +551,7 @@ ul#navi li a{
 }
 
 #searchButton{
-    background:		url("img/Lube.png") repeat scroll 0 0 transparent;
+    background:		url("../img/Lube.png") repeat scroll 0 0 transparent;
     border:			medium none;
     height:			28px;
     width: 			31px;
