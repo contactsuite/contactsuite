@@ -309,6 +309,7 @@ td { vertical-align: top; }
 #neuKontaktBeschriftung{
 	float:			left;
 	width:			140px;
+	height:			60px;
 }
 
 body{
