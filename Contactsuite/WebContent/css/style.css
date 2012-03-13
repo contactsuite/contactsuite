@@ -326,6 +326,10 @@ body{
 	width: 			100%;
 }
 
+#mainFrame #mainTable td a{
+	color:			black;
+}
+
 #mainTable tr{
 	height:			50px;
 }
