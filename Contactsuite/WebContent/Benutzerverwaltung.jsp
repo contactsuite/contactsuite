@@ -180,7 +180,6 @@ if(!isAdmin){
 						out.println(freigeschaltet ? "freigeschaltet" : "nicht freigeschaltet");
 						out.println("</td><td>");
 						boolean online = tmpUser.isIstGeloescht();
-						out.println(online ? "Online" : "Offline");
 						out.println("</td><td>");
 						boolean admin = tmpUser.isIstAdmin();
 						out.println(admin ? "Admin" : "kein Admin");
