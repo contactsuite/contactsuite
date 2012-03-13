@@ -45,7 +45,7 @@
 		<fieldset name="login" id="fieldLogin">
 			<legend>Benutzer-Login</legend> 
 			<div id="loginForm">
-				<form name="Logineingabe" action="Controller" method="post">  
+				<form name="Logineingabe" action="Controller?fcode=Login" method="post">  
 					<div id="loginBeschriftung">
 						<p>Benutzer:</p>
 						<p>Passwort:</p>
@@ -55,7 +55,7 @@
 						<input name="email" type="text" size="30" maxlength="30"><br>
 						<input name="passwort" type="password" size="30" maxlength="30">
 					</div>
-					<input type="submit" id="loginButton" name=fcode value="Login">
+					<input type="submit" id="loginButton" name="LoginButton" value="Login">
 				</form>
 				<div id="loginReg">
 					<p>Sie sind noch nicht Registriert? <a href="javascript: return false">Jetzt Registrieren!</a> </p>
@@ -64,7 +64,7 @@
 			</div>
 			<div id="Regristrieren">
 				<p>Bitte füllen Sie folgendes Formular aus. Unser Administrator wird Sie per E-Mail benarichtigen, falls die Regristrierung erfolgt ist.</p>
-				<form name="Registrierung" action="" method="post">
+				<form name="Registrierung" action="Controller?fcode=Validator" method="post">
 					<div id="loginBeschriftung">
 						<p>E-Mail:</p>
 						<p>Passwort:</p>
@@ -76,7 +76,7 @@
 						<input name="passwort" type="password" size="30" maxlength="30">
 						<input name="passwort2" type="password" size="30" maxlength="30">
 					</div>
-					<input type="submit" id="loginButton" name="Login" value="Abschicken!">
+					<input type="submit" id="loginButton" name="Registrieren" value="Abschicken!">
 
 					<div id="regClose"><a href="javascript: return false">Zurück zum Login<a></div>
 				</form>
@@ -84,30 +84,9 @@
 		</fieldset>
 	</div>
 	<%
-		if(request.getParameterMap().containsKey("Login")){
-			
-			String email = request.getParameter("email");
-			String passwort = request.getParameter("passwort");
-			String passwort2 = request.getParameter("passwort2");
-			
-			
-			Benutzer neuerBenutzer = new Benutzer();
-			neuerBenutzer.setEmail(email);
-			neuerBenutzer.setPasswort(passwort);
-			//Abfragen ob der Benutzer schon existiert
-			if(Datenbankverbindung.getInstance().istBenutzerVorhanden(neuerBenutzer)){
-		out.println("Der Benutzer existierts bereits");
-			}
-			else if(Datenbankverbindung.getInstance().speicherDaten(neuerBenutzer)==1){
-		out.println("Der Benutzer wurde erfolgreich gespeichert.");
-			}
-			else{
-		out.println("Der Benutzer wurde nicht erfolgreich gespeichert.");
-			}
-
-			}
-	%> 
-
+		if(request.getAttribute("Meldung")!=null)
+		out.println(request.getAttribute("Meldung"));
+	%>
   <!-- JavaScript at the bottom for fast page loading -->
 
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
