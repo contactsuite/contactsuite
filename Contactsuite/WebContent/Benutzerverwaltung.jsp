@@ -211,7 +211,7 @@ if(!isAdmin){
 
 						<form action="Controller?fcode=KontaktSuche" method="post">
 
-							<input name="searchField" type="text" size="20" maxlength="30"><br>
+							<input name="searchField" type="text" size="20" maxlength="30">
 
 							<input type="submit" id="searchButton" name="search"
 								value=""> <input type="hidden" id="loginButton"

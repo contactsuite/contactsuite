@@ -158,7 +158,7 @@ if(benutzerID == null){
 			<div id="sideBox">
 				<div id="searchBox">
 					<form action="BITTE NACHTRAGEN">
-						<input name="seachField" type="text" size="20" maxlength="30"><br>
+						<input name="seachField" type="text" size="20" maxlength="30">
 						<input type="button" id="searchButton" value="" name="search" onclick="BITTE NACHTRAGEN">
 					</form>
 				</div>

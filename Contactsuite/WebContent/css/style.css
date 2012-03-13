@@ -555,6 +555,12 @@ ul#navi li a{
     border:			medium none;
     height:			28px;
     width: 			31px;
+    
+    padding:		0px;
+}
+
+#searchBox input{
+	float:			left;	
 }
 
 /* ==|== media queries ======================================================

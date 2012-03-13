@@ -200,7 +200,7 @@ if(benutzerID == null){
 				<div id="searchBox">
 						<%
 							String sucheingabe = (request.getParameterMap().containsKey("searchField"))?request.getParameter("searchField"):"";
-							out.println("<input name=\"searchField\" type=\"text\" size=\"20\" maxlength=\"30\" value=\""+sucheingabe+"\"><br>");
+							out.println("<input name=\"searchField\" type=\"text\" size=\"20\" maxlength=\"30\" value=\""+sucheingabe+"\">");
 						%>
 						<input type="submit" id="searchButton" value="" name="search" >
 					</form>
