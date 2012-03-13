@@ -67,40 +67,51 @@ Datenbankverbindung dbConnect = Datenbankverbindung.getInstance();
 			</div>
 		</div>
 		<div id="navi">
-			<ul id="navi">
-				<li id="liLeft" class="active">
-					<a href="#"><span>Firmenkontakte</span></a>
-				</li>
-				<li>
-					<a href="#"><span>Privatkunden</span></a>
-				</li>
-				<li>
-					<a href="#"><span>Benutzer</span></a>
-				</li>
-			</ul>
-		</div>
+
+				<ul id="navi">
+
+					<li id="liLeft"><a
+						href="Controller?fcode=Firmenkontakte"><span>Firmenkontakte</span></a>
+
+					</li>
+
+					<li><a href="Controller?fcode=Privatkontakte"><span>Privatkontakte</span></a>
+
+					</li>
+
+					<li class="active"><a href="Controller?fcode=Benutzer"><span>Benutzer</span></a>
+
+					</li>
+
+				</ul>
+
+			</div>
 		<div id="content">
 			<div id="mainContent">
 				<div id="kontaktForms">
 				<fieldset id="fieldKontakt">
-					<legend>Benutzer-Details</legend>
-						<div id="kontaktBeschriftung">
-							<p>Vorname*:</p>
-							<p>Nachname*:</p>
-							<p>Strasse*:</p>
-							<p>Hausnummer*:</p>
-							<p>Postleitzahl*:</p>
-							<p>Wohnort*:</p>
-							<p>E-Mail*:</p>			
-							<p>Telefon*:</p>
-						</div>
+					
+
 
 <%
 
 // Für Privatkontakte
 
 if(typ.equals("privat")){
-
+	
+	%>
+	<legend>Benutzer-Details</legend>
+	<div id="kontaktBeschriftung">
+			<p>Vorname:</p>
+			<p>Nachname:</p>
+			<p>Strasse:</p>
+			<p>Hausnummer:</p>
+			<p>Postleitzahl:</p>
+			<p>Wohnort:</p>
+			<p>E-Mail:</p>			
+			<p>Telefon:</p>
+	</div>
+	<%
 	Privatkontakt tmpKontakt = dbConnect.getPrivatkontaktById(id);
 	out.println("<div id=\"kontaktOutput\">");
 	out.println("<div class=\"outputDetail\">" + tmpKontakt.getVorname() + "</div>");
@@ -112,85 +123,168 @@ if(typ.equals("privat")){
 	out.println("<div class=\"outputDetail\">" + tmpKontakt.getEmail() + "</div>");
 	out.println("<div class=\"outputDetail\">" + tmpKontakt.getTelefonnummer() + "</div>");
 	out.println("</div>");
+	
+	out.println("<div id=\"googleMap\">");
+		out.println("<iframe width=\"425\" height=\"350\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\" src=\"http://maps.google.ch/maps?f=q&source=s_q&hl=de&geocode=&t=h&q="+ tmpKontakt.getOrt() + "+" + tmpKontakt.getPlz() + "+" + tmpKontakt.getStrasse() + "+" + tmpKontakt.getHausnummer() + "&output=embed\"></iframe>");
+	out.println("</div>");
+	
 }else if(typ.equals("firma")){
 	
 	// Für Firmenkontakte
 	
+	%>
+	<legend>Firmen</legend>
+	<div id="kontaktBeschriftung">
+			<p>Firmenname:</p>
+			<p>Ansprechpartner:</p>
+			<p>Strasse:</p>
+			<p>Hausnummer:</p>
+			<p>Postleitzahl:</p>
+			<p>Wohnort:</p>
+			<p>E-Mail:</p>			
+			<p>Telefon:</p>
+	</div>
+	<%
+	
 	Firmenkontakt tmpKontakt = dbConnect.getFirmenkontaktById(id);
+	
+	out.println("<div id=\"kontaktOutput\">");
+	out.println("<div class=\"outputDetail\">" + tmpKontakt.getFirmenname() + "</div>");
+	out.println("<div class=\"outputDetail\">" + tmpKontakt.getAnsprechpartner() + "</div>");
+	out.println("<div class=\"outputDetail\">" + tmpKontakt.getStrasse() + "</div>");
+	out.println("<div class=\"outputDetail\">" + tmpKontakt.getHausnummer() + "</div>");
+	out.println("<div class=\"outputDetail\">" + tmpKontakt.getPlz() + "</div>");
+	out.println("<div class=\"outputDetail\">" + tmpKontakt.getOrt() + "</div>");
+	out.println("<div class=\"outputDetail\">" + tmpKontakt.getEmail() + "</div>");
+	out.println("<div class=\"outputDetail\">" + tmpKontakt.getTelefonnummer() + "</div>");
+	out.println("</div>");
 
-	out.println("<h1>Detailansicht</h1>");
-	out.println("<p>Firmenname: " + tmpKontakt.getFirmenname() + "</p>");
-	out.println("<p>Ansprechpartner: " + tmpKontakt.getAnsprechpartner() + "</p>");
-	out.println("<p>Strasse: " + tmpKontakt.getStrasse() + "</p>");
-	out.println("<p>Hausnummer: " + tmpKontakt.getHausnummer() + "</p>");
-	out.println("<p>Postleitzahl: " + tmpKontakt.getPlz() + "</p>");
-	out.println("<p>Ort: " + tmpKontakt.getOrt() + "</p>");
-	out.println("<p>E-Mail: " + tmpKontakt.getEmail() + "</p>");
-	out.println("<p>Telefon: " + tmpKontakt.getTelefonnummer() + "</p>");
+	out.println("<div id=\"googleMap\">");
+	out.println("<iframe width=\"425\" height=\"350\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\" src=\"http://maps.google.ch/maps?f=q&source=s_q&hl=de&geocode=&t=h&q="+ tmpKontakt.getOrt() + "+" + tmpKontakt.getPlz() + "+" + tmpKontakt.getStrasse() + "+" + tmpKontakt.getHausnummer() + "&output=embed\"></iframe>");
+	out.println("</div>");
+
+	
+
 }else if(typ.equals("benutzer")){
 	
 	// Für Benutzer
 	
+	%>
+	<legend>Benutzer</legend>
+	<div id="kontaktBeschriftung">
+			<p>E-mail:</p>
+			<p>Status</p>
+	</div>
+	<%
 	Benutzer tmpUser = dbConnect.getBenutzerById(id);
 	
-	out.println("<h1>Detailansicht</h1>");
-	out.println("<p>E-Mail: " + tmpUser.getEmail() + "</p>");
-	
+	out.println("<div id=\"kontaktOutput\">");
+	out.println("<div class=\"outputDetail\">" + tmpUser.getEmail() + "</div>");
+
 	boolean freigeschaltet = tmpUser.isIstFreigeschaltet();
 	out.println(freigeschaltet ? "freigeschaltet" : "nicht freigeschaltet");
 	out.println("<br>");
 	
 	boolean admin = tmpUser.isIstAdmin();
 	out.println(admin ? "Admin" : "kein Admin");
+	out.println("</div>");
+	
+	
 }
 %>
 
-
-				<div id="googleMap">
-					<iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.ch/maps?f=q&source=s_q&hl=de&geocode=&t=h&q=bielefeld+33605+detmolderstra%C3%9Fe+435&output=embed"></iframe>
-				</div>
 				</fieldset>
 				</div>
 			</div>	
-			<div id="sideBox">
+
+
+				<div id="sideBox">
+
 				<div id="searchBox">
-					<form action="BITTE NACHTRAGEN">
-						<input name="seachField" type="text" size="20" maxlength="30"><br>
-						<input type="button" id="searchButton" name="search" value="" onclick="BITTE NACHTRAGEN">
+					<form action="Controller?fcode=Privatkontakte" method="post">
+						<%
+							String sucheingabe = (request.getParameterMap().containsKey("searchField"))?request.getParameter("searchField"):"";
+							out.println("<input name=\"searchField\" type=\"text\" size=\"20\" maxlength=\"30\" value=\""+sucheingabe+"\">");
+						%>
+						<input type="submit" id="searchButton" name="search" value="Suche">
 					</form>
 				</div>
-				<div id="sideNavi">
+
+					<div id="sideNavi">
+
+						<ul>
+							<li><a href="Controller?fcode=PrivatkontaktAnlegen">Neuer
+									Kontakt</a></li>
+							<li><a href=#>Aktion</a></li>
+							<li><a href=#>Aktion</a></li>
+							<li><a href=#>Aktion</a></li>
+							<li><a href="Controller?fcode=Logout">Logout</a></li>
+						</ul>
+
+					</div>
+
+					<div id="options"></div>
+
 				</div>
-				<div id="options">
-				</div>
+
 			</div>
+
 		</div>
+
 	</div>
-  </div>
-  <footer>
 
-  </footer>
+	<footer> </footer>
 
 
-  <!-- JavaScript at the bottom for fast page loading -->
 
-  <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-  <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\/script>')</script>
 
-  <!-- scripts concatenated and minified via build script -->
-  <script src="js/plugins.js"></script>
-  <script src="js/script.js"></script>
-  <!-- end scripts -->
 
-  <!-- Asynchronous Google Analytics snippet. Change UA-XXXXX-X to be your site's ID.
+	<!-- JavaScript at the bottom for fast page loading -->
+
+
+
+	<!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
+
+	<script
+		src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+	<script>
+		window.jQuery
+				|| document
+						.write('<script src="js/libs/jquery-1.7.1.min.js"><\/script>')
+	</script>
+
+
+
+	<!-- scripts concatenated and minified via build script -->
+
+	<script src="js/plugins.js"></script>
+
+	<script src="js/script.js"></script>
+
+	<!-- end scripts -->
+
+
+
+	<!-- Asynchronous Google Analytics snippet. Change UA-XXXXX-X to be your site's ID.
+
        mathiasbynens.be/notes/async-analytics-snippet -->
-  <script>
-    var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
-    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-    g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-    s.parentNode.insertBefore(g,s)}(document,'script'));
-  </script>
+
+	<script>
+		var _gaq = [ [ '_setAccount', 'UA-XXXXX-X' ], [ '_trackPageview' ] ];
+
+		(function(d, t) {
+			var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
+
+			g.src = ('https:' == location.protocol ? '//ssl' : '//www')
+					+ '.google-analytics.com/ga.js';
+
+			s.parentNode.insertBefore(g, s)
+		}(document, 'script'));
+	</script>
+
 </body>
+
 </html>
+
 

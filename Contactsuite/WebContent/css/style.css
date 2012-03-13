@@ -516,6 +516,36 @@ ul#navi li a{
 		margin-top:		10px;
 }
 
+
+#fieldKontakt{
+	margin:			15px;
+	padding:		10px;
+	border:			1px solid black;
+	border-radius:	5px;
+}
+
+#fieldKontakt legend{
+	font-weight:	bold;
+	font-size:		16px;
+}
+#kontaktOutput{
+	margin-left:	130px;
+}
+
+.outputDetail{
+	margin:			16px 0;
+	height:			22px;
+}
+
+#kontaktBeschriftung{
+	float:			left;
+	width:			110px;
+}
+
+#copyright{
+	display:		none;
+}
+
 /* ==|== media queries ======================================================
    EXAMPLE Media Query for Responsive Design.
    This example overrides the primary ('mobile first') styles
