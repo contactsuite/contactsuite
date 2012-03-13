@@ -550,6 +550,13 @@ ul#navi li a{
 	display:		none;
 }
 
+#searchButton{
+    background:		url("img/Lube.png") repeat scroll 0 0 transparent;
+    border:			medium none;
+    height:			28px;
+    width: 			31px;
+}
+
 /* ==|== media queries ======================================================
    EXAMPLE Media Query for Responsive Design.
    This example overrides the primary ('mobile first') styles

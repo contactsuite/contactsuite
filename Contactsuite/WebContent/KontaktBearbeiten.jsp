@@ -304,7 +304,7 @@
 						<form action="BITTE NACHTRAGEN">
 							<input name="seachField" type="text" size="20" maxlength="30"><br>
 							<input type="button" id="searchButton" name="search"
-								value="Suchen" onclick="BITTE NACHTRAGEN">
+								 onclick="BITTE NACHTRAGEN">
 						</form>
 					</div>
 					<div id="sideNavi"></div>

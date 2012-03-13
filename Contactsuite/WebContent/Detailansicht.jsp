@@ -204,7 +204,7 @@ if(typ.equals("privat")){
 					<form action="Controller?fcode=Privatkontakte" method="post">
 						<%
 							String sucheingabe = (request.getParameterMap().containsKey("searchField"))?request.getParameter("searchField"):"";
-							out.println("<input name=\"searchField\" type=\"text\" size=\"20\" maxlength=\"30\" value=\""+sucheingabe+"\">");
+							out.println("<input name=\"searchField\" type=\"text\" size=\"20\" maxlength=\"30\" value=\""+sucheingabe+"\"> ");
 						%>
 						<input type="submit" id="searchButton" name="search" value="Suche">
 					</form>

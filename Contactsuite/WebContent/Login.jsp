@@ -78,7 +78,7 @@
 					</div>
 					<input type="submit" id="loginButton" name="Registrieren" value="Abschicken!">
 
-					<div id="regClose"><a href="javascript: return false">Zurück zum Login<a></div>
+					<div id="regClose"><a href="javascript: return false">Zurück zum Login</a></div>
 				</form>
 			</div>
 		</fieldset>
