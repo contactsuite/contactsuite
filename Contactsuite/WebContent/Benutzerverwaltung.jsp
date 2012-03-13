@@ -214,7 +214,7 @@ if(!isAdmin){
 							<input name="searchField" type="text" size="20" maxlength="30"><br>
 
 							<input type="submit" id="searchButton" name="search"
-								value="Suche"> <input type="hidden" id="loginButton"
+								value=""> <input type="hidden" id="loginButton"
 								name="fcode" value="KontaktSuche">
 						</form>
 

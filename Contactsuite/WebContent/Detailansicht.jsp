@@ -206,7 +206,7 @@ if(typ.equals("privat")){
 							String sucheingabe = (request.getParameterMap().containsKey("searchField"))?request.getParameter("searchField"):"";
 							out.println("<input name=\"searchField\" type=\"text\" size=\"20\" maxlength=\"30\" value=\""+sucheingabe+"\"> ");
 						%>
-						<input type="submit" id="searchButton" name="search" value="Suche">
+						<input value="" type="submit" id="searchButton" name="search" >
 					</form>
 				</div>
 
