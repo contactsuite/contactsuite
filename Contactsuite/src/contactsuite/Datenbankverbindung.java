@@ -536,7 +536,7 @@ public class Datenbankverbindung {
 		String sql = String.format("UPDATE %s " +
 				"SET istGeloescht = 1 " +
 				"WHERE erstelltVon = %d AND " +
-				"istFirmenkontakt = 0 " +
+				"istFirmenkontakt = 0 AND " +
 				"istGeloescht = 0;", tblKontakt, benutzerId);
 		return (befehlAusfuehren(sql)>0);
 	}
@@ -649,7 +649,8 @@ public class Datenbankverbindung {
 	public boolean istBenutzerVorhanden(Benutzer benutzer){	
 		String sql = String.format("SELECT benutzerID " +
 				"FROM %s " +
-				"WHERE email = '%s';", tblBenutzer, benutzer.getEmail());
+				"WHERE email = '%s' " +
+				"AND istGeloescht = 0;", tblBenutzer, benutzer.getEmail());
 		try {
 			Statement stmt = verbindung.createStatement();
 			ResultSet result = stmt.executeQuery(sql);
