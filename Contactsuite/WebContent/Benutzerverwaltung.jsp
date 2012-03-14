@@ -207,14 +207,14 @@ if(!isAdmin){
 
 					<div id="searchBox">
 
-						<form action="Controller?fcode=KontaktSuche" method="post">
+						<!-- <form action="Controller?fcode=KontaktSuche" method="post">
 
 							<input name="searchField" type="text" size="20" maxlength="30">
 
 							<input type="submit" id="searchButton" name="search"
 								value=""> <input type="hidden" id="loginButton"
 								name="fcode" value="KontaktSuche">
-						</form>
+						</form> -->
 
 					</div>
 
