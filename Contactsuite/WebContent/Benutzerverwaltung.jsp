@@ -143,7 +143,7 @@ if(!isAdmin){
 				
 				out.println("<tr id=\"tabFarbig\"><td>");
 				out.println("<b>Benutzername</b>");
-				out.println("</td><td colspan=\"1\">");
+				out.println("</td><td colspan=\"2\">");
 				out.println("<b>Status</b>");
 				out.println("</td><td>");
 				out.println("<b>Rechte</b>");
@@ -159,6 +159,8 @@ if(!isAdmin){
 						out.println("</td><td>");
 						boolean freigeschaltet = tmpUser.isIstFreigeschaltet();
 						out.println(freigeschaltet ? "freigeschaltet" : "nicht freigeschaltet");
+						out.println("</td><td>");
+						boolean online = tmpUser.isIstGeloescht();
 						out.println("</td><td>");
 						boolean admin = tmpUser.isIstAdmin();
 						out.println(admin ? "Admin" : "kein Admin");
@@ -176,6 +178,8 @@ if(!isAdmin){
 						out.println("</td><td>");
 						boolean freigeschaltet = tmpUser.isIstFreigeschaltet();
 						out.println(freigeschaltet ? "freigeschaltet" : "nicht freigeschaltet");
+						out.println("</td><td>");
+						boolean online = tmpUser.isIstGeloescht();
 						out.println("</td><td>");
 						boolean admin = tmpUser.isIstAdmin();
 						out.println(admin ? "Admin" : "kein Admin");
@@ -219,6 +223,9 @@ if(!isAdmin){
 						<ul>
 							<li><a href="Controller?fcode=BenutzerAnlegen">Neuer
 									Benutzer</a></li>
+							<li><a href=#>Aktion</a></li>
+							<li><a href=#>Aktion</a></li>
+							<li><a href=#>Aktion</a></li>
 							<li><a href="Controller?fcode=Logout">Logout</a></li>
 						</ul>
 

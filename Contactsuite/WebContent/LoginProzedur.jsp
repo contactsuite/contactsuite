@@ -1,3 +1,4 @@
+
 <%-- <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%> --%>
 <%@page import="contactsuite.Datenbankverbindung"%>
@@ -5,6 +6,7 @@
 <%
 	String id = "Login";
 %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
@@ -90,10 +92,12 @@
 			</div>
 		</fieldset>	
 	</div>
-
+			
   <!-- JavaScript at the bottom for fast page loading -->
 
+  
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
+
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\/script>')</script>
@@ -113,4 +117,5 @@
   </script>
 </body>
 </html>
+
 

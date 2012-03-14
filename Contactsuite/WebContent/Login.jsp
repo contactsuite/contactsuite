@@ -44,7 +44,7 @@
 	<div id="loginbox">
 		<fieldset name="login" id="fieldLogin">
 			<legend>Benutzer-Login</legend> 
-			<div id="loginForm" style:"display:none">
+			<div id="loginForm" >
 				<form name="Logineingabe" action="Controller?fcode=Login" method="post">  
 					<div id="loginBeschriftung">
 						<p>Benutzer:</p>
@@ -57,12 +57,18 @@
 					</div>
 					<input type="submit" id="loginButton" name="LoginButton" value="Login">
 				</form>
+				<%
+						if(request.getAttribute("Meldung")!=null)
+						out.println("<span>");
+						out.println(request.getAttribute("Meldung"));
+						out.println("</span>");
+					%>
 				<div id="loginReg">
 					<p>Sie sind noch nicht Registriert? <a href="javascript: return false">Jetzt Registrieren!</a> </p>
 
 				</div>
 			</div>
-			<div id="Regristrieren" style:"display:block">
+			<div id="Regristrieren">
 				<p>Bitte füllen Sie folgendes Formular aus. Unser Administrator wird Sie per E-Mail benarichtigen, falls die Regristrierung erfolgt ist.</p>
 				<form name="Registrierung" action="Controller?fcode=Validator" method="post">
 					<div id="loginBeschriftung">
@@ -75,10 +81,7 @@
 						<input name="email" type="text" size="30" maxlength="30">
 						<input name="passwort" type="password" size="30" maxlength="30">
 						<input name="passwort2" type="password" size="30" maxlength="30">
-						<%
-						if(request.getAttribute("Meldung")!=null)
-						out.println(request.getAttribute("Meldung"));
-						%>
+
 					</div>
 					<input type="submit" id="loginButton" name="Registrieren" value="Abschicken!">
 
@@ -87,7 +90,7 @@
 			</div>
 		</fieldset>
 	</div>
-	
+
   <!-- JavaScript at the bottom for fast page loading -->
 
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->

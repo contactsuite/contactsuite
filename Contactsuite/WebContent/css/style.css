@@ -309,6 +309,7 @@ td { vertical-align: top; }
 #neuKontaktBeschriftung{
 	float:			left;
 	width:			140px;
+	height:			60px;
 }
 
 body{
@@ -567,6 +568,11 @@ ul#navi li a{
 	color:			black;
 }
 
+
+#loginForm span{
+	color:			red;
+	font-weight:	bold;
+}
 
 /* ==|== media queries ======================================================
    EXAMPLE Media Query for Responsive Design.
