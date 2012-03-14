@@ -43,7 +43,7 @@ public class Validierung extends HttpServlet {
 			//Abfragen ob der Benutzer schon existiert
 			if(!passwort.equals("") && passwort.equals(passwort2)){
 				if(Datenbankverbindung.getInstance().istBenutzerVorhanden(neuerBenutzer)){
-					request.setAttribute("Meldung", "Benutzer ist schon vorhande.n");
+					request.setAttribute("Meldung", "Benutzer ist schon vorhanden.");
 					request.getRequestDispatcher("Controller?fcode=Start").forward(request, response);
 				}
 				else if(Datenbankverbindung.getInstance().speicherDaten(neuerBenutzer)==1){
@@ -55,7 +55,7 @@ public class Validierung extends HttpServlet {
 					request.getRequestDispatcher("Controller?fcode=Start").forward(request, response);
 				}
 			} else {
-				request.setAttribute("Meldung", "Die Passw&ouml;rter strimmen nicht &uuml;berein.");
+				request.setAttribute("Meldung", "Die Passw&ouml;rter stimmen nicht &uuml;berein.");
 				request.getRequestDispatcher("Controller?fcode=Start").forward(request, response);
 			}
 
