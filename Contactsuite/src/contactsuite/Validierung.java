@@ -41,7 +41,7 @@ public class Validierung extends HttpServlet {
 			neuerBenutzer.setEmail(email);
 			neuerBenutzer.setPasswort(passwort);
 			//Abfragen ob der Benutzer schon existiert
-			if(passwort.equals(passwort2)){
+			if(!passwort.equals("") && passwort.equals(passwort2)){
 				if(Datenbankverbindung.getInstance().istBenutzerVorhanden(neuerBenutzer)){
 					request.setAttribute("Meldung", "Benutzer ist schon vorhande.n");
 					request.getRequestDispatcher("Controller?fcode=Start").forward(request, response);
