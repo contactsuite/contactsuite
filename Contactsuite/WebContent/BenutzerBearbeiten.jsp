@@ -88,7 +88,7 @@ if(benutzerID == null){
 					<form id="kontaktForm" name="Eingabe" action="Controller?fcode=BenutzerSpeichern" method="post">
 						<div id="neuKontaktBeschriftung">
 							<p>E-Mail*:</p>
-							<p>Passwort*:</p>
+							<p>Passwort*:</p> 
 						</div>
 						<%
 								int id = Integer.valueOf(request.getParameter("ID")) ;
@@ -98,7 +98,7 @@ if(benutzerID == null){
 						<div id="neuKontaktInput">
 						<%
 								out.println("<input name=\"email\" type=\"text\" size=\"30\" maxlength=\"30\" id=email value=" + tmpUser.getEmail() + ">");
-								out.println("<input name=\"passwort\" type=\"password\" size=\"30\" maxlength=\"30\" id=passwort \">");
+								out.println("<input name=\"passwort\" type=\"password\" size=\"30\" maxlength=\"30\" id=passwort >");
 								out.println("<input type=\"hidden\" name=\"userID\" value=" + tmpUser.getBenutzerID() + ">");
 						%>
 						</div>

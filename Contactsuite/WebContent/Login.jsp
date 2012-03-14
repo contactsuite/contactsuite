@@ -44,7 +44,7 @@
 	<div id="loginbox">
 		<fieldset name="login" id="fieldLogin">
 			<legend>Benutzer-Login</legend> 
-			<div id="loginForm">
+			<div id="loginForm" style:"display:none">
 				<form name="Logineingabe" action="Controller?fcode=Login" method="post">  
 					<div id="loginBeschriftung">
 						<p>Benutzer:</p>
@@ -62,7 +62,7 @@
 
 				</div>
 			</div>
-			<div id="Regristrieren">
+			<div id="Regristrieren" style:"display:block">
 				<p>Bitte füllen Sie folgendes Formular aus. Unser Administrator wird Sie per E-Mail benarichtigen, falls die Regristrierung erfolgt ist.</p>
 				<form name="Registrierung" action="Controller?fcode=Validator" method="post">
 					<div id="loginBeschriftung">
@@ -75,6 +75,10 @@
 						<input name="email" type="text" size="30" maxlength="30">
 						<input name="passwort" type="password" size="30" maxlength="30">
 						<input name="passwort2" type="password" size="30" maxlength="30">
+						<%
+						if(request.getAttribute("Meldung")!=null)
+						out.println(request.getAttribute("Meldung"));
+						%>
 					</div>
 					<input type="submit" id="loginButton" name="Registrieren" value="Abschicken!">
 
@@ -83,10 +87,7 @@
 			</div>
 		</fieldset>
 	</div>
-	<%
-		if(request.getAttribute("Meldung")!=null)
-		out.println(request.getAttribute("Meldung"));
-	%>
+	
   <!-- JavaScript at the bottom for fast page loading -->
 
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
