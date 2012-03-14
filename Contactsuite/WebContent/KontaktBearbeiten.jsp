@@ -274,19 +274,22 @@
 										+ telefonnummer + "\">");
 							%>
 						</div>
-						<div id="oeffentlich">
-							<p>M&ouml;chten Sie das dieser Kontakt &ouml;ffentlich Angezeigt
-								wird?</p>
-							<p>
-								<input type="radio" name="istOeffentlich" value="oeffentlich">
-								Ja<br> <input type="radio" name="istOeffentlich"
-									value="privat" checked> Nein<br>
-								<%
-									out.println("<input type=\"hidden\" name=\"kontaktID\" value="
-											+ kID + ">");
+							<% 
+								if(typ.equals("privat")){
+									
+									out.println("<div id=\"oeffentlich\">");
+										out.println("<p>M&ouml;chten Sie das dieser Kontakt &ouml;ffentlich Angezeigt wird?</p>");
+										
+									out.println("<p>");
+										out.println("<input type=\"radio\" name=\"istOeffentlich\" value=\"oeffentlich\">");
+										out.println("Ja<br> <input type=\"radio\" name=\"istOeffentlich\" value=\"privat\" checked> Nein<br>");
+								
+										out.println("<input type=\"hidden\" name=\"kontaktID\" value=" + kID + ">");
+													
+										out.println("</p>");
+									out.println("</div>");
+								}
 								%>
-							</p>
-						</div>
 						<input type="Submit" id="anlegenButton" name="anlegenButton"
 							value="Anlegen">
 						</form>
