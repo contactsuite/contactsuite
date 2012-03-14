@@ -679,9 +679,10 @@ public class Datenbankverbindung {
 		try {
 			//Wenn der Benutzer schon in der Datenbank existiert.
 			if(benutzer.getBenutzerID() != 0){
+				String sqlPwChange = (!benutzer.getPasswort().equals(""))?String.format("passwort = '%s', ", md5Passwort):""; 
 				sql = String.format("UPDATE %s "+
 						"SET email = '%s', " +
-						"passwort = '%s', " +
+						"%s" +
 						"istAdmin = %d, " +
 						"istFreigeschaltet = %d, " +
 						"geaendertVon = -1, " +
@@ -689,7 +690,7 @@ public class Datenbankverbindung {
 						"WHERE benutzerId = %d;",
 						tblBenutzer,
 						benutzer.getEmail(),
-						md5Passwort,
+						sqlPwChange,
 						((benutzer.isIstAdmin())?1:0),
 						((benutzer.isIstFreigeschaltet())?1:0),
 						benutzer.getBenutzerID());
