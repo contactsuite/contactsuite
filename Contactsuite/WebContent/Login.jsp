@@ -58,10 +58,11 @@
 					<input type="submit" id="loginButton" name="LoginButton" value="Login">
 				</form>
 				<%
-						if(request.getAttribute("Meldung")!=null)
-						out.println("<span>");
-						out.println(request.getAttribute("Meldung"));
-						out.println("</span>");
+						if(request.getAttribute("Meldung")!=null){
+							out.println("<span>");
+							out.println(request.getAttribute("Meldung"));
+							out.println("</span>");
+						}
 					%>
 				<div id="loginReg">
 					<p>Sie sind noch nicht Registriert? <a href="javascript: return false">Jetzt Registrieren!</a> </p>
