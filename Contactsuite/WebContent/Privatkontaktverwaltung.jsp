@@ -239,9 +239,6 @@ if(benutzerID == null){
 						<ul>
 							<li><a href="Controller?fcode=PrivatkontaktAnlegen">Neuer
 									Kontakt</a></li>
-							<li><a href=#>Aktion</a></li>
-							<li><a href=#>Aktion</a></li>
-							<li><a href=#>Aktion</a></li>
 							<li><a href="Controller?fcode=Logout">Logout</a></li>
 						</ul>
 
