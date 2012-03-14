@@ -77,16 +77,16 @@
 						<input name="passwort2" type="password" size="30" maxlength="30">
 					</div>
 					<input type="submit" id="loginButton" name="Registrieren" value="Abschicken!">
-
+					<%
+						if(request.getAttribute("Meldung")!=null)
+						out.println(request.getAttribute("Meldung"));
+					%>
 					<div id="regClose"><a href="javascript: return false">Zurück zum Login</a></div>
 				</form>
 			</div>
 		</fieldset>
 	</div>
-	<%
-		if(request.getAttribute("Meldung")!=null)
-		out.println(request.getAttribute("Meldung"));
-	%>
+
   <!-- JavaScript at the bottom for fast page loading -->
 
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
