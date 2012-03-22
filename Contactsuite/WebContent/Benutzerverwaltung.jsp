@@ -1,3 +1,12 @@
+<!-- Autor: Ercument Topal
+	 Stellt eine Maske für die Ausgabe einer Liste aller Benutzer dar. 
+	 Die Daten werden mittels der Serviceklasse "Datenbankverbindung" ausgelesen und in Form einer Tabelle angezeigt.
+	 Zusätzliche Funktionalitäten die über diese Maske aufgerufen werden können: - Detailansicht der Benutzer 
+	 											  								 - Neuen Benutzer anlegen
+	 											  								 - Benutzer bearbeiten
+	 											  								 - Benutzer löschen
+	 											  								 - Anzeige der nicht freigeschalteten Benutzer	-->
+	 											  								 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!doctype html>

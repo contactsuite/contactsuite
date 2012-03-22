@@ -1,4 +1,5 @@
-
+<!-- Autor: Ercument Topal
+	 Stellt eine Maske dar, die den erfolgreichen Logout aus dem System bestätigt. -->
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->

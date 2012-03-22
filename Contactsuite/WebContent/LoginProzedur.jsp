@@ -1,3 +1,6 @@
+<!-- Autor: Eduard Dojan
+	 Prüft Benutzer E-Mail und Passwort auf ihre Korrektheit. Im Erfolgsfall wird der Nutzer im System angemeldet.
+	 Im Falle des Misserfolgs wird eine entsprechende Fehlermeldung ausgegeben. -->
 
 <%-- <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%> --%>

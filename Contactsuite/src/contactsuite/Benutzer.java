@@ -3,8 +3,13 @@ package contactsuite;
 import java.util.Date;
 
 /**
- *
+ * Die Klasse Benutzer kapselt sämtliche Daten die notwendig sind um einen
+ * Benutzer im Rahmen des Systems zu repräsentieren. Es handelt sich hierbei um
+ * eine Klasse die lediglich zur temporären Datenhaltung benötigt wird und keine Dienste zur
+ * Verfügung stellt.
+ * 
  * @author Fabian Ostermeier
+ * 
  * 
  */
 
@@ -109,11 +114,11 @@ public class Benutzer {
 	public void setIstAdmin(boolean istAdmin) {
 		this.istAdmin = istAdmin;
 	}
-	
+
 	public boolean isIstOnline() {
 		return istOnline;
 	}
-	
+
 	public void setIstOnline(boolean online) {
 		this.istOnline = online;
 	}

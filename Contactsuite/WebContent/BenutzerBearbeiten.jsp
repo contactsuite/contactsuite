@@ -1,3 +1,7 @@
+<!-- Autor: Dominik Ferber
+	 Stellt eine Maske zum Bearbeiten von Benutzern dar. Die Maske wird mit den Attributen des zu bearbeitenden Benutzers vorgefüllt. 
+	 Im Anschluss wird das Servlet "BenutzerAnlegen.java" aufgerufen welches für das Speichern der Daten verantwortlich ist.   -->
+	 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import="contactsuite.*" %>

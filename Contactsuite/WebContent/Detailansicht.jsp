@@ -1,3 +1,29 @@
+<!-- Autor: Fabian Ostermeier
+	 Stellt eine Maske zur Anzeige einer detaillierten Ansicht von Benutzern, Firmenkontakten und Privatkontakten dar. 
+	 Für Benutzer werden folgende Attribute dargestellt: 		- E-Mail Adresse
+	 													 		- Status (freigeschaltet/ nicht freigeschaltet)
+	 													 		- Rolle (Admin/ Standard Nutzer)
+	 													 		
+	 Für Firmenkontakte werden folgende Attribute dargestellt:	- Firmenname
+	 															- Ansprechpartner
+	 															- Strasse
+	 															- Hausnummer
+	 															- Postleitzahl
+	 															- Wohnort
+	 															- E-Mail Adresse
+	 															- Telefonnummer
+	 															- Anzeige des Standortes per Google-Maps	
+	 															
+	 FÜr Privatkontakte werden folgende Attribute dargestellt:  - Vorname
+	 															- Nachname
+	 															- Strasse
+	 															- Hausnummer 
+	 															- Postleitzahl
+	 															- Wohnort
+	 															- E-Mail Adresse
+	 															- Telefonnummer
+	 															- Anzeige des Wohnortes per Google-Maps -->
+	 															
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import="contactsuite.*" %>

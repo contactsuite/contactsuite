@@ -12,7 +12,12 @@ import javax.servlet.http.*;
 import contactsuite.*;
 
 /**
- * Servlet implementation class DatenLoeschen
+ * Das Servlet DatenLoeschen steuert die Serviceklasse
+ * "Datenbankverbindung.java" an und teilt dieser mit welche Benutzer,
+ * Privatkontakte oder Firmenkontakte aus der Datenbank entfernt werden sollen.
+ * 
+ * @author Eduard Dojan
+ * 
  */
 @WebServlet("/DatenLoeschen")
 public class DatenLoeschen extends HttpServlet {
@@ -26,8 +31,15 @@ public class DatenLoeschen extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * Spricht die Löschenfunktion der Serviceklasse an und teilt ihr mit welche
+	 * Datensätze zu löschen sind.
+	 * 
+	 * @param request
+	 *            : Http request
+	 * @param response
+	 *            : Http response
+	 * 
+	 * @author Eduard Dojan
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -72,7 +84,7 @@ public class DatenLoeschen extends HttpServlet {
 			// Für Benutzer
 			if (benutezrID != loeschID)
 				dbConnect.loescheBenutzer(loeschID);
-				dbConnect.loescheKontakteByBenutzerId(loeschID);
+			dbConnect.loescheKontakteByBenutzerId(loeschID);
 			request.getRequestDispatcher("Controller?fcode=Benutzer").forward(
 					request, response);
 
@@ -86,8 +98,7 @@ public class DatenLoeschen extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see doGet
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {

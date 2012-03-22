@@ -1,3 +1,5 @@
+<!-- Autor: Dominik Ferber
+	 Stellt eine Maske zur Information über den verweigerten Zugriff auf den Adminbereich dar.  -->
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->

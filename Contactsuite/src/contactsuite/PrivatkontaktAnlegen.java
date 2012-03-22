@@ -1,6 +1,5 @@
 package contactsuite;
 
-
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,31 +7,41 @@ import javax.servlet.http.*;
 import contactsuite.*;
 
 /**
- * Servlet implementation class KontaktAnlegen
+ * Das Servlet PrivatkontaktAnlegen ist für die korrekte Weiterleitung von
+ * Kontaktdaten an die Serviceklasse "Datenbankverbindung.java" zuständig. Es
+ * empfängt diese Daten von der JSP "PrivatkontaktAnlegen.jsp".
+ * 
+ * @author Fabian Ostermeier
  */
 @WebServlet("/PrivatkontaktAnlegen")
 public class PrivatkontaktAnlegen extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public PrivatkontaktAnlegen() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	public PrivatkontaktAnlegen() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * Leitet die Kontaktdaten an die Serviceklasse weiter.
+	 * 
+	 * @param request
+	 *            : Http request
+	 * @param response
+	 *            : Http response
+	 */
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+
 		// Prüfung auf die Existenz einer gültigen Sitzung
 		HttpSession sitzung = request.getSession(false);
-		if(sitzung.getAttribute("benutzerID") == null){
-			request.getRequestDispatcher("Controller?fcode=Timeout").forward(request, response);
-		}
-		else{
+		if (sitzung.getAttribute("benutzerID") == null) {
+			request.getRequestDispatcher("Controller?fcode=Timeout").forward(
+					request, response);
+		} else {
 
 			Datenbankverbindung dbConnect = Datenbankverbindung.getInstance();
 
@@ -45,14 +54,17 @@ public class PrivatkontaktAnlegen extends HttpServlet {
 			String plz = request.getParameter("plz");
 			String ort = request.getParameter("ort");
 			String email = request.getParameter("email");
-			String telefonnummer = request.getParameter("telefon")+ "/" + request.getParameter("telefon2");
+			String telefonnummer = request.getParameter("telefon") + "/"
+					+ request.getParameter("telefon2");
 			int kontaktID = 0;
-			if(request.getParameterMap().containsKey("kontaktID"))
+			if (request.getParameterMap().containsKey("kontaktID"))
 				kontaktID = Integer.valueOf(request.getParameter("kontaktID"));
-			
-			// wird der Kontakt öffentlich (für Alle Nutzer sichtbar) oder privat (nur für den Ersteller sichtbar) abgespeichert?
+
+			// wird der Kontakt öffentlich (für Alle Nutzer sichtbar) oder
+			// privat (nur für den Ersteller sichtbar) abgespeichert?
 			String istOeffentlich = request.getParameter("istOeffentlich");
-			boolean oeffentlich = istOeffentlich.equals("oeffentlich") ? true : false;
+			boolean oeffentlich = istOeffentlich.equals("oeffentlich") ? true
+					: false;
 
 			Privatkontakt kon = new Privatkontakt();
 
@@ -70,14 +82,17 @@ public class PrivatkontaktAnlegen extends HttpServlet {
 
 			dbConnect.speicherDaten(kon);
 
-			request.getRequestDispatcher("Controller?fcode=Privatkontakte").forward(request, response);
+			request.getRequestDispatcher("Controller?fcode=Privatkontakte")
+					.forward(request, response);
 		}
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
 

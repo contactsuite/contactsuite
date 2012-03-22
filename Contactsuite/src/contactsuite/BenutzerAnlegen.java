@@ -9,30 +9,45 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class BenutzerAnlegen
+ * Das Servlet BenutzerAnlegen ist für die korrekte Weiterleitung von
+ * Benutzerdaten an die Serviceklasse "Datenbankverbindung.java" zuständig. Es
+ * empfängt diese Daten von der JSP "BenutzerAnlegen.jsp" oder der JSP
+ * "BenutzerBearbeiten.jsp".
+ * 
+ * @author Fabian Ostermeier
+ * 
  */
 @WebServlet("/BenutzerAnlegen")
 public class BenutzerAnlegen extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public BenutzerAnlegen() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public BenutzerAnlegen() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * 
+	 * Leitet die Benutzerdaten an die Serviceklasse Datenbankverbindung weiter.
+	 * 
+	 * @param request
+	 *            : Http request
+	 * @param response
+	 *            : Http response
+	 * 
+	 * 
+	 */
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// Prüfung auf die Existenz einer gültigen Sitzung
 		HttpSession sitzung = request.getSession(false);
-		if(sitzung.getAttribute("benutzerID") == null){
-			request.getRequestDispatcher("Controller?fcode=Timeout").forward(request, response);
-		}
-		else{
+		if (sitzung.getAttribute("benutzerID") == null) {
+			request.getRequestDispatcher("Controller?fcode=Timeout").forward(
+					request, response);
+		} else {
 
 			Datenbankverbindung dbConnect = Datenbankverbindung.getInstance();
 
@@ -40,21 +55,23 @@ public class BenutzerAnlegen extends HttpServlet {
 
 			String email = request.getParameter("email");
 			String passwort = request.getParameter("passwort");
-			
+
 			// Ist dieser Benutzer freigeschaltet?
-			String istFreigeschaltet = request.getParameter("istFreigeschaltet");
-			boolean freigeschaltet = istFreigeschaltet.equals("freigeschaltet") ? true : false;
-			
+			String istFreigeschaltet = request
+					.getParameter("istFreigeschaltet");
+			boolean freigeschaltet = istFreigeschaltet.equals("freigeschaltet") ? true
+					: false;
+
 			// Ist dieser Benutzer ein Admin?
 			String istAdmin = request.getParameter("istAdmin");
 			boolean admin = istAdmin.equals("admin") ? true : false;
-			
+
 			int userID = 0;
-			if(request.getParameterMap().containsKey("userID"))
+			if (request.getParameterMap().containsKey("userID"))
 				userID = Integer.valueOf(request.getParameter("userID"));
-			
+
 			Benutzer user = new Benutzer();
-			
+
 			user.setEmail(email);
 			user.setPasswort(passwort);
 			user.setIstFreigeschaltet(freigeschaltet);
@@ -63,14 +80,17 @@ public class BenutzerAnlegen extends HttpServlet {
 
 			dbConnect.speicherDaten(user);
 
-			request.getRequestDispatcher("Controller?fcode=Benutzer").forward(request, response);
+			request.getRequestDispatcher("Controller?fcode=Benutzer").forward(
+					request, response);
 		}
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see doGet
+	 * 
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
 

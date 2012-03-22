@@ -1,10 +1,14 @@
+<!-- Autor: Dominik Ferber
+	 Stellt eine Maske zum Bearbeiten von Firmen- und Privatkontakten dar. Die Maske wird mit den Attributen des zu bearbeitenden Kontaktes vorgefüllt. 
+	 Im Anschluss wird das Servlet "FirmenkontaktAnlegen.java" bzw. "PrivatkontaktAnlegen.java" aufgerufen welches für das Speichern der Daten verantwortlich ist.   -->
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="java.util.*"%>
 <%@ page import="contactsuite.*"%>
 
 <%
-	// FÃ¼r die Behandlung von Privatkontakten
+	// Für die Behandlung von Privatkontakten
 	String name = new String();
 	String name2 = new String();
 	String strasse = new String();
@@ -55,7 +59,7 @@
 
 	} catch (ArrayIndexOutOfBoundsException err) {
 		System.out
-				.println("Ãœber Array-Index hinaus geschrieben");
+				.println("Üœber Array-Index hinaus geschrieben");
 		System.out.println(err);
 	}
 
@@ -83,7 +87,7 @@
 
 	} catch (ArrayIndexOutOfBoundsException err) {
 		System.out
-				.println("Ãœber Array-Index hinaus geschrieben");
+				.println("Üœber Array-Index hinaus geschrieben");
 		System.out.println(err);
 	}
 
@@ -189,7 +193,7 @@
 									</span></li>
 
 									<li id="errorPlzG" class="error"><span>Bitte tragen
-											Sie die Gï¿½LTIGE <b>Postleizahl</b> ein (z.b. 59329).
+											Sie eine gültige <b>Postleizahl</b> ein (z.b. 59329).
 									</span></li>
 
 									<li id="errorOrt" class="error"><span>Bitte tragen
@@ -201,7 +205,7 @@
 									</span></li>
 
 									<li id="errorTnG" class="error"><span>Bitte tragen
-											Sie die Gï¿½LTIGE <b>Telefonnummer</b> ein.
+											Sie eine gültige <b>Telefonnummer</b> ein.
 									</span></li>
 
 									<li id="errorEmail" class="error"><span>Bitte
@@ -209,7 +213,7 @@
 									</span></li>
 
 									<li id="errorEmailG" class="error"><span>Bitte
-											tragen Sie die Gï¿½LTIGE <b>E-Mail</b> Adresse ein.
+											tragen Sie eine gültige <b>E-Mail</b> Adresse ein.
 									</span></li>
 
 								</ul>

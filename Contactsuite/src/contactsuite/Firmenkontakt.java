@@ -3,6 +3,9 @@ package contactsuite;
 import java.util.Date;
 
 /**
+ * Die Klasse Firmenkontakt ist eine Unterklasse der Klasse Kontakt. Sie
+ * erweiter den Kontakt um die Attribute Firmenname und Ansprechpartner.
+ * 
  * 
  * @author Eduard Dojan
  * 

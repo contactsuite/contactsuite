@@ -1,12 +1,17 @@
 package contactsuite;
 
+import java.util.*;
+
 /**
+ * Die Klasse Kontakt kapselt sämtliche Daten die notwendig sind um einen
+ * Kontakt im Rahmen des Systems zu repräsentieren. Es handelt sich hierbei um
+ * eine Klasse die lediglich zur temporären Datenhaltung benötigt wird und keine Dienste zur
+ * Verfügung stellt.
  * 
  * @author Eduard Dojan
  *
  */
 
-import java.util.*;
 
 public abstract class Kontakt {
 

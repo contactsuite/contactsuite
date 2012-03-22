@@ -1,3 +1,9 @@
+<!-- Autor: Fabian Ostermeier
+	 Stellt eine Maske für den Login und die Registrierung in das System dar. 
+	 Beim Login muss der registrierte Nutzer E-Mail Adresse und Passwort eingeben. Die Validierung geschieht mittels der "LoginProzedur.jsp".
+	 Für die Registrierung muss der Nutzer eine E-Mail Adresse und ein Passwort angeben, sowie die Bestätigung des eingegebenen Passworts.
+	 Die Validierung geschieht über das Servlet "Validierung.java".  -->
+
 <%-- <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%> --%>
 <%@page import="contactsuite.Datenbankverbindung"%>

@@ -1,3 +1,7 @@
+<!-- Autor: Eduard Dojan
+	 Stellt eine Maske zum Anlegen von Benutzern dar. Die Eingabefelder können vom Nutzer der Software gefüllt werden. 
+	 Im Anschluss wird das Servlet "BenutzerAnlegen.java" aufgerufen welches für das Speichern der Daten verantwortlich ist.  -->
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import="contactsuite.*" %>

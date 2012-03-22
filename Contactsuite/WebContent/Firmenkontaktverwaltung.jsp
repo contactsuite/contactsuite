@@ -1,3 +1,13 @@
+<!-- Autor: Ercument Topal
+	 Stellt eine Maske für die Ausgabe einer Liste aller Firmenkontakte dar.
+	 Die einzelnen Einträge der Tabelle umfassen Firmenname, Ansprechpartner und Ort des jeweiligen Kontaktes.
+	 Die Daten werden mittels der Serviceklasse "Datenbankverbindung" ausgelesen und in Form einer Tabelle angezeigt.
+	 Zusätzliche Funktionalitäten die über diese Maske aufgerufen werden können: - Detailansicht der Firmenkontakte 
+	 											  								 - Neuen Firmenkontakt anlegen
+	 											  								 - Firmenkontakt bearbeiten
+	 											  								 - Firmenkontakt löschen 
+	 											  								 - Suche über die Firmenkontakte	-->
+	 											  								 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="contactsuite.*"%>

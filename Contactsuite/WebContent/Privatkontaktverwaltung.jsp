@@ -1,3 +1,13 @@
+<!-- Autor: Fabian Ostermeier
+	 Stellt eine Maske für die Ausgabe einer Liste aller Privatkontakte dar.
+	 Die einzelnen Einträge der Tabelle umfassen Vorname, Nachname und Ort des jeweiligen Kontaktes.
+	 Die Daten werden mittels der Serviceklasse "Datenbankverbindung" ausgelesen und in Form einer Tabelle angezeigt.
+	 Zusätzliche Funktionalitäten die über diese Maske aufgerufen werden können: - Detailansicht der Privatkontakte 
+	 											  								 - Neuen Privatkontakte anlegen
+	 											  								 - Privatkontakte bearbeiten
+	 											  								 - Privatkontakte löschen 
+	 											  								 - Suche über die Privatkontakte	-->
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
