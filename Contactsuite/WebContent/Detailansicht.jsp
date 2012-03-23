@@ -9,7 +9,7 @@
 	 															- Strasse
 	 															- Hausnummer
 	 															- Postleitzahl
-	 															- Wohnort
+	 															- Ort
 	 															- E-Mail Adresse
 	 															- Telefonnummer
 	 															- Anzeige des Standortes per Google-Maps	

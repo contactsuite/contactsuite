@@ -4,7 +4,7 @@ import java.util.Date;
 
 /**
  * Die Klasse Privatkontakt ist eine Unterklasse der Klasse Kontakt. Sie
- * erweiter den Kontakt um die Attribute Vorname und Nachname.
+ * erweitert den Kontakt um die Attribute Vorname und Nachname.
  * 
  * @author Eduard Dojan
  *
